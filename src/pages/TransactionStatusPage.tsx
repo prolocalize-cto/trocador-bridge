@@ -76,7 +76,6 @@ const TransactionStatusPage = () => {
   const [copiedAddress, setCopiedAddress] = useState<string | null>(null);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [expiryTime, setExpiryTime] = useState<Date | null>(null);
-  console.log("transaction", transaction);
 
   const loadTransaction = useCallback(async () => {
     if (!transactionId) {

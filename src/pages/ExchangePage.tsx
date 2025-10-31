@@ -219,11 +219,29 @@ const ExchangePage = () => {
           <div className="bg-black/30 rounded-xl p-4">
             <p className="text-gray-400 text-sm mb-2">Selected Provider:</p>
             <div className="flex items-center gap-3">
-              <img
-                src={selectedProvider.provider_logo}
-                alt={selectedProvider.provider}
-                className="w-10 h-10 rounded-full"
-              />
+              {selectedProvider.provider_logo ? (
+                <img
+                  src={selectedProvider.provider_logo}
+                  alt={selectedProvider.provider}
+                  className="w-10 h-10 rounded-full object-cover"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    // Replace failed image with default icon
+                    target.style.display = "none";
+                    const parent = target.parentElement;
+                    if (parent) {
+                      const defaultIcon = document.createElement('div');
+                      defaultIcon.className = 'w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg shadow-lg';
+                      defaultIcon.textContent = selectedProvider.provider.charAt(0).toUpperCase();
+                      parent.insertBefore(defaultIcon, target);
+                    }
+                  }}
+                />
+              ) : (
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                  {selectedProvider.provider.charAt(0).toUpperCase()}
+                </div>
+              )}
               <div>
                 <p className="text-white font-bold text-lg">
                   {selectedProvider.provider}

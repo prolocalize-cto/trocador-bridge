@@ -254,15 +254,29 @@ const ProviderList = ({
             >
               {/* Exchange (with logo) */}
               <div className="col-span-1 md:col-span-3 flex items-center gap-3">
-                <img
-                  src={quote.provider_logo}
-                  alt={quote.provider}
-                  className="w-8 h-8 rounded-full"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.style.display = "none";
-                  }}
-                />
+                {quote.provider_logo ? (
+                  <img
+                    src={quote.provider_logo}
+                    alt={quote.provider}
+                    className="w-8 h-8 rounded-full object-cover"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      // Replace failed image with default icon
+                      target.style.display = "none";
+                      const parent = target.parentElement;
+                      if (parent) {
+                        const defaultIcon = document.createElement('div');
+                        defaultIcon.className = 'w-8 h-8 rounded-full bg-gradient-to-br from-orange-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm';
+                        defaultIcon.textContent = quote.provider.charAt(0).toUpperCase();
+                        parent.insertBefore(defaultIcon, target);
+                      }
+                    }}
+                  />
+                ) : (
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm shadow-lg">
+                    {quote.provider.charAt(0).toUpperCase()}
+                  </div>
+                )}
                 <span className="text-white font-semibold">
                   {quote.provider}
                 </span>

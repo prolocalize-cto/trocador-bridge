@@ -10,7 +10,8 @@ const MainLayout = ({ children }: MainLayoutProps) => {
   return (
     <div className="min-h-screen flex flex-col w-full overflow-x-hidden">
       <Header />
-      <main className="flex-1 flex items-center">{children}</main>
+      {/* Add padding-top to account for fixed header */}
+      <main className="flex-1 flex items-center pt-20">{children}</main>
       <Footer />
     </div>
   );

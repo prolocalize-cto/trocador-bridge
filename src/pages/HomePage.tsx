@@ -4,7 +4,7 @@ import HowItWorks from "../components/HowItWorks";
 
 const HomePage = () => {
   return (
-    <div className="w-full flex flex-col gap-1 md:gap-20 pt-10">
+    <div className="w-full flex flex-col gap-1 md:gap-5 pt-10">
       <HeroSection />
       <ExchangeForm />
       <HowItWorks />

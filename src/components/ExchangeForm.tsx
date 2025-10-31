@@ -417,7 +417,7 @@ const ExchangeForm = () => {
           <img 
             src={defiGif} 
             alt="DeFi Animation" 
-            className="h-[120px] w-auto object-contain"
+            className="h-[120px] w-[120px] rounded-full object-cover"
           />
         </div>
 

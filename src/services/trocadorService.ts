@@ -1,8 +1,6 @@
 // Trocador API service
-// Use Vite proxy in development to avoid CORS issues
-const TROCADOR_API_BASE = import.meta.env.DEV 
-  ? "/api/trocador" 
-  : "https://api.trocador.app";
+// Use proxy in both development (Vite) and production (Vercel serverless function)
+const TROCADOR_API_BASE = "/api/trocador";
 const TROCADOR_API_KEY = "1LSAndusd1FAicVo4CzYTwGJhD5FBz";
 
 export interface TrocadorQuote {

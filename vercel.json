@@ -1,6 +1,7 @@
 {
-    "rewrites": [
-      { "source": "/(.*)", "destination": "/index.html" }
-    ]
-  }
+  "rewrites": [
+    { "source": "/api/trocador/:path*", "destination": "/api/trocador" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
   

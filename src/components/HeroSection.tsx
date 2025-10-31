@@ -1,6 +1,6 @@
 const HeroSection = () => {
   return (
-    <div className="relative text-center mb-8">
+    <div className="relative text-center mb-4">
       {/* Animated Gradient Orbs */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
         <div className="absolute w-96 h-96 bg-gradient-to-r from-orange-500/30 to-pink-500/30 rounded-full blur-3xl animate-pulse"></div>

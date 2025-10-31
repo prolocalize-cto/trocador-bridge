@@ -12,6 +12,7 @@ import {
   type TrocadorRateResponse,
   type TrocadorQuote,
 } from "../services/trocadorService";
+import defiGif from "../assets/images/defi.gif";
 
 // Helper to extract ticker from currency ID (ticker_network)
 const getTickerFromCurrencyId = (currencyId: string): string => {
@@ -135,10 +136,10 @@ const ExchangeForm = () => {
       });
 
       setRateResponse(response);
-      
+
       // Navigate directly to exchange page with trade ID and rate data
       navigate(`/exchange/${response.trade_id}`, {
-        state: { rateData: response }
+        state: { rateData: response },
       });
     } catch (error) {
       console.error("Error fetching rates:", error);
@@ -253,7 +254,7 @@ const ExchangeForm = () => {
 
   if (step === "confirm" && selectedProvider && rateResponse) {
     return (
-      <div className="w-full max-w-[95%] sm:w-[600px] md:w-[650px] lg:w-[700px] xl:w-[750px] mx-auto">
+      <div className="w-full max-w-[95%] sm:w-[450px] md:w-[550px] lg:w-[600px] xl:w-[600px] mx-auto">
         <button
           onClick={handleBackToProviders}
           className="mb-4 flex items-center gap-2 text-black/80 hover:text-black transition-colors"
@@ -409,22 +410,31 @@ const ExchangeForm = () => {
 
   // Default: Input step
   return (
-    <div className="w-full max-w-[95%] sm:w-[600px] md:w-[650px] lg:w-[700px] xl:w-[750px] mx-auto">
+    <div className="w-full max-w-[95%] sm:w-[450px] md:w-[500px] lg:w-[550px] xl:w-[600px] mx-auto">
       <div className="bg-gray-900/50 backdrop-blur-md rounded-3xl p-8 md:p-10 shadow-2xl border border-purple-500/30 flex flex-col gap-5">
+        {/* Defi GIF */}
+        <div className="flex justify-center -mt-4 mb-2">
+          <img 
+            src={defiGif} 
+            alt="DeFi Animation" 
+            className="h-[120px] w-auto object-contain"
+          />
+        </div>
+
         {/* From Amount */}
         <div className="flex flex-col gap-2">
           <div className="flex justify-between items-center px-1">
-            <label className="text-gray-300 font-semibold text-base md:text-lg">
+            {/* <label className="text-gray-300 font-semibold text-base md:text-lg">
               You Send
-            </label>
+            </label> */}
           </div>
           <div className="flex items-center bg-white/5 rounded-xl p-3 gap-3 border-2 border-white/10 hover:border-purple-500/50 transition-colors">
             <input
               type="text"
               value={fromAmount}
               onChange={(e) => setFromAmount(handleAmountInput(e.target.value))}
-              placeholder="0.00"
-              className="flex-1 min-w-0 bg-transparent text-white text-lg md:text-xl font-semibold outline-none placeholder-gray-500 py-1"
+              placeholder="You send:"
+              className="flex-1 min-w-0 bg-transparent text-white text-lg md:text-xl font-semibold outline-none placeholder-gray-500 py-1 text-center"
             />
             <div className="flex-shrink-0">
               <CurrencySelector
@@ -468,15 +478,10 @@ const ExchangeForm = () => {
 
         {/* To Amount */}
         <div className="flex flex-col gap-2">
-          <div className="flex justify-between items-center px-1">
-            <label className="text-gray-300 font-semibold text-base md:text-lg">
-              You Get
-            </label>
-          </div>
           <div className="flex items-center bg-white/5 rounded-xl p-3 gap-3 border-2 border-white/10">
-            <div className="flex-1 min-w-0 py-1">
-              <span className="text-gray-500 text-lg md:text-xl font-semibold">
-                Enter amount and search
+            <div className="flex-1 min-w-0 py-1 text-center">
+              <span className="text-white text-lg md:text-xl font-semibold">
+                To trade for:
               </span>
             </div>
             <div className="flex-shrink-0">

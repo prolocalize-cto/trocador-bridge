@@ -12,8 +12,9 @@ interface CurrencySelectorProps {
 }
 
 // Helper function to create unique currency ID (ticker_network)
+// Preserves original network case for API compatibility
 export const getCurrencyId = (ticker: string, network: string) => {
-  return `${ticker.toLowerCase()}_${network.toUpperCase()}`;
+  return `${ticker.toLowerCase()}_${network}`;
 };
 
 // Helper function to parse currency ID back to ticker and network
@@ -44,7 +45,7 @@ const CurrencySelector = ({
   // Find the selected currency by both ticker AND network
   const selectedCurrencyData = currencies.find(
     (c) => c.ticker.toLowerCase() === selectedTicker.toLowerCase() && 
-           (selectedNetwork === '' || c.network.toUpperCase() === selectedNetwork)
+           (selectedNetwork === '' || c.network === selectedNetwork)
   ) || currencies.find((c) => c.ticker.toLowerCase() === selectedTicker.toLowerCase());
 
   const getNetworkColor = (network: string) => {

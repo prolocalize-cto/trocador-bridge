@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { Currency } from "../types/currency";
 import {
@@ -6,20 +6,22 @@ import {
   useCurrenciesForTo,
 } from "../hooks/useCurrencies";
 import CurrencySelector from "./CurrencySelector";
-import { 
-  getExchangeAmount, 
-  createTransaction
-} from "../services/exchangeService";
+import ProviderList from "./ProviderList";
+import {
+  getTrocadorRates,
+  type TrocadorRateResponse,
+  type TrocadorQuote,
+} from "../services/trocadorService";
 
 // Helper to extract ticker from currency ID (ticker_network)
 const getTickerFromCurrencyId = (currencyId: string): string => {
-  return currencyId.split('_')[0];
+  return currencyId.split("_")[0];
 };
 
 // Helper to extract network from currency ID (ticker_network)
 const getNetworkFromCurrencyId = (currencyId: string): string => {
-  const parts = currencyId.split('_');
-  return parts.length > 1 ? parts.slice(1).join('_') : parts[0];
+  const parts = currencyId.split("_");
+  return parts.length > 1 ? parts.slice(1).join("_") : parts[0];
 };
 
 // Default currencies to show before API loads
@@ -49,47 +51,38 @@ const DEFAULT_TO_CURRENCIES: Currency[] = [
   },
 ];
 
+type FormStep = "input" | "providers" | "confirm";
+
 const ExchangeForm = () => {
   const navigate = useNavigate();
+  const [step, setStep] = useState<FormStep>("input");
   const [fromAmount, setFromAmount] = useState("");
-  const [toAmount, setToAmount] = useState("");
-  const [fromCurrency, setFromCurrency] = useState("btc_MAINNET"); // BTC on Mainnet network
-  const [toCurrency, setToCurrency] = useState("eth_ERC20"); // ETH on ERC20 network
-  const [recipientAddress, setRecipientAddress] = useState("");
-  const [isLoadingPrice, setIsLoadingPrice] = useState(false);
-  const [exchangeRate, setExchangeRate] = useState<string>("");
-  const [minAmount, setMinAmount] = useState<string>("");
-  const [maxAmount, setMaxAmount] = useState<string>("");
+  const [fromCurrency, setFromCurrency] = useState("btc_Mainnet");
+  const [toCurrency, setToCurrency] = useState("eth_ERC20");
+  const [recipientAddress, setRecipientAddress] = useState(""); // Will be set in confirmation step
+  const [isLoadingRates, setIsLoadingRates] = useState(false);
+  const [rateResponse, setRateResponse] = useState<TrocadorRateResponse | null>(
+    null
+  );
+  const [selectedProvider, setSelectedProvider] =
+    useState<TrocadorQuote | null>(null);
   const [isCreatingTransaction, setIsCreatingTransaction] = useState(false);
   const [transactionError, setTransactionError] = useState<string>("");
   const [validationErrors, setValidationErrors] = useState<{
     fromAmount?: string;
-    recipientAddress?: string;
   }>({});
-
-  // Helper function to format numbers by removing trailing zeros
-  const formatNumber = (value: string): string => {
-    if (!value || value === "") return "";
-    const num = parseFloat(value);
-    if (isNaN(num)) return "";
-    // Remove trailing zeros and unnecessary decimal point
-    return num.toString();
-  };
 
   // Helper function to validate and format input
   const handleAmountInput = (value: string): string => {
-    // Allow empty string
     if (value === "") return "";
-    
-    // Remove leading zeros except for decimals like "0.123"
+
     if (value.startsWith("0") && value.length > 1 && value[1] !== ".") {
       value = value.replace(/^0+/, "");
     }
-    
-    // Only allow numbers and one decimal point
+
     const regex = /^\d*\.?\d*$/;
     if (!regex.test(value)) return fromAmount;
-    
+
     return value;
   };
 
@@ -98,197 +91,142 @@ const ExchangeForm = () => {
   const { currencies: apiToCurrencies, loading: toLoading } =
     useCurrenciesForTo();
 
-  // Use default currencies until API loads
   const fromCurrencies =
     apiFromCurrencies.length > 0 ? apiFromCurrencies : DEFAULT_FROM_CURRENCIES;
   const toCurrencies =
     apiToCurrencies.length > 0 ? apiToCurrencies : DEFAULT_TO_CURRENCIES;
 
-  // Fetch exchange rate
-  const fetchExchangeRate = useCallback(async () => {
-    if (
-      !fromAmount ||
-      parseFloat(fromAmount) <= 0 ||
-      !fromCurrency ||
-      !toCurrency
-    ) {
-      setToAmount("");
+  // Swap currencies
+  const handleSwapCurrencies = () => {
+    setFromCurrency(toCurrency);
+    setToCurrency(fromCurrency);
+  };
+
+  // Search rates from Trocador API
+  const handleSearchRates = async () => {
+    // Validation
+    const errors: { fromAmount?: string } = {};
+
+    if (!fromAmount || parseFloat(fromAmount) <= 0) {
+      errors.fromAmount = "Please enter a valid amount";
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setValidationErrors(errors);
       return;
     }
 
-    setIsLoadingPrice(true);
+    setValidationErrors({});
+    setIsLoadingRates(true);
+    setTransactionError("");
+
     try {
-      // Extract ticker and network from currency ID for API call
       const fromTicker = getTickerFromCurrencyId(fromCurrency);
       const toTicker = getTickerFromCurrencyId(toCurrency);
       const fromNetwork = getNetworkFromCurrencyId(fromCurrency);
       const toNetwork = getNetworkFromCurrencyId(toCurrency);
-      
-      const result = await getExchangeAmount({
-        from: fromTicker,
-        to: toTicker,
-        amountFrom: fromAmount,
+
+      const response = await getTrocadorRates({
+        tickerFrom: fromTicker,
+        tickerTo: toTicker,
         networkFrom: fromNetwork,
         networkTo: toNetwork,
+        amountFrom: parseFloat(fromAmount),
       });
 
-      console.log("result ===============>", result);
-
-      if (result) {
-        setToAmount(formatNumber(result.amountTo));
-        setExchangeRate(result.rate);
-        setMinAmount(formatNumber(result.minFrom));
-        setMaxAmount(formatNumber(result.maxFrom));
-      }
+      setRateResponse(response);
+      
+      // Navigate directly to exchange page with trade ID and rate data
+      navigate(`/exchange/${response.trade_id}`, {
+        state: { rateData: response }
+      });
     } catch (error) {
-      console.error("Error fetching exchange rate:", error);
-      setToAmount("");
+      console.error("Error fetching rates:", error);
+      setTransactionError(
+        error instanceof Error ? error.message : "Failed to fetch rates"
+      );
     } finally {
-      setIsLoadingPrice(false);
+      setIsLoadingRates(false);
     }
-  }, [fromAmount, fromCurrency, toCurrency]);
-
-  // Fetch exchange rate when amount or currencies change
-  useEffect(() => {
-    const debounceTimer = setTimeout(() => {
-      fetchExchangeRate();
-    }, 500); // Debounce for 500ms
-
-    return () => clearTimeout(debounceTimer);
-  }, [fetchExchangeRate]);
-
-  const handleSwap = () => {
-    const tempAmount = fromAmount;
-    const tempCurrency = fromCurrency;
-    setFromAmount(toAmount);
-    setToAmount(tempAmount);
-    setFromCurrency(toCurrency);
-    setToCurrency(tempCurrency);
   };
 
-  // Validate form inputs
-  const validateForm = (): boolean => {
-    const errors: { fromAmount?: string; recipientAddress?: string } = {};
+  // Handle provider selection
+  const handleProviderSelect = (provider: TrocadorQuote) => {
+    setSelectedProvider(provider);
+    setStep("confirm");
+  };
 
-    // Validate amount
-    if (!fromAmount || fromAmount === "") {
-      errors.fromAmount = "Please enter an amount";
-    } else {
-      const amount = parseFloat(fromAmount);
-      if (isNaN(amount) || amount <= 0) {
-        errors.fromAmount = "Please enter a valid amount";
-      } else if (minAmount && amount < parseFloat(minAmount)) {
-        errors.fromAmount = `Minimum amount is ${minAmount} ${getTickerFromCurrencyId(fromCurrency).toUpperCase()}`;
-      } else if (maxAmount && amount > parseFloat(maxAmount)) {
-        errors.fromAmount = `Maximum amount is ${maxAmount} ${getTickerFromCurrencyId(fromCurrency).toUpperCase()}`;
-      }
-    }
+  // Handle back to input
+  const handleBackToInput = () => {
+    setStep("input");
+    setRateResponse(null);
+    setSelectedProvider(null);
+  };
+
+  // Handle back to providers
+  const handleBackToProviders = () => {
+    setStep("providers");
+    setSelectedProvider(null);
+  };
+
+  // Handle confirm exchange
+  const handleConfirmExchange = async () => {
+    if (!selectedProvider || !rateResponse) return;
 
     // Validate recipient address
     if (!recipientAddress || recipientAddress.trim() === "") {
-      errors.recipientAddress = "Please enter a recipient wallet address";
-    } else if (recipientAddress.length < 10) {
-      errors.recipientAddress = "Please enter a valid wallet address";
-    }
-
-    setValidationErrors(errors);
-    return Object.keys(errors).length === 0;
-  };
-
-  // Handle confirm exchange button click
-  const handleConfirmExchange = async () => {
-    // Clear previous errors
-    setTransactionError("");
-    
-    // Validate form
-    if (!validateForm()) {
+      setTransactionError("Please enter recipient address");
       return;
     }
 
     setIsCreatingTransaction(true);
+    setTransactionError("");
 
     try {
-      // Extract ticker and network from currency ID for API call
-      const fromTicker = getTickerFromCurrencyId(fromCurrency);
-      const toTicker = getTickerFromCurrencyId(toCurrency);
-      const fromNetwork = getNetworkFromCurrencyId(fromCurrency);
-      const toNetwork = getNetworkFromCurrencyId(toCurrency);
-      
-      const transaction = await createTransaction({
-        from: fromTicker,
-        to: toTicker,
+      // TODO: Implement actual transaction creation with Trocador
+      // For now, just simulate it
+      const mockTransaction = {
+        id: rateResponse.trade_id,
+        status: "waiting",
+        payinAddress: "MOCK_PAYIN_ADDRESS",
+        payoutAddress: recipientAddress,
         amountFrom: fromAmount,
-        address: recipientAddress,
-        networkFrom: fromNetwork,
-        networkTo: toNetwork,
-      });
+        amountTo: selectedProvider.amount_to,
+        currencyFrom: getTickerFromCurrencyId(fromCurrency),
+        currencyTo: getTickerFromCurrencyId(toCurrency),
+        provider: selectedProvider.provider,
+      };
 
-      console.log("✅ Transaction created successfully:", transaction);
-      
-      // Save transaction to localStorage for the status page
-      localStorage.setItem(`transaction_${transaction.id}`, JSON.stringify(transaction));
-      
-      // Navigate to the transaction status page
-      navigate(`/txs?id=${transaction.id}`);
+      // Store in localStorage
+      localStorage.setItem(
+        `transaction_${mockTransaction.id}`,
+        JSON.stringify(mockTransaction)
+      );
+
+      // Navigate to exchange page with trade ID
+      navigate(`/exchange/${rateResponse.trade_id}`);
     } catch (error) {
-      console.error("❌ Error creating transaction:", error);
-      const errorMessage = error instanceof Error ? error.message : "Failed to create transaction. Please try again.";
-      setTransactionError(errorMessage);
+      console.error("Error creating transaction:", error);
+      setTransactionError(
+        error instanceof Error
+          ? error.message
+          : "Failed to create transaction. Please try again."
+      );
     } finally {
       setIsCreatingTransaction(false);
     }
   };
 
-  return (
-    <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 md:p-10 border border-white/20 w-full max-w-[95%] sm:w-[600px] md:w-[650px] lg:w-[700px] xl:w-[750px] mx-auto flex flex-col gap-5">
-      {/* You Send */}
-      <div>
-        <label className="block text-white/80 text-base md:text-lg font-medium mb-3 text-left">
-          You Send
-        </label>
-        <div className={`bg-white/10 rounded-xl py-1 px-4 pr-2 border ${validationErrors.fromAmount ? 'border-red-500' : 'border-white/20'}`}>
-          <div className="flex items-center justify-between">
-            <input
-              type="text"
-              inputMode="decimal"
-              value={fromAmount}
-              onChange={(e) => {
-                setFromAmount(handleAmountInput(e.target.value));
-                // Clear validation error when user types
-                if (validationErrors.fromAmount) {
-                  setValidationErrors({ ...validationErrors, fromAmount: undefined });
-                }
-              }}
-              className="bg-transparent text-white text-lg md:text-xl font-semibold w-full outline-none placeholder-gray-400"
-              placeholder="0.1"
-            />
-            <div className="ml-4 flex-shrink-0">
-              <CurrencySelector
-                currencies={fromCurrencies}
-                selectedCurrency={fromCurrency}
-                onCurrencyChange={setFromCurrency}
-                disabled={fromLoading}
-                title="Select Cryptocurrency to Send"
-                disabledCurrency={toCurrency}
-              />
-            </div>
-          </div>
-        </div>
-        {validationErrors.fromAmount && (
-          <div className="mt-1 text-xs text-red-400 text-left">
-            {validationErrors.fromAmount}
-          </div>
-        )}
-      </div>
-
-      {/* Swap Button */}
-      <div className="flex justify-center">
+  // Render based on current step
+  if (step === "providers" && rateResponse) {
+    return (
+      <div className="w-full max-w-6xl mx-auto">
         <button
-          onClick={handleSwap}
-          className="bg-white/20 hover:bg-white/30 rounded-full p-3 transition-colors"
+          onClick={handleBackToInput}
+          className="mb-4 flex items-center gap-2 text-black/80 hover:text-black transition-colors"
         >
           <svg
-            className="w-6 h-6 text-white"
+            className="w-5 h-5"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -297,121 +235,223 @@ const ExchangeForm = () => {
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth={2}
-              d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"
+              d="M15 19l-7-7 7-7"
             />
           </svg>
+          Back to Exchange Form
         </button>
+        <ProviderList
+          quotes={rateResponse.quotes.quotes}
+          onSelectProvider={handleProviderSelect}
+          amountFrom={rateResponse.amount_from}
+          tickerFrom={rateResponse.ticker_from}
+          tickerTo={rateResponse.ticker_to}
+        />
       </div>
+    );
+  }
 
-      {/* You Get */}
-      <div>
-        <label className="block text-white/80 text-base md:text-lg font-medium mb-3 text-left">
-          You Get
-        </label>
-        <div className="bg-white/10 rounded-xl py-1 px-4 pr-2 border border-white/20">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center w-full min-w-0">
-              <input
-                type="text"
-                inputMode="decimal"
-                value={toAmount}
-                className="bg-transparent text-white text-lg md:text-xl font-semibold w-full outline-none placeholder-gray-400 min-w-0 flex-shrink"
-                placeholder="0.00"
-                readOnly
+  if (step === "confirm" && selectedProvider && rateResponse) {
+    return (
+      <div className="w-full max-w-[95%] sm:w-[600px] md:w-[650px] lg:w-[700px] xl:w-[750px] mx-auto">
+        <button
+          onClick={handleBackToProviders}
+          className="mb-4 flex items-center gap-2 text-black/80 hover:text-black transition-colors"
+        >
+          <svg
+            className="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+          Back to Provider List
+        </button>
+
+        <div className="bg-gray-900/50 backdrop-blur-md rounded-3xl p-8 md:p-10 shadow-2xl border border-purple-500/30 flex flex-col gap-5">
+          <h2 className="text-2xl font-bold text-white text-center mb-4">
+            Confirm Exchange
+          </h2>
+
+          {/* Selected Provider Info */}
+          <div className="bg-black/30 rounded-xl p-4">
+            <p className="text-gray-400 text-sm mb-2">Selected Provider:</p>
+            <div className="flex items-center gap-3">
+              <img
+                src={selectedProvider.provider_logo}
+                alt={selectedProvider.provider}
+                className="w-10 h-10 rounded-full"
               />
-              {isLoadingPrice && (
-                <div className="ml-2 flex-shrink-0">
-                  <svg
-                    className="animate-spin h-5 w-5 text-white"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                    ></circle>
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    ></path>
-                  </svg>
-                </div>
-              )}
-            </div>
-            <div className="ml-4 flex-shrink-0">
-              <CurrencySelector
-                currencies={toCurrencies}
-                selectedCurrency={toCurrency}
-                onCurrencyChange={setToCurrency}
-                disabled={toLoading}
-                title="Select Cryptocurrency to Receive"
-                disabledCurrency={fromCurrency}
-              />
+              <div>
+                <p className="text-white font-bold text-lg">
+                  {selectedProvider.provider}
+                </p>
+                <p className="text-sm text-gray-400">
+                  ETA: {selectedProvider.eta} min
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-        {/* Exchange Rate Info */}
-        {exchangeRate && (
-          <div className="mt-2 text-xs text-white/60 text-left">
-            Rate: 1 {getTickerFromCurrencyId(fromCurrency).toUpperCase()} ≈{" "}
-            {formatNumber(parseFloat(exchangeRate).toFixed(8))} {getTickerFromCurrencyId(toCurrency).toUpperCase()}
-          </div>
-        )}
-        {/* Min/Max Info */}
-        {minAmount && maxAmount && (
-          <div className="mt-1 text-xs text-white/60 text-left">
-            Min: {minAmount} {getTickerFromCurrencyId(fromCurrency).toUpperCase()} • Max: {maxAmount}{" "}
-            {getTickerFromCurrencyId(fromCurrency).toUpperCase()}
-          </div>
-        )}
-      </div>
 
-      {/* Recipient Wallet */}
-      <div>
-        <label className="block text-white/80 text-base md:text-lg font-medium mb-3 text-left">
-          Recipient Wallet
-        </label>
-        <div className={`bg-white/10 rounded-xl p-3 border ${validationErrors.recipientAddress ? 'border-red-500' : 'border-white/20'}`}>
-          <div className="flex items-center space-x-3">
-            <div className="w-5 h-5 bg-yellow-400 rounded-full flex-shrink-0"></div>
+          {/* Exchange Summary */}
+          <div className="space-y-3">
+            <div className="flex justify-between items-center">
+              <span className="text-gray-400">You Send:</span>
+              <span className="text-white font-bold text-lg">
+                {fromAmount}{" "}
+                {getTickerFromCurrencyId(fromCurrency).toUpperCase()}
+              </span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-gray-400">You Get:</span>
+              <span className="text-white font-bold text-lg">
+                {parseFloat(selectedProvider.amount_to).toFixed(6)}{" "}
+                {getTickerFromCurrencyId(toCurrency).toUpperCase()}
+              </span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-gray-400">Rate:</span>
+              <span className="text-white">
+                1 {getTickerFromCurrencyId(fromCurrency).toUpperCase()} ≈{" "}
+                {(
+                  parseFloat(selectedProvider.amount_to) /
+                  parseFloat(fromAmount)
+                ).toFixed(6)}{" "}
+                {getTickerFromCurrencyId(toCurrency).toUpperCase()}
+              </span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-gray-400">Spread:</span>
+              <span
+                className={`font-medium ${
+                  parseFloat(selectedProvider.USD_total_cost_percentage) >= 0
+                    ? "text-green-400"
+                    : "text-red-400"
+                }`}
+              >
+                {selectedProvider.USD_total_cost_percentage}%
+              </span>
+            </div>
+          </div>
+
+          {/* Recipient Address Input */}
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center gap-2 px-1">
+              <div className="w-5 h-5 rounded-full bg-yellow-500 flex items-center justify-center flex-shrink-0">
+                <span className="text-xs font-bold text-black">!</span>
+              </div>
+              <label className="text-gray-300 font-semibold text-base md:text-lg">
+                Recipient {getTickerFromCurrencyId(toCurrency).toUpperCase()}{" "}
+                Address
+              </label>
+            </div>
             <input
               type="text"
               value={recipientAddress}
-              onChange={(e) => {
-                setRecipientAddress(e.target.value);
-                // Clear validation error when user types
-                if (validationErrors.recipientAddress) {
-                  setValidationErrors({ ...validationErrors, recipientAddress: undefined });
-                }
-                // Clear transaction error when user modifies input
-                if (transactionError) {
-                  setTransactionError("");
-                }
-              }}
-              placeholder="Enter the payout address"
-              className="bg-transparent text-white placeholder-white/60 w-full outline-none text-base md:text-lg"
+              onChange={(e) => setRecipientAddress(e.target.value)}
+              placeholder={`Enter ${getTickerFromCurrencyId(
+                toCurrency
+              ).toUpperCase()} address`}
+              className="w-full bg-white/5 text-white p-3 rounded-xl outline-none border-2 border-white/10 hover:border-purple-500/50 focus:border-purple-500 transition-colors text-base md:text-lg"
             />
           </div>
-        </div>
-        {validationErrors.recipientAddress && (
-          <div className="mt-1 text-xs text-red-400 text-left">
-            {validationErrors.recipientAddress}
-          </div>
-        )}
-      </div>
 
-      {/* Transaction Error */}
-      {transactionError && (
-        <div className="bg-red-500/10 border border-red-500/50 rounded-xl p-3">
-          <div className="flex items-start space-x-2">
+          {/* Error Message */}
+          {transactionError && (
+            <div className="bg-red-500/10 border border-red-500/50 rounded-xl p-4">
+              <p className="text-red-400 text-sm">{transactionError}</p>
+            </div>
+          )}
+
+          {/* Confirm Button */}
+          <button
+            onClick={handleConfirmExchange}
+            disabled={isCreatingTransaction}
+            className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold py-5 md:py-6 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-orange-500/50 text-lg md:text-xl"
+          >
+            {isCreatingTransaction ? (
+              <span className="flex items-center justify-center gap-2">
+                <svg
+                  className="animate-spin h-5 w-5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  />
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  />
+                </svg>
+                Creating Transaction...
+              </span>
+            ) : (
+              "Confirm Exchange"
+            )}
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Default: Input step
+  return (
+    <div className="w-full max-w-[95%] sm:w-[600px] md:w-[650px] lg:w-[700px] xl:w-[750px] mx-auto">
+      <div className="bg-gray-900/50 backdrop-blur-md rounded-3xl p-8 md:p-10 shadow-2xl border border-purple-500/30 flex flex-col gap-5">
+        {/* From Amount */}
+        <div className="flex flex-col gap-2">
+          <div className="flex justify-between items-center px-1">
+            <label className="text-gray-300 font-semibold text-base md:text-lg">
+              You Send
+            </label>
+          </div>
+          <div className="flex items-center bg-white/5 rounded-xl p-3 gap-3 border-2 border-white/10 hover:border-purple-500/50 transition-colors">
+            <input
+              type="text"
+              value={fromAmount}
+              onChange={(e) => setFromAmount(handleAmountInput(e.target.value))}
+              placeholder="0.00"
+              className="flex-1 min-w-0 bg-transparent text-white text-lg md:text-xl font-semibold outline-none placeholder-gray-500 py-1"
+            />
+            <div className="flex-shrink-0">
+              <CurrencySelector
+                currencies={fromCurrencies}
+                selectedCurrency={fromCurrency}
+                onCurrencyChange={setFromCurrency}
+                disabled={fromLoading}
+                title="Select Currency to Send"
+                disabledCurrency={toCurrency}
+              />
+            </div>
+          </div>
+          {validationErrors.fromAmount && (
+            <p className="text-red-400 text-sm px-1">
+              {validationErrors.fromAmount}
+            </p>
+          )}
+        </div>
+
+        {/* Swap Button */}
+        <div className="flex justify-center -my-2">
+          <button
+            onClick={handleSwapCurrencies}
+            className="bg-purple-600 hover:bg-purple-700 p-3 rounded-full transition-all duration-200 shadow-lg hover:scale-110"
+          >
             <svg
-              className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5"
+              className="w-6 h-6 text-white"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -420,65 +460,95 @@ const ExchangeForm = () => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"
               />
             </svg>
-            <div className="text-sm text-red-400">{transactionError}</div>
+          </button>
+        </div>
+
+        {/* To Amount */}
+        <div className="flex flex-col gap-2">
+          <div className="flex justify-between items-center px-1">
+            <label className="text-gray-300 font-semibold text-base md:text-lg">
+              You Get
+            </label>
+          </div>
+          <div className="flex items-center bg-white/5 rounded-xl p-3 gap-3 border-2 border-white/10">
+            <div className="flex-1 min-w-0 py-1">
+              <span className="text-gray-500 text-lg md:text-xl font-semibold">
+                Enter amount and search
+              </span>
+            </div>
+            <div className="flex-shrink-0">
+              <CurrencySelector
+                currencies={toCurrencies}
+                selectedCurrency={toCurrency}
+                onCurrencyChange={setToCurrency}
+                disabled={toLoading}
+                title="Select Currency to Receive"
+                disabledCurrency={fromCurrency}
+              />
+            </div>
           </div>
         </div>
-      )}
 
-      {/* Confirm Exchange Button */}
-      <button
-        onClick={handleConfirmExchange}
-        disabled={isCreatingTransaction || isLoadingPrice}
-        className={`w-full bg-gradient-to-r from-pink-400 to-purple-500 text-white font-bold py-4 px-6 rounded-xl transition-all duration-200 text-lg md:text-xl ${
-          isCreatingTransaction || isLoadingPrice
-            ? "opacity-50 cursor-not-allowed"
-            : "hover:from-pink-500 hover:to-purple-600 transform hover:scale-105"
-        }`}
-      >
-        {isCreatingTransaction ? (
-          <div className="flex items-center justify-center space-x-2">
-            <svg
-              className="animate-spin h-5 w-5 text-white"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              ></circle>
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-              ></path>
-            </svg>
-            <span>Creating Transaction...</span>
+        {/* Error Message */}
+        {transactionError && (
+          <div className="bg-red-500/10 border border-red-500/50 rounded-xl p-4">
+            <p className="text-red-400 text-sm">{transactionError}</p>
           </div>
-        ) : (
-          "Confirm Exchange"
         )}
-      </button>
 
-      {/* How to Exchange Link */}
-      <div className="text-center">
-        <a
-          href="#how-it-works"
-          className="text-white/60 hover:text-white text-sm underline cursor-pointer"
-          onClick={(e) => {
-            e.preventDefault();
-            document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' });
-          }}
+        {/* Search Rate Button */}
+        <button
+          onClick={handleSearchRates}
+          disabled={isLoadingRates}
+          className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold py-5 md:py-6 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-orange-500/50 text-lg md:text-xl"
         >
-          How to Exchange?
-        </a>
+          {isLoadingRates ? (
+            <span className="flex items-center justify-center gap-2">
+              <svg
+                className="animate-spin h-5 w-5"
+                viewBox="0 0 24 24"
+                fill="none"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                />
+              </svg>
+              Searching Rates...
+            </span>
+          ) : (
+            "Search Rate"
+          )}
+        </button>
+
+        {/* How to Exchange Link */}
+        <div className="flex justify-center">
+          <a
+            href="#how-it-works"
+            onClick={(e) => {
+              e.preventDefault();
+              const element = document.getElementById("how-it-works");
+              if (element) {
+                element.scrollIntoView({ behavior: "smooth" });
+              }
+            }}
+            className="text-purple-400 hover:text-purple-300 text-sm transition-colors"
+          >
+            How to Exchange?
+          </a>
+        </div>
       </div>
     </div>
   );

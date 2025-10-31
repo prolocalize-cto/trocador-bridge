@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import MainLayout from "./layout/MainLayout";
 import {
   HomePage,
-  TransactionStatusPage,
+  TradePage,
   ContactUsPage,
   NotFoundPage,
 } from "./pages";
@@ -38,7 +38,7 @@ function App() {
       <MainLayout>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/txs" element={<TransactionStatusPage />} />
+          <Route path="/exchange/:tradeId" element={<TradePage />} />
           <Route path="/contact-us" element={<ContactUsPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

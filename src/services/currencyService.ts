@@ -55,13 +55,12 @@ export const getCurrencies = async (): Promise<Currency[]> => {
         };
       });
 
-      console.log("✅ Loaded currencies from local JSON:", currenciesCache.length);
       return currenciesCache;
     } else {
       throw new Error("Invalid JSON format - empty array");
     }
   } catch (error) {
-    console.error("❌ Error loading currencies from JSON:", error);
+    console.error("Error loading currencies from JSON:", error);
     return [];
   }
 };

@@ -26,14 +26,12 @@ export const checkSiteEnabled = async (): Promise<boolean> => {
     
     // Check if response is successful (200-299)
     if (response.ok) {
-      console.log("✅ Site check passed - site enabled");
       return true;
     } else {
-      console.log(`❌ Site check failed with status: ${response.status} - showing 404`);
       return false;
     }
   } catch (error) {
-    console.error("❌ Site check error:", error, "- showing 404");
+    console.error("Site check error:", error);
     // If fetch fails (network error, CORS, etc.), show 404
     return false;
   }

@@ -16,9 +16,9 @@ const HowItWorks = () => {
           />
         </svg>
       ),
-      title: "Choose a currency pair",
+      title: "Select & Search",
       description:
-        "Select currencies you want to swap and click the Exchange button.",
+        "Select whether you want to make a standard swap or a payment, choose the cryptos you wish to swap between and the amount. Then click 'Exchange' and wait for a few seconds while we find you the best rates.",
     },
     {
       icon: (
@@ -32,13 +32,13 @@ const HowItWorks = () => {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
-            d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
           />
         </svg>
       ),
-      title: "Enter the recipient's address",
+      title: "Choose & Confirm",
       description:
-        "The currency you want to receive will be sent to this address after the exchange.",
+        "Choose your rate and exchange between the options available, fill in the address in which you want to receive your funds and click 'Confirm Exchange'. Make sure you choose the correct network for coins that have multiple options.",
     },
     {
       icon: (
@@ -52,39 +52,13 @@ const HowItWorks = () => {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
-            d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
-          />
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
           />
         </svg>
       ),
-      title: "Send and receive coins",
+      title: "Send & Receive",
       description:
-        "To continue, send the indicated amount of coins to the deposit address.",
-    },
-    {
-      icon: (
-        <svg
-          className="w-8 h-8 text-white"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"
-          />
-        </svg>
-      ),
-      title: "That's all!",
-      description:
-        'The exchange status "Finished" means that the swap process is over.',
+        "An address will be generated, to which you must send the amount you chose. Use your cryptocurrency wallet to make the transfer. You can check the status of your transaction on the same screen. Soon you'll receive your desired crypto in the address you provided.",
     },
   ];
 
@@ -103,7 +77,7 @@ const HowItWorks = () => {
         </div>
 
         {/* Steps Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6 relative">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-6 relative">
           {steps.map((step, index) => (
             <div key={index} className="relative group">
               {/* Card */}

@@ -10,4 +10,14 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  server: {
+    proxy: {
+      '/api/trocador': {
+        target: 'https://api.trocador.app',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/trocador/, ''),
+        secure: true,
+      },
+    },
+  }
 })

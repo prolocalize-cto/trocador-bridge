@@ -32,8 +32,6 @@ const CurrencyModal = ({
 
   // Filter and sort currencies, then create list items with headers
   const listItems = useMemo(() => {
-    console.log("🔄 Virtual List: Processing currencies...", currencies.length);
-    
     let filtered: Currency[];
     
     if (!searchTerm.trim()) {
@@ -89,7 +87,6 @@ const CurrencyModal = ({
       });
     });
 
-    console.log(`✅ Virtual List: Prepared ${items.length} items (only ~6-8 will render at once)`);
     return items;
   }, [searchTerm, currencies]);
 

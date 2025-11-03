@@ -67,13 +67,13 @@ const Header = () => {
               Swap
             </a>
             <a
-              href="/#how-it-works"
+              href="/#features"
               onClick={(e) => {
                 e.preventDefault();
                 if (location.pathname !== "/") {
-                  window.location.href = "/#how-it-works";
+                  window.location.href = "/#features";
                 } else {
-                  const element = document.getElementById("how-it-works");
+                  const element = document.getElementById("features");
                   if (element) {
                     element.scrollIntoView({ behavior: "smooth" });
                   }
@@ -81,7 +81,24 @@ const Header = () => {
               }}
               className="px-4 py-2 rounded-lg font-medium transition-all duration-200 text-gray-300 hover:text-white hover:bg-white/5"
             >
-              How It Works
+              Features
+            </a>
+            <a
+              href="/#buy-crypto"
+              onClick={(e) => {
+                e.preventDefault();
+                if (location.pathname !== "/") {
+                  window.location.href = "/#buy-crypto";
+                } else {
+                  const element = document.getElementById("buy-crypto");
+                  if (element) {
+                    element.scrollIntoView({ behavior: "smooth" });
+                  }
+                }
+              }}
+              className="px-4 py-2 rounded-lg font-medium transition-all duration-200 text-gray-300 hover:text-white hover:bg-white/5"
+            >
+              Buy Crypto
             </a>
             <a
               href="/#partners"
@@ -99,6 +116,23 @@ const Header = () => {
               className="px-4 py-2 rounded-lg font-medium transition-all duration-200 text-gray-300 hover:text-white hover:bg-white/5"
             >
               Partners
+            </a>
+            <a
+              href="/#guide"
+              onClick={(e) => {
+                e.preventDefault();
+                if (location.pathname !== "/") {
+                  window.location.href = "/#guide";
+                } else {
+                  const element = document.getElementById("guide");
+                  if (element) {
+                    element.scrollIntoView({ behavior: "smooth" });
+                  }
+                }
+              }}
+              className="px-4 py-2 rounded-lg font-medium transition-all duration-200 text-gray-300 hover:text-white hover:bg-white/5"
+            >
+              Guide
             </a>
             <a
               href="/#faq"
@@ -191,14 +225,14 @@ const Header = () => {
               Swap
             </a>
             <a
-              href="/#how-it-works"
+              href="/#features"
               onClick={(e) => {
                 e.preventDefault();
                 setMobileMenuOpen(false);
                 if (location.pathname !== "/") {
-                  window.location.href = "/#how-it-works";
+                  window.location.href = "/#features";
                 } else {
-                  const element = document.getElementById("how-it-works");
+                  const element = document.getElementById("features");
                   if (element) {
                     element.scrollIntoView({ behavior: "smooth" });
                   }
@@ -206,7 +240,25 @@ const Header = () => {
               }}
               className="px-4 py-3 rounded-lg font-medium transition-all duration-200 text-gray-300 hover:text-white hover:bg-white/5"
             >
-              How It Works
+              Features
+            </a>
+            <a
+              href="/#buy-crypto"
+              onClick={(e) => {
+                e.preventDefault();
+                setMobileMenuOpen(false);
+                if (location.pathname !== "/") {
+                  window.location.href = "/#buy-crypto";
+                } else {
+                  const element = document.getElementById("buy-crypto");
+                  if (element) {
+                    element.scrollIntoView({ behavior: "smooth" });
+                  }
+                }
+              }}
+              className="px-4 py-3 rounded-lg font-medium transition-all duration-200 text-gray-300 hover:text-white hover:bg-white/5"
+            >
+              Buy Crypto
             </a>
             <a
               href="/#partners"
@@ -225,6 +277,24 @@ const Header = () => {
               className="px-4 py-3 rounded-lg font-medium transition-all duration-200 text-gray-300 hover:text-white hover:bg-white/5"
             >
               Partners
+            </a>
+            <a
+              href="/#guide"
+              onClick={(e) => {
+                e.preventDefault();
+                setMobileMenuOpen(false);
+                if (location.pathname !== "/") {
+                  window.location.href = "/#guide";
+                } else {
+                  const element = document.getElementById("guide");
+                  if (element) {
+                    element.scrollIntoView({ behavior: "smooth" });
+                  }
+                }
+              }}
+              className="px-4 py-3 rounded-lg font-medium transition-all duration-200 text-gray-300 hover:text-white hover:bg-white/5"
+            >
+              Guide
             </a>
             <a
               href="/#faq"

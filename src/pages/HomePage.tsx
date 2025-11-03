@@ -1,8 +1,9 @@
 import ExchangeForm from "../components/ExchangeForm";
-import HowItWorks from "../components/HowItWorks";
-import FeedbackBanner from "../components/FeedbackBanner";
 import Partners from "../components/Partners";
 import FAQ from "../components/FAQ";
+import BuyCryptoSection from "../components/BuyCryptoSection";
+import HowToGuide from "../components/HowToGuide";
+import FeaturesGrid from "../components/FeaturesGrid";
 import rocketImg from "../assets/images/rocket.webp";
 import lightningImg from "../assets/images/lightning.webp";
 import shieldCheckImg from "../assets/images/shield_check.webp";
@@ -10,7 +11,10 @@ import shieldCheckImg from "../assets/images/shield_check.webp";
 const HomePage = () => {
   return (
     <div className="w-full flex flex-col gap-1 md:gap-5">
-      <section id="swap" className="w-full max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-8 items-start py-[50px] md:py-[100px]">
+      <section
+        id="swap"
+        className="w-full max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-8 items-start py-[50px] md:py-[100px]"
+      >
         {/* Left side - Promotional Section */}
         <div className="flex flex-col gap-6 lg:pt-8">
           {/* Title */}
@@ -74,11 +78,11 @@ const HomePage = () => {
         </div>
       </section>
 
-      <FeedbackBanner />
-      
-      <HowItWorks />
+      <FeaturesGrid />
+      <BuyCryptoSection />
 
       <Partners />
+      <HowToGuide />
 
       <FAQ />
     </div>

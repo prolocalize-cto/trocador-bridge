@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import logoImg from "../assets/images/logo.png";
 
 const Footer = () => {
   return (
@@ -15,27 +16,12 @@ const Footer = () => {
               <div className="flex items-center space-x-3 mb-4 group">
                 <div className="relative">
                   <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-purple-600 rounded-full blur-md opacity-50"></div>
-                  <div className="relative w-12 h-12 bg-gradient-to-br from-white to-gray-100 rounded-full flex items-center justify-center shadow-lg">
-                    <svg
-                      width="28"
-                      height="28"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      className="text-purple-900"
-                    >
-                      <path
-                        d="M12 2C8.5 2 6 4.5 6 8v6c0 1.5 1 3 2.5 3.5L8 20h2l1-2h2l1 2h2l-0.5-2.5c1.5-0.5 2.5-2 2.5-3.5V8c0-3.5-2.5-6-6-6z"
-                        fill="currentColor"
-                      />
-                      <circle cx="9" cy="10" r="1" fill="white" />
-                      <circle cx="15" cy="10" r="1" fill="white" />
-                      <path
-                        d="M9 13c0.5 1 1.5 1.5 3 1.5s2.5-0.5 3-1.5"
-                        stroke="white"
-                        strokeWidth="1"
-                        fill="none"
-                      />
-                    </svg>
+                  <div className="relative w-12 h-12 rounded-full flex items-center justify-center shadow-lg overflow-hidden">
+                    <img
+                      src={logoImg}
+                      alt="ShieldSwap Logo"
+                      className="w-full h-full object-cover rounded-full"
+                    />
                   </div>
                 </div>
                 <div className="flex flex-col">

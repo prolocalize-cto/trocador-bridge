@@ -143,7 +143,7 @@ const HowToGuide = () => {
             {/* Tabs */}
             <div className="flex justify-center">
               <Tab.Group selectedIndex={selectedTab} onChange={handleTabChange}>
-                <div className="flex justify-center">
+                {/* <div className="flex justify-center">
                   <Tab.List className="grid grid-flow-col auto-cols-fr w-full max-w-[420px] gap-0.5 bg-white/5 rounded-3xl p-0.5">
                     {tabs.map((tab) => (
                       <Tab
@@ -160,7 +160,7 @@ const HowToGuide = () => {
                       </Tab>
                     ))}
                   </Tab.List>
-                </div>
+                </div> */}
 
                 {/* Tab Panels */}
                 <Tab.Panels>

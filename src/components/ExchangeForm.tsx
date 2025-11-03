@@ -374,7 +374,7 @@ const ExchangeForm = () => {
           <button
             onClick={handleConfirmExchange}
             disabled={isCreatingTransaction}
-            className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold py-5 md:py-6 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-orange-500/50 text-lg md:text-xl"
+            className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-5 md:py-6 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-blue-500/50 text-lg md:text-xl"
           >
             {isCreatingTransaction ? (
               <span className="flex items-center justify-center gap-2">
@@ -508,7 +508,7 @@ const ExchangeForm = () => {
         <button
           onClick={handleSearchRates}
           disabled={isLoadingRates}
-          className="w-full bg-gradient-to-r mt-3 from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold py-3 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-orange-500/50 text-lg md:text-xl"
+          className="w-full bg-gradient-to-r mt-3 from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-3 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-blue-500/50 text-lg md:text-xl"
         >
           {isLoadingRates ? (
             <span className="flex items-center justify-center gap-2">
@@ -541,10 +541,10 @@ const ExchangeForm = () => {
         {/* How to Exchange Link */}
         <div className="flex justify-center">
           <a
-            href="#how-it-works"
+            href="#guide"
             onClick={(e) => {
               e.preventDefault();
-              const element = document.getElementById("how-it-works");
+              const element = document.getElementById("guide");
               if (element) {
                 element.scrollIntoView({ behavior: "smooth" });
               }

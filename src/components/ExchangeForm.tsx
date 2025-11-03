@@ -458,7 +458,7 @@ const ExchangeForm = () => {
         <div className="flex justify-center">
           <button
             onClick={handleSwapCurrencies}
-            className="bg-purple-600 hover:bg-purple-700 p-3 rounded-full transition-all duration-200 shadow-lg hover:scale-110"
+            className="bg-blue-600 hover:bg-blue-700 p-3 rounded-full transition-all duration-200 shadow-lg hover:scale-110"
           >
             <svg
               className="w-6 h-6 text-white"
@@ -540,19 +540,19 @@ const ExchangeForm = () => {
 
         {/* How to Exchange Link */}
         <div className="flex justify-center">
-          <a
-            href="#guide"
-            onClick={(e) => {
-              e.preventDefault();
-              const element = document.getElementById("guide");
-              if (element) {
-                element.scrollIntoView({ behavior: "smooth" });
-              }
-            }}
-            className="text-purple-400 hover:text-purple-300 text-sm transition-colors"
-          >
-            How to Exchange?
-          </a>
+            <a
+              href="#guide"
+              onClick={(e) => {
+                e.preventDefault();
+                const element = document.getElementById("guide");
+                if (element) {
+                  element.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
+              className="text-blue-400 hover:text-blue-300 text-sm transition-colors"
+            >
+              How to Exchange?
+            </a>
         </div>
       </div>
     </div>

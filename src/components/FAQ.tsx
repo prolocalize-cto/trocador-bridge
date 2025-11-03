@@ -68,8 +68,8 @@ const faqData = [
     answer: (
       <>
         <p>
-          Transactions made through our website enjoy our ShieldSwap Guarantee, if
-          for some reason you do not receive your funds and the exchange does
+          Transactions made through our website enjoy our ShieldSwap Guarantee,
+          if for some reason you do not receive your funds and the exchange does
           not provide us sufficient proof of unusually high AML risk or that it
           was blocked by their Liquidity Provider's AML system, ShieldSwap will
           reimburse you up to the insured amount. This amount varies between
@@ -82,13 +82,13 @@ const faqData = [
         </p>
         <p>
           To get compensation, contact us through email or Telegram informing
-          your transaction's ID at ShieldSwap. We'll talk to your chosen exchange
-          and try to solve your problem. Failing that and if the exchange
-          doesn't provide us sufficient proof that the transaction was halted
-          due to a police request, legal order or unusually high AML risk, we'll
-          reimburse your transaction up to the amount defined when your trade
-          was created. The whole process can take a week or a bit longer, as we
-          try to sort things out with the exchange.
+          your transaction's ID at ShieldSwap. We'll talk to your chosen
+          exchange and try to solve your problem. Failing that and if the
+          exchange doesn't provide us sufficient proof that the transaction was
+          halted due to a police request, legal order or unusually high AML
+          risk, we'll reimburse your transaction up to the amount defined when
+          your trade was created. The whole process can take a week or a bit
+          longer, as we try to sort things out with the exchange.
         </p>
         <p>
           So please be aware that:
@@ -98,61 +98,6 @@ const faqData = [
           <br />
              • The refund process can take a week or longer, as we'll first try
           solving your issue with the partner exchange.
-        </p>
-      </>
-    ),
-  },
-  {
-    id: 4,
-    question: "What are the Swap Modes?",
-    answer: (
-      <>
-        <p>
-          Standard Mode is your usual way to convert from one coin to the other.
-          You choose an amount for the crypto you'll send and which crypto you
-          want to receive. We'll show you the best floating and fixed rates from
-          all our partner exchanges and you can choose the one you want.
-        </p>
-        <p>
-          Payment Mode is meant to be used when you need to pay for something,
-          so you choose the amount of the crypto to be received instead of sent
-          and which crypto you'll use to pay. We'll show you the best fixed
-          rates from all our partner exchanges that support this mode. This is
-          useful for paying stores or services in your preferred crypto. An
-          example: Protonmail doesn't yet accept Monero as payment. No problem!
-          Choose payment in BTC, copy their address and use it with our payment
-          mode!
-        </p>
-        <p>
-          The Buy/Sell tab is for using fiat currencies to buy or sell crypto.
-          It may have fewer crypto options available, but you can circumvent
-          this by using a more common crypto (like the ones listed as
-          recommended) as an intermediary between your fiat currency and your
-          desired crypto.
-        </p>
-      </>
-    ),
-  },
-  {
-    id: 5,
-    question: "How does the Fiat Gateway (Buy/Sell) work?",
-    answer: (
-      <>
-        <p>
-          In our Fiat Gateway Aggregator you can choose which crypto you want to
-          buy or sell, which fiat currency you use and the amount to be traded.
-          ShieldSwap will then find the best rates among our partners and you can
-          choose your preferred one to complete the process on their website.
-          Depending on the selected currency, there are many payment methods
-          available like credit card, bank transfer, GooglePay, ApplePay, UPI,
-          IMPS, GCash, Paymaya, GrabPay and others.
-        </p>
-        <p>
-          Be aware that to complete the transaction you'll need to access the
-          partner's website, which may require JavaScript. Each one has their
-          own KYC/Verification policy, so make sure to check their Terms of Use.
-          ShieldSwap never has access to your funds nor any control over their KYC
-          process, we only refer you to your chosen exchange.
         </p>
       </>
     ),
@@ -308,9 +253,9 @@ const faqData = [
           coins and addresses). Please be aware some exchanges require logs of
           the user's IP, UserAgent and AcceptLanguage to be kept at ShieldSwap.
           These can be seen on the exchange screen by hovering/clicking their
-          rating. Logs kept at ShieldSwap are never sold or ceded to third parties
-          and are only provided on an individual basis upon request from law
-          enforcement.
+          rating. Logs kept at ShieldSwap are never sold or ceded to third
+          parties and are only provided on an individual basis upon request from
+          law enforcement.
         </p>
       </>
     ),

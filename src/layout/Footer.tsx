@@ -39,7 +39,7 @@ const Footer = () => {
                   </div>
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-white text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">GhostSwap</span>
+                  <span className="text-white text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">ShieldSwap</span>
                   <span className="text-xs text-gray-500 font-medium">Privacy First Exchange</span>
                 </div>
               </div>
@@ -121,7 +121,7 @@ const Footer = () => {
           {/* Social Media & Copyright */}
           <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-gray-500 text-sm">
-              © {new Date().getFullYear()} <span className="text-white font-semibold">GhostSwap</span>. All rights reserved.
+              © {new Date().getFullYear()} <span className="text-white font-semibold">ShieldSwap</span>. All rights reserved.
             </div>
 
             <div className="flex items-center space-x-3">

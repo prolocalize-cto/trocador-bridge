@@ -3,7 +3,7 @@ import { Disclosure } from "@headlessui/react";
 const faqData = [
   {
     id: 1,
-    question: "How does Trocador.app work?",
+    question: "How does ShieldSwap work?",
     answer: (
       <>
         <p>
@@ -27,7 +27,7 @@ const faqData = [
           your problem!
         </p>
         <p>
-          Trocador provides software that allows users to choose between
+          ShieldSwap provides software that allows users to choose between
           exchanges and trade directly with them, we never have access, receive
           or transfer any of the funds between the parties.
         </p>
@@ -43,7 +43,7 @@ const faqData = [
           Our service was designed from the ground up focused on your needs. We
           only keep the minimum amount of logs for exchanges that require this
           and we let you know each one's log policies before creating the
-          transaction. Logs kept at Trocador are never sold or ceded to third
+          transaction. Logs kept at ShieldSwap are never sold or ceded to third
           parties and are only provided on an individual basis upon request from
           law enforcement.
         </p>
@@ -64,14 +64,14 @@ const faqData = [
   },
   {
     id: 3,
-    question: "What is the Trocador Guarantee?",
+    question: "What is the ShieldSwap Guarantee?",
     answer: (
       <>
         <p>
-          Transactions made through our website enjoy our Trocador Guarantee, if
+          Transactions made through our website enjoy our ShieldSwap Guarantee, if
           for some reason you do not receive your funds and the exchange does
           not provide us sufficient proof of unusually high AML risk or that it
-          was blocked by their Liquidity Provider's AML system, Trocador will
+          was blocked by their Liquidity Provider's AML system, ShieldSwap will
           reimburse you up to the insured amount. This amount varies between
           exchanges and you can check it by hovering or clicking the shield icon
           besides each exchange option. Please note, however, that trades with
@@ -82,7 +82,7 @@ const faqData = [
         </p>
         <p>
           To get compensation, contact us through email or Telegram informing
-          your transaction's ID at Trocador. We'll talk to your chosen exchange
+          your transaction's ID at ShieldSwap. We'll talk to your chosen exchange
           and try to solve your problem. Failing that and if the exchange
           doesn't provide us sufficient proof that the transaction was halted
           due to a police request, legal order or unusually high AML risk, we'll
@@ -141,7 +141,7 @@ const faqData = [
         <p>
           In our Fiat Gateway Aggregator you can choose which crypto you want to
           buy or sell, which fiat currency you use and the amount to be traded.
-          Trocador will then find the best rates among our partners and you can
+          ShieldSwap will then find the best rates among our partners and you can
           choose your preferred one to complete the process on their website.
           Depending on the selected currency, there are many payment methods
           available like credit card, bank transfer, GooglePay, ApplePay, UPI,
@@ -151,7 +151,7 @@ const faqData = [
           Be aware that to complete the transaction you'll need to access the
           partner's website, which may require JavaScript. Each one has their
           own KYC/Verification policy, so make sure to check their Terms of Use.
-          Trocador never has access to your funds nor any control over their KYC
+          ShieldSwap never has access to your funds nor any control over their KYC
           process, we only refer you to your chosen exchange.
         </p>
       </>
@@ -221,7 +221,7 @@ const faqData = [
           exchange. To determine an exchange's rating we read their terms of use
           and privacy policy, ask them directly about how they handle refunding
           in case of verification refusal and take in account their past history
-          on Trocador. We use the following ratings:
+          on ShieldSwap. We use the following ratings:
         </p>
         <div className="my-4 overflow-x-auto">
           <table
@@ -261,7 +261,7 @@ const faqData = [
                   This exchange refunds transactions that fail their AML check.
                   In very rare cases funds may be blocked if a legal order
                   demands it or stolen coins are involved. Past history at
-                  Trocador is very good.
+                  ShieldSwap is very good.
                 </td>
               </tr>
               <tr>
@@ -306,9 +306,9 @@ const faqData = [
         <p>
           Your chosen exchange may also store your transaction details (amount,
           coins and addresses). Please be aware some exchanges require logs of
-          the user's IP, UserAgent and AcceptLanguage to be kept at Trocador.
+          the user's IP, UserAgent and AcceptLanguage to be kept at ShieldSwap.
           These can be seen on the exchange screen by hovering/clicking their
-          rating. Logs kept at Trocador are never sold or ceded to third parties
+          rating. Logs kept at ShieldSwap are never sold or ceded to third parties
           and are only provided on an individual basis upon request from law
           enforcement.
         </p>

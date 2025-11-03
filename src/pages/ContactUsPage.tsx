@@ -12,7 +12,7 @@ const ContactUsPage = () => {
             Get In Touch
           </h1>
           <p className="text-base md:text-lg text-gray-200 max-w-xl mx-auto leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-            Have questions or need assistance? The GhostSwap team is here to
+            Have questions or need assistance? The ShieldSwap team is here to
             help!
           </p>
         </div>

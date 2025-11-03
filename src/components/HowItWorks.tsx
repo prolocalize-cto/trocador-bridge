@@ -63,12 +63,13 @@ const HowItWorks = () => {
   ];
 
   return (
-    <div id="how-it-works" className="w-full relative py-10 px-4 overflow-hidden bg-black/20 backdrop-blur-sm">
+    <section
+      id="how-it-works"
+      className="w-full relative py-10 px-4 overflow-hidden "
+    >
       {/* Decorative elements */}
-      <div className="absolute top-0 left-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
 
-      <div className="relative max-w-7xl mx-auto flex flex-col gap-5">
+      <div className="relative max-w-7xl mx-auto flex flex-col gap-10">
         {/* Title */}
         <div className="text-center text-center">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white inline-block text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
@@ -106,7 +107,7 @@ const HowItWorks = () => {
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

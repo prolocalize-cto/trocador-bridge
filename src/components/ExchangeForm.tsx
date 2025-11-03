@@ -224,7 +224,7 @@ const ExchangeForm = () => {
       <div className="w-full max-w-6xl mx-auto">
         <button
           onClick={handleBackToInput}
-          className="mb-4 flex items-center gap-2 text-black/80 hover:text-black transition-colors"
+          className="mb-4 flex items-center gap-2 text-white/80 hover:text-white transition-colors"
         >
           <svg
             className="w-5 h-5"
@@ -257,7 +257,7 @@ const ExchangeForm = () => {
       <div className="w-full max-w-[95%] sm:w-[450px] md:w-[550px] lg:w-[600px] xl:w-[600px] mx-auto">
         <button
           onClick={handleBackToProviders}
-          className="mb-4 flex items-center gap-2 text-black/80 hover:text-black transition-colors"
+          className="mb-4 flex items-center gap-2 text-white/80 hover:text-white transition-colors"
         >
           <svg
             className="w-5 h-5"
@@ -410,14 +410,14 @@ const ExchangeForm = () => {
 
   // Default: Input step
   return (
-    <div className="w-full max-w-[95%] sm:w-[450px] md:w-[500px] lg:w-[550px] xl:w-[600px] mx-auto">
-      <div className="bg-gray-900/50 backdrop-blur-md rounded-3xl p-8 md:p-10 shadow-2xl border border-purple-500/30 flex flex-col gap-5">
+    <div className="w-full max-w-[450px] mx-auto">
+      <div className="bg-[#132a4f] backdrop-blur-md rounded-3xl p-3 md:p-4 shadow-2xl border border-purple-500/30 flex flex-col gap-3">
         {/* Defi GIF */}
-        <div className="flex justify-center -mt-4 mb-2">
-          <img 
-            src={defiGif} 
-            alt="DeFi Animation" 
-            className="h-[120px] w-[120px] rounded-full object-cover"
+        <div className="flex justify-center">
+          <img
+            src={defiGif}
+            alt="DeFi Animation"
+            className="h-[100px] w-[100px] rounded-full object-cover"
           />
         </div>
 
@@ -428,7 +428,7 @@ const ExchangeForm = () => {
               You Send
             </label> */}
           </div>
-          <div className="flex items-center bg-white/5 rounded-xl p-3 gap-3 border-2 border-white/10 hover:border-purple-500/50 transition-colors">
+          <div className="flex items-center bg-white/5 rounded-xl p-2 gap-3 border-2 border-white/10 hover:border-purple-500/50 transition-colors">
             <input
               type="text"
               value={fromAmount}
@@ -455,7 +455,7 @@ const ExchangeForm = () => {
         </div>
 
         {/* Swap Button */}
-        <div className="flex justify-center -my-2">
+        <div className="flex justify-center">
           <button
             onClick={handleSwapCurrencies}
             className="bg-purple-600 hover:bg-purple-700 p-3 rounded-full transition-all duration-200 shadow-lg hover:scale-110"
@@ -478,7 +478,7 @@ const ExchangeForm = () => {
 
         {/* To Amount */}
         <div className="flex flex-col gap-2">
-          <div className="flex items-center bg-white/5 rounded-xl p-3 gap-3 border-2 border-white/10">
+          <div className="flex items-center bg-white/5 rounded-xl p-2 gap-3 border-2 border-white/10">
             <div className="flex-1 min-w-0 py-1 text-center">
               <span className="text-white text-lg md:text-xl font-semibold">
                 To trade for:
@@ -508,7 +508,7 @@ const ExchangeForm = () => {
         <button
           onClick={handleSearchRates}
           disabled={isLoadingRates}
-          className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold py-5 md:py-6 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-orange-500/50 text-lg md:text-xl"
+          className="w-full bg-gradient-to-r mt-3 from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold py-3 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-orange-500/50 text-lg md:text-xl"
         >
           {isLoadingRates ? (
             <span className="flex items-center justify-center gap-2">

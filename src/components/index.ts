@@ -1,6 +1,8 @@
 export { default as ExchangeForm } from './ExchangeForm';
-export { default as HeroSection } from './HeroSection';
 export { default as CurrencySelector } from './CurrencySelector';
 export { default as CurrencyModal } from './CurrencyModal';
 export { default as HowItWorks } from './HowItWorks';
 export { default as ProviderList } from './ProviderList';
+export { default as FeedbackBanner } from './FeedbackBanner';
+export { default as Partners } from './Partners';
+export { default as FAQ } from './FAQ';

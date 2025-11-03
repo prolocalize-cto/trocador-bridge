@@ -10,18 +10,20 @@ const Header = () => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      scrolled 
-        ? 'bg-gray-900/95 backdrop-blur-xl shadow-2xl border-b border-orange-500/30' 
-        : 'bg-gray-900/60 backdrop-blur-md border-b border-orange-500/20'
-    }`}>
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-[#0f1b34] backdrop-blur-xl shadow-2xl border-b border-orange-500/30"
+          : "bg-[#0f1b34] backdrop-blur-md border-b border-orange-500/20"
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-[100px]">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3 group relative">
             <div className="relative">
@@ -53,49 +55,123 @@ const Header = () => {
               <span className="text-white text-2xl sm:text-3xl font-bold bg-gradient-to-r from-white via-orange-100 to-purple-200 bg-clip-text text-transparent group-hover:from-orange-300 group-hover:to-purple-300 transition-all duration-300">
                 GhostSwap
               </span>
-              <span className="text-xs text-gray-400 font-medium tracking-wider">Privacy First Exchange</span>
+              <span className="text-xs text-gray-400 font-medium tracking-wider">
+                Privacy First Exchange
+              </span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-2">
-            <Link
-              to="/"
-              className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
-                location.pathname === '/' 
-                  ? 'text-orange-400 bg-orange-500/10' 
-                  : 'text-gray-300 hover:text-white hover:bg-white/5'
-              }`}
+            <a
+              href="/#swap"
+              onClick={(e) => {
+                e.preventDefault();
+                if (location.pathname !== "/") {
+                  window.location.href = "/#swap";
+                } else {
+                  const element = document.getElementById("swap");
+                  if (element) {
+                    element.scrollIntoView({ behavior: "smooth" });
+                  }
+                }
+              }}
+              className="px-4 py-2 rounded-lg font-medium transition-all duration-200 text-gray-300 hover:text-white hover:bg-white/5"
             >
-              Home
-            </Link>
+              Swap
+            </a>
+            <a
+              href="/#how-it-works"
+              onClick={(e) => {
+                e.preventDefault();
+                if (location.pathname !== "/") {
+                  window.location.href = "/#how-it-works";
+                } else {
+                  const element = document.getElementById("how-it-works");
+                  if (element) {
+                    element.scrollIntoView({ behavior: "smooth" });
+                  }
+                }
+              }}
+              className="px-4 py-2 rounded-lg font-medium transition-all duration-200 text-gray-300 hover:text-white hover:bg-white/5"
+            >
+              How It Works
+            </a>
+            <a
+              href="/#partners"
+              onClick={(e) => {
+                e.preventDefault();
+                if (location.pathname !== "/") {
+                  window.location.href = "/#partners";
+                } else {
+                  const element = document.getElementById("partners");
+                  if (element) {
+                    element.scrollIntoView({ behavior: "smooth" });
+                  }
+                }
+              }}
+              className="px-4 py-2 rounded-lg font-medium transition-all duration-200 text-gray-300 hover:text-white hover:bg-white/5"
+            >
+              Partners
+            </a>
+            <a
+              href="/#faq"
+              onClick={(e) => {
+                e.preventDefault();
+                if (location.pathname !== "/") {
+                  window.location.href = "/#faq";
+                } else {
+                  const element = document.getElementById("faq");
+                  if (element) {
+                    element.scrollIntoView({ behavior: "smooth" });
+                  }
+                }
+              }}
+              className="px-4 py-2 rounded-lg font-medium transition-all duration-200 text-gray-300 hover:text-white hover:bg-white/5"
+            >
+              FAQ
+            </a>
             <Link
               to="/contact-us"
               className={`relative px-6 py-2.5 rounded-full font-semibold overflow-hidden group transition-all duration-300 ${
-                location.pathname === '/contact-us'
-                  ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg shadow-orange-500/50'
-                  : 'bg-gradient-to-r from-orange-500/20 to-purple-600/20 text-white hover:from-orange-500 hover:to-orange-600 hover:shadow-lg hover:shadow-orange-500/50 border border-orange-500/50'
+                location.pathname === "/contact-us"
+                  ? "bg-blue-500 text-white shadow-lg shadow-blue-500/50"
+                  : "bg-blue-600/30 text-white hover:bg-blue-500 hover:shadow-lg hover:shadow-blue-500/50"
               }`}
             >
-              <span className="relative z-10">Contact Us</span>
+              <span className="relative z-10 text-white font-semibold">
+                Contact Us
+              </span>
             </Link>
           </nav>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden relative w-10 h-10 text-white hover:bg-white/10 rounded-lg transition-all duration-200 flex items-center justify-center"
+            className="md:hidden relative w-10 h-10 bg-white/10 hover:bg-white/20 rounded-lg transition-all duration-200 flex items-center justify-center z-50 p-0"
+            aria-label="Toggle menu"
           >
             <svg
-              className={`w-6 h-6 transition-transform duration-300 ${mobileMenuOpen ? 'rotate-90' : ''}`}
+              className={`w-6 h-6 text-white transition-transform duration-300 ${
+                mobileMenuOpen ? "rotate-90" : ""
+              }`}
               fill="none"
               stroke="currentColor"
+              strokeWidth={2.5}
               viewBox="0 0 24 24"
             >
               {mobileMenuOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
               ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
               )}
             </svg>
           </button>
@@ -103,26 +179,89 @@ const Header = () => {
       </div>
 
       {/* Mobile Menu */}
-      <div className={`md:hidden overflow-hidden transition-all duration-300 ${
-        mobileMenuOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
-      }`}>
+      <div
+        className={`md:hidden overflow-hidden transition-all duration-300 ${
+          mobileMenuOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0"
+        }`}
+      >
         <div className="px-4 py-4 bg-gray-900/95 backdrop-blur-xl border-t border-orange-500/20">
           <nav className="flex flex-col space-y-3">
-            <Link
-              to="/"
-              onClick={() => setMobileMenuOpen(false)}
-              className={`px-4 py-3 rounded-lg font-medium transition-all duration-200 ${
-                location.pathname === '/' 
-                  ? 'text-orange-400 bg-orange-500/20' 
-                  : 'text-gray-300 hover:text-white hover:bg-white/5'
-              }`}
+            <a
+              href="/#swap"
+              onClick={(e) => {
+                e.preventDefault();
+                setMobileMenuOpen(false);
+                if (location.pathname !== "/") {
+                  window.location.href = "/#swap";
+                } else {
+                  const element = document.getElementById("swap");
+                  if (element) {
+                    element.scrollIntoView({ behavior: "smooth" });
+                  }
+                }
+              }}
+              className="px-4 py-3 rounded-lg font-medium transition-all duration-200 text-gray-300 hover:text-white hover:bg-white/5"
             >
-              Home
-            </Link>
+              Swap
+            </a>
+            <a
+              href="/#how-it-works"
+              onClick={(e) => {
+                e.preventDefault();
+                setMobileMenuOpen(false);
+                if (location.pathname !== "/") {
+                  window.location.href = "/#how-it-works";
+                } else {
+                  const element = document.getElementById("how-it-works");
+                  if (element) {
+                    element.scrollIntoView({ behavior: "smooth" });
+                  }
+                }
+              }}
+              className="px-4 py-3 rounded-lg font-medium transition-all duration-200 text-gray-300 hover:text-white hover:bg-white/5"
+            >
+              How It Works
+            </a>
+            <a
+              href="/#partners"
+              onClick={(e) => {
+                e.preventDefault();
+                setMobileMenuOpen(false);
+                if (location.pathname !== "/") {
+                  window.location.href = "/#partners";
+                } else {
+                  const element = document.getElementById("partners");
+                  if (element) {
+                    element.scrollIntoView({ behavior: "smooth" });
+                  }
+                }
+              }}
+              className="px-4 py-3 rounded-lg font-medium transition-all duration-200 text-gray-300 hover:text-white hover:bg-white/5"
+            >
+              Partners
+            </a>
+            <a
+              href="/#faq"
+              onClick={(e) => {
+                e.preventDefault();
+                setMobileMenuOpen(false);
+                if (location.pathname !== "/") {
+                  window.location.href = "/#faq";
+                } else {
+                  const element = document.getElementById("faq");
+                  if (element) {
+                    element.scrollIntoView({ behavior: "smooth" });
+                  }
+                }
+              }}
+              className="px-4 py-3 rounded-lg font-medium transition-all duration-200 text-gray-300 hover:text-white hover:bg-white/5"
+            >
+              FAQ
+            </a>
             <Link
               to="/contact-us"
               onClick={() => setMobileMenuOpen(false)}
-              className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-3 rounded-full hover:from-orange-600 hover:to-orange-700 transition-all duration-200 font-semibold text-center shadow-lg shadow-orange-500/30"
+              className="bg-blue-600/30 hover:bg-blue-500 text-white px-6 py-3 rounded-full transition-all duration-200 font-semibold text-center shadow-lg shadow-blue-500/30"
             >
               Contact Us
             </Link>

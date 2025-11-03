@@ -91,7 +91,7 @@ const ExchangePage = () => {
         provider: selectedProvider.provider,
         fixed: rateData.fixed,
       });
-      
+
       // Reload page to show transaction status (status will now be "waiting")
       window.location.href = `/exchange/${tradeId}`;
     } catch (error) {
@@ -158,7 +158,7 @@ const ExchangePage = () => {
       <div className="container mx-auto px-4 py-8 w-full max-w-6xl">
         <button
           onClick={() => navigate("/")}
-          className="mb-4 flex items-center gap-2 text-black/80 hover:text-black transition-colors"
+          className="mb-4 flex items-center gap-2 text-white/80 hover:text-white transition-colors"
         >
           <svg
             className="w-5 h-5"
@@ -192,7 +192,7 @@ const ExchangePage = () => {
       <div className="container mx-auto px-4 py-8 w-full max-w-[95%] sm:w-[600px] md:w-[650px] lg:w-[700px] xl:w-[750px]">
         <button
           onClick={handleBackToProviders}
-          className="mb-4 flex items-center gap-2 text-black/80 hover:text-black transition-colors"
+          className="mb-4 flex items-center gap-2 text-white/80 hover:text-white transition-colors"
         >
           <svg
             className="w-5 h-5"
@@ -230,9 +230,12 @@ const ExchangePage = () => {
                     target.style.display = "none";
                     const parent = target.parentElement;
                     if (parent) {
-                      const defaultIcon = document.createElement('div');
-                      defaultIcon.className = 'w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg shadow-lg';
-                      defaultIcon.textContent = selectedProvider.provider.charAt(0).toUpperCase();
+                      const defaultIcon = document.createElement("div");
+                      defaultIcon.className =
+                        "w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg shadow-lg";
+                      defaultIcon.textContent = selectedProvider.provider
+                        .charAt(0)
+                        .toUpperCase();
                       parent.insertBefore(defaultIcon, target);
                     }
                   }}

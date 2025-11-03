@@ -133,7 +133,7 @@ const ProviderList = ({
           onClick={() => setRateType("floating")}
           className={`flex-1 py-3 rounded-lg font-semibold transition-all duration-200 ${
             rateType === "floating"
-              ? "bg-purple-600 text-white shadow-lg"
+              ? "bg-blue-600 text-white shadow-lg"
               : "text-gray-400 hover:text-white"
           }`}
         >
@@ -143,7 +143,7 @@ const ProviderList = ({
           onClick={() => setRateType("fixed")}
           className={`flex-1 py-3 rounded-lg font-semibold transition-all duration-200 ${
             rateType === "fixed"
-              ? "bg-purple-600 text-white shadow-lg"
+              ? "bg-blue-600 text-white shadow-lg"
               : "text-gray-400 hover:text-white"
           }`}
         >

@@ -144,7 +144,7 @@ const ExchangePage = () => {
         </div>
         <Link
           to="/"
-          className="bg-gradient-to-r from-pink-400 to-purple-500 hover:from-pink-500 hover:to-purple-600 text-white font-bold py-3 px-6 rounded-xl transition-all duration-200"
+          className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-200"
         >
           Back to Home
         </Link>

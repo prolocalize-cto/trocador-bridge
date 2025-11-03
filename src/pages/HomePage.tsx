@@ -81,10 +81,10 @@ const HomePage = () => {
       <FeaturesGrid />
       <BuyCryptoSection />
 
-      <Partners />
       <HowToGuide />
 
       <FAQ />
+      <Partners />
     </div>
   );
 };

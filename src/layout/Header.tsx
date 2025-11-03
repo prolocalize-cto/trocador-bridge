@@ -100,23 +100,7 @@ const Header = () => {
             >
               Buy Crypto
             </a>
-            <a
-              href="/#partners"
-              onClick={(e) => {
-                e.preventDefault();
-                if (location.pathname !== "/") {
-                  window.location.href = "/#partners";
-                } else {
-                  const element = document.getElementById("partners");
-                  if (element) {
-                    element.scrollIntoView({ behavior: "smooth" });
-                  }
-                }
-              }}
-              className="px-4 py-2 rounded-lg font-medium transition-all duration-200 text-gray-300 hover:text-white hover:bg-white/5"
-            >
-              Partners
-            </a>
+            
             <a
               href="/#guide"
               onClick={(e) => {
@@ -150,6 +134,24 @@ const Header = () => {
               className="px-4 py-2 rounded-lg font-medium transition-all duration-200 text-gray-300 hover:text-white hover:bg-white/5"
             >
               FAQ
+            </a>
+
+            <a
+              href="/#partners"
+              onClick={(e) => {
+                e.preventDefault();
+                if (location.pathname !== "/") {
+                  window.location.href = "/#partners";
+                } else {
+                  const element = document.getElementById("partners");
+                  if (element) {
+                    element.scrollIntoView({ behavior: "smooth" });
+                  }
+                }
+              }}
+              className="px-4 py-2 rounded-lg font-medium transition-all duration-200 text-gray-300 hover:text-white hover:bg-white/5"
+            >
+              Partners
             </a>
             <Link
               to="/contact-us"

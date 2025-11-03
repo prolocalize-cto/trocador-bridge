@@ -19,8 +19,6 @@ type TabContent = {
 };
 
 const HowToGuide = () => {
-  const tabs = ["Exchange", "Buy", "Sell"];
-
   const tabContents: TabContent[] = [
     {
       title: "How do I exchange Bitcoin?",

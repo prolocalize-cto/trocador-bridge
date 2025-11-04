@@ -77,7 +77,7 @@ const BuyCryptoSection = () => {
       <div className="grid gap-8 lg:gap-10 justify-center">
         {/* Title and Description */}
         <div className="grid gap-4 place-items-center text-center">
-          <h2 className="text-2xl lg:text-4xl font-semibold text-white">
+          <h2 className="text-xl lg:text-3xl font-semibold text-white">
             Buy Top Cryptocurrency Assets Instantly
           </h2>
           <p className="text-sm lg:text-base text-gray-300 max-w-2xl">
@@ -103,7 +103,7 @@ const BuyCryptoSection = () => {
                 className="flex size-8 shrink-0"
                 src={crypto.icon}
               />
-              <span className="font-medium text-lg uppercase text-white">
+              <span className="font-medium text-base uppercase text-white">
                 {crypto.name}
               </span>
             </a>

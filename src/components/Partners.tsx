@@ -85,7 +85,7 @@ const Partners = () => {
   return (
     <section id="partners" className="container mx-auto px-4 py-8">
       <div className="section-title pb-0">
-        <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-8">
+        <h2 className="text-2xl md:text-3xl font-bold text-white text-center mb-8">
           Our Partners
         </h2>
       </div>

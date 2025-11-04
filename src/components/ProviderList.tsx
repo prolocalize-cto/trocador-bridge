@@ -344,7 +344,7 @@ const ProviderList = ({
                   
                   {/* Insurance Shield with Tooltip - Always shown */}
                   <Tooltip content={
-                    <p>This transaction is {quote.insurance}% insured by Trocador.</p>
+                    <p>This transaction is {quote.insurance}% insured by ShieldSwap.</p>
                   }>
                     <div onClick={(e) => e.stopPropagation()}>
                       <svg

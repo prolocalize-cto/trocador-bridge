@@ -82,7 +82,7 @@ const FeaturesGrid = () => {
       <div className="space-y-5 lg:space-y-10">
         {/* Title */}
         <div className="grid gap-2 lg:gap-3">
-          <h2 className="text-2xl lg:text-4xl font-medium lg:font-semibold text-center text-white">
+          <h2 className="text-xl lg:text-3xl font-medium lg:font-semibold text-center text-white">
             What makes us the Best
           </h2>
         </div>
@@ -114,7 +114,7 @@ const FeaturesGrid = () => {
 
                     {/* Content */}
                     <div className="w-full z-50 space-y-2.5 h-full flex flex-col justify-between relative">
-                      <h3 className="text-pretty font-semibold text-3xl lg:text-2xl xl:text-3xl text-white">
+                      <h3 className="text-pretty font-semibold text-2xl lg:text-xl xl:text-2xl text-white">
                         {feature.title}
                       </h3>
                       <p className="text-balance xl:text-lg text-lg lg:text-sm text-gray-300">

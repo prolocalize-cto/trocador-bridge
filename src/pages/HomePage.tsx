@@ -13,12 +13,12 @@ const HomePage = () => {
     <div className="w-full flex flex-col gap-1 md:gap-5">
       <section
         id="swap"
-        className="w-full max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-8 items-start py-[50px] md:py-[100px]"
+        className="w-full max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-8 items-start pt-[50px] md:pt-[110px] pb-[20px] md:pb-[50px]"
       >
         {/* Left side - Promotional Section */}
         <div className="flex flex-col gap-6 lg:pt-8">
           {/* Title */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-white">
             Instant
             <br />
             Cryptocurrency
@@ -37,7 +37,7 @@ const HomePage = () => {
                   className="w-8 h-8 object-contain"
                 />
               </div>
-              <p className="text-gray-200 text-[24px]">
+              <p className="text-gray-200 text-xl">
                 Lightning-fast swaps with no delays
               </p>
             </div>
@@ -51,7 +51,7 @@ const HomePage = () => {
                   className="w-8 h-8 object-contain"
                 />
               </div>
-              <p className="text-gray-200 text-[24px]">
+              <p className="text-gray-200 text-xl">
                 Unbeatable rates, no compromises
               </p>
             </div>
@@ -65,7 +65,7 @@ const HomePage = () => {
                   className="w-8 h-8 object-contain"
                 />
               </div>
-              <p className="text-gray-200 text-[24px]">
+              <p className="text-gray-200 text-xl">
                 High limits and ultimate security
               </p>
             </div>

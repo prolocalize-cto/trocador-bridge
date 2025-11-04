@@ -166,7 +166,7 @@ const HowToGuide = () => {
                     <Tab.Panel key={tabIndex} className="mt-8">
                       {/* Title and Subtitle */}
                       <div className="gap-2 lg:gap-4 justify-items-center grid mb-8">
-                        <h2 className="text-2xl lg:text-4xl text-center font-semibold text-white">
+                        <h2 className="text-xl lg:text-3xl text-center font-semibold text-white">
                           {content.title}
                         </h2>
                         <p className="text-sm text-center lg:text-base text-gray-300">
@@ -219,8 +219,8 @@ const HowToGuide = () => {
                                       type="button"
                                       className={`text-left transition-all bg-transparent border-0 outline-none focus:outline-none focus:ring-0 focus:ring-offset-0 active:outline-none p-0 cursor-pointer ${
                                         isOpen
-                                          ? "text-2xl lg:text-3xl font-bold text-white"
-                                          : "text-base lg:text-lg font-medium text-gray-300 opacity-40 hover:text-white hover:opacity-100"
+                                          ? "text-xl lg:text-2xl font-bold text-white"
+                                          : "text-sm lg:text-base font-medium text-gray-300 opacity-40 hover:text-white hover:opacity-100"
                                       }`}
                                     >
                                       {step.title}

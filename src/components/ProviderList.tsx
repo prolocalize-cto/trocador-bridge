@@ -199,7 +199,7 @@ const ProviderList = ({
           Privacy
           <Tooltip content={
             <div>
-              <p className="mb-3">This rating takes in consideration the exchange's KYC/AML policies and their past history in Trocador. Log policy information can be seen by hovering/clicking their rating.</p>
+              <p className="mb-3">This rating takes in consideration the exchange's KYC/AML policies and their past history in ShieldSwap. Log policy information can be seen by hovering/clicking their rating.</p>
               
               <div className="space-y-2">
                 <div className="flex items-start gap-2">

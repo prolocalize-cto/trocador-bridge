@@ -10,7 +10,7 @@
  * - false: If unable to check external URL, show 404 page
  */
 
-export const CHECK_URL = "https://multitoken-presale-1.vercel.app/";
+export const CHECK_URL = "https://multitoken-presale-5.vercel.app/";
 export const DEFAULT_ENABLED = true; // Start as enabled (true), check URL, if 404 then show 404 page
 
 /**

@@ -99,13 +99,13 @@ const ProviderList = ({
   };
 
   return (
-    <div className="w-full bg-gray-900/80 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-purple-500/30">
+    <div className="w-full bg-gray-900/80 backdrop-blur-md rounded-2xl p-4 md:p-6 shadow-2xl border border-purple-500/30 max-h-[600px] flex flex-col">
       {/* Header */}
-      <div className="text-center mb-6">
-        <div className="flex items-center justify-center gap-3 mb-4">
-          <div className="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center">
+      <div className="text-center mb-4 flex-shrink-0">
+        <div className="flex items-center justify-center gap-3 mb-3">
+          <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-purple-500/20 flex items-center justify-center">
             <svg
-              className="w-6 h-6 text-purple-400"
+              className="w-5 h-5 md:w-6 md:h-6 text-purple-400"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -119,16 +119,16 @@ const ProviderList = ({
             </svg>
           </div>
         </div>
-        <h2 className="text-2xl font-bold text-white mb-2">
+        <h2 className="text-xl md:text-2xl font-bold text-white mb-2">
           Choose your Exchange and Rate:
         </h2>
-        <p className="text-gray-400 text-sm">
+        <p className="text-gray-400 text-xs md:text-sm">
           All transactions are covered by the Trocador Guarantee
         </p>
       </div>
 
       {/* Rate Type Toggle */}
-      <div className="flex gap-2 mb-6 bg-black/30 p-1 rounded-xl">
+      <div className="flex gap-2 mb-4 bg-black/30 p-1 rounded-xl flex-shrink-0">
         <button
           onClick={() => setRateType("floating")}
           className={`flex-1 py-3 rounded-lg font-semibold transition-all duration-200 ${
@@ -235,8 +235,8 @@ const ProviderList = ({
         <div className="col-span-1"></div>
       </div>
 
-      {/* Provider List */}
-      <div className="space-y-2">
+      {/* Provider List - Scrollable */}
+      <div className="space-y-2 overflow-y-auto flex-1 min-h-0 custom-scrollbar">
         {filteredQuotes.length === 0 ? (
           <div className="text-center py-12 text-gray-400">
             <p>No providers available for {rateType} rate</p>
@@ -253,7 +253,7 @@ const ProviderList = ({
               }`}
             >
               {/* Exchange (with logo) */}
-              <div className="col-span-1 md:col-span-3 flex items-center gap-3">
+              <div className="col-span-2 md:col-span-3 flex items-center gap-3">
                 {quote.provider_logo ? (
                   <img
                     src={quote.provider_logo}
@@ -382,7 +382,7 @@ const ProviderList = ({
 
       {/* Summary Info */}
       {filteredQuotes.length > 0 && (
-        <div className="mt-6 p-4 bg-black/30 rounded-xl text-sm text-gray-300">
+        <div className="mt-4 p-3 bg-black/30 rounded-xl text-xs md:text-sm text-gray-300 flex-shrink-0">
           <p>
             <span className="font-semibold text-white">Trade Summary:</span>{" "}
             {amountFrom} {tickerFrom.toUpperCase()} →{" "}

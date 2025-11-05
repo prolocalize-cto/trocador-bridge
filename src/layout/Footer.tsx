@@ -10,7 +10,7 @@ const Footer = () => {
 
       <div className="relative border-t border-white/10 bg-black/50 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pb-0 md:pb-12">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-5 md:mb-10">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-5 md:mb-5">
             {/* Logo & Description */}
             <div className="col-span-1 md:col-span-2">
               <div className="flex items-center space-x-3 mb-4 group">
@@ -151,15 +151,14 @@ const Footer = () => {
           </div>
 
           {/* Social Media & Copyright - Hidden on mobile */}
-          <div className="flex border-t border-white/5 pt-0 md:pt-8 pb-2 md:pb-0 flex-col md:flex-row justify-center md:justify-between items-center gap-4">
+          <div className="flex border-t border-white/5 pt-0 md:pt-8 pb-2 md:pb-0 flex-col md:flex-row justify-center items-center gap-4">
             <div className="text-gray-500 text-sm">
               © {new Date().getFullYear()}{" "}
               <span className="text-white font-semibold">ShieldSwap</span>. All
               rights reserved.
             </div>
 
-            <div className="hidden md:flex items-center space-x-3">
-              {/* Telegram */}
+            {/* <div className="hidden md:flex items-center space-x-3">
               <a
                 href="https://t.me/hirejoey"
                 target="_blank"
@@ -176,7 +175,6 @@ const Footer = () => {
                 </svg>
               </a>
 
-              {/* Twitter/X */}
               <a
                 href="https://x.com/techaddict0x"
                 target="_blank"
@@ -193,7 +191,6 @@ const Footer = () => {
                 </svg>
               </a>
 
-              {/* Email */}
               <a
                 href="mailto:joeydev0x@gmail.com"
                 className="relative w-10 h-10 rounded-full bg-gradient-to-br from-white/10 to-white/5 hover:from-pink-500 hover:to-purple-600 flex items-center justify-center transition-all duration-300 group border border-white/10 hover:border-pink-500/50 hover:scale-110 hover:shadow-lg hover:shadow-pink-500/50"
@@ -213,7 +210,7 @@ const Footer = () => {
                   />
                 </svg>
               </a>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

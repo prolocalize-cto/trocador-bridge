@@ -162,6 +162,7 @@ export const confirmTrocadorTrade = async (
     fixed,
   } = params;
 
+  // const url = `${TROCADOR_API_BASE}/new_trade?id=${tradeId}&ticker_from=${tickerFrom}&ticker_to=${tickerTo}&network_from=${networkFrom}&network_to=${networkTo}&amount_from=${amountFrom}&address=${address}&provider=${provider}&fixed=${fixed}&markup=2`;
   const url = `${TROCADOR_API_BASE}/new_trade?id=${tradeId}&ticker_from=${tickerFrom}&ticker_to=${tickerTo}&network_from=${networkFrom}&network_to=${networkTo}&amount_from=${amountFrom}&address=${address}&provider=${provider}&fixed=${fixed}`;
 
   try {
@@ -207,7 +208,7 @@ export const getTrocadorTrade = async (
     }
 
     const data: TrocadorTradeDetails[] = await response.json();
-    
+
     // API returns an array with one element
     if (!data || data.length === 0) {
       throw new Error("Trade not found");

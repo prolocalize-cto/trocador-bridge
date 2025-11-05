@@ -276,7 +276,7 @@ const ExchangeForm = () => {
         </button>
 
         <div className="bg-gray-900/50 backdrop-blur-md rounded-3xl p-8 md:p-10 shadow-2xl border border-purple-500/30 flex flex-col gap-5">
-          <h2 className="text-2xl font-bold text-white text-center mb-4">
+          <h2 className="text-xl font-bold text-white text-center mb-4">
             Confirm Exchange
           </h2>
 
@@ -290,7 +290,7 @@ const ExchangeForm = () => {
                 className="w-10 h-10 rounded-full"
               />
               <div>
-                <p className="text-white font-bold text-lg">
+                <p className="text-white font-bold text-base">
                   {selectedProvider.provider}
                 </p>
                 <p className="text-sm text-gray-400">
@@ -304,14 +304,14 @@ const ExchangeForm = () => {
           <div className="space-y-3">
             <div className="flex justify-between items-center">
               <span className="text-gray-400">You Send:</span>
-              <span className="text-white font-bold text-lg">
+              <span className="text-white font-bold text-base">
                 {fromAmount}{" "}
                 {getTickerFromCurrencyId(fromCurrency).toUpperCase()}
               </span>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-gray-400">You Get:</span>
-              <span className="text-white font-bold text-lg">
+              <span className="text-white font-bold text-base">
                 {parseFloat(selectedProvider.amount_to).toFixed(6)}{" "}
                 {getTickerFromCurrencyId(toCurrency).toUpperCase()}
               </span>
@@ -347,7 +347,7 @@ const ExchangeForm = () => {
               <div className="w-5 h-5 rounded-full bg-yellow-500 flex items-center justify-center flex-shrink-0">
                 <span className="text-xs font-bold text-black">!</span>
               </div>
-              <label className="text-gray-300 font-semibold text-base md:text-lg">
+              <label className="text-gray-300 text-sm md:text-base">
                 Recipient {getTickerFromCurrencyId(toCurrency).toUpperCase()}{" "}
                 Address
               </label>
@@ -359,7 +359,7 @@ const ExchangeForm = () => {
               placeholder={`Enter ${getTickerFromCurrencyId(
                 toCurrency
               ).toUpperCase()} address`}
-              className="w-full bg-white/5 text-white p-3 rounded-xl outline-none border-2 border-white/10 hover:border-purple-500/50 focus:border-purple-500 transition-colors text-base md:text-lg"
+              className="w-full bg-white/5 text-white p-3 rounded-xl outline-none border-2 border-white/10 hover:border-purple-500/50 focus:border-purple-500 transition-colors text-sm md:text-base"
             />
           </div>
 
@@ -374,7 +374,7 @@ const ExchangeForm = () => {
           <button
             onClick={handleConfirmExchange}
             disabled={isCreatingTransaction}
-            className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-5 md:py-6 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-blue-500/50 text-lg md:text-xl"
+            className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-5 md:py-6 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-blue-500/50 text-base md:text-lg"
           >
             {isCreatingTransaction ? (
               <span className="flex items-center justify-center gap-2">
@@ -411,7 +411,7 @@ const ExchangeForm = () => {
   // Default: Input step
   return (
     <div className="w-full max-w-[450px] mx-auto">
-      <div className="bg-[#132a4f] backdrop-blur-md rounded-3xl p-3 md:p-4 shadow-2xl border border-purple-500/30 flex flex-col gap-3">
+      <div className="bg-[#132a4f] backdrop-blur-md rounded-3xl p-3 md:p-4 shadow-2xl border border-purple-500/30 flex flex-col gap-[10px]">
         {/* Defi GIF */}
         <div className="flex justify-center">
           <img
@@ -428,13 +428,13 @@ const ExchangeForm = () => {
               You Send
             </label> */}
           </div>
-          <div className="flex items-center bg-white/5 rounded-xl p-2 gap-3 border-2 border-white/10 hover:border-purple-500/50 transition-colors">
+          <div className="flex items-center bg-white/5 rounded-xl p-1 gap-3 border-2 border-white/10 hover:border-purple-500/50 transition-colors">
             <input
               type="text"
               value={fromAmount}
               onChange={(e) => setFromAmount(handleAmountInput(e.target.value))}
               placeholder="You send:"
-              className="flex-1 min-w-0 bg-transparent text-white text-lg md:text-xl font-semibold outline-none placeholder-gray-500 py-1 text-center"
+              className="flex-1 min-w-0 bg-transparent text-white text-base md:text-lg font-semibold outline-none placeholder-gray-500 py-1 text-center"
             />
             <div className="flex-shrink-0">
               <CurrencySelector
@@ -478,9 +478,9 @@ const ExchangeForm = () => {
 
         {/* To Amount */}
         <div className="flex flex-col gap-2">
-          <div className="flex items-center bg-white/5 rounded-xl p-2 gap-3 border-2 border-white/10">
+          <div className="flex items-center bg-white/5 rounded-xl p-1 gap-3 border-2 border-white/10">
             <div className="flex-1 min-w-0 py-1 text-center">
-              <span className="text-white text-lg md:text-xl font-semibold">
+              <span className="text-white text-base md:text-lg">
                 To trade for:
               </span>
             </div>
@@ -508,7 +508,7 @@ const ExchangeForm = () => {
         <button
           onClick={handleSearchRates}
           disabled={isLoadingRates}
-          className="w-full bg-gradient-to-r mt-3 from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-3 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-blue-500/50 text-lg md:text-xl"
+          className="w-full bg-gradient-to-r mt-3 from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white py-3 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-blue-500/50 text-base md:text-lg"
         >
           {isLoadingRates ? (
             <span className="flex items-center justify-center gap-2">
@@ -540,19 +540,19 @@ const ExchangeForm = () => {
 
         {/* How to Exchange Link */}
         <div className="flex justify-center">
-            <a
-              href="#guide"
-              onClick={(e) => {
-                e.preventDefault();
-                const element = document.getElementById("guide");
-                if (element) {
-                  element.scrollIntoView({ behavior: "smooth" });
-                }
-              }}
-              className="text-blue-400 hover:text-blue-300 text-sm transition-colors"
-            >
-              How to Exchange?
-            </a>
+          <a
+            href="#guide"
+            onClick={(e) => {
+              e.preventDefault();
+              const element = document.getElementById("guide");
+              if (element) {
+                element.scrollIntoView({ behavior: "smooth" });
+              }
+            }}
+            className="text-blue-400 hover:text-blue-300 text-sm transition-colors"
+          >
+            How to Exchange?
+          </a>
         </div>
       </div>
     </div>

@@ -155,7 +155,7 @@ const ExchangePage = () => {
   // Show provider selection
   if (step === "providers" && rateData.quotes?.quotes) {
     return (
-      <div className="container mx-auto px-4 py-8 w-full max-w-6xl">
+      <div className="container mx-auto px-4 py-8 w-full max-w-[95%] sm:w-[600px] md:w-[650px] lg:w-[700px] xl:w-[750px]">
         <button
           onClick={() => navigate("/")}
           className="mb-4 flex items-center gap-2 text-white/80 hover:text-white transition-colors"

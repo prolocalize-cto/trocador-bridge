@@ -170,7 +170,7 @@ const faqData = [
         </p>
         <div className="my-4 overflow-x-auto">
           <table
-            className="table-auto border-spacing-0 text-white text-sm"
+            className="table-auto border-spacing-0 text-white text-xs"
             style={{ margin: "10px auto 0px 0" }}
           >
             <tbody>
@@ -354,7 +354,7 @@ const FAQ = () => {
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
             F.A.Q.
           </h2>
-          <p className="text-gray-300 text-base md:text-lg max-w-3xl mx-auto">
+          <p className="text-gray-300 text-sm md:text-base max-w-3xl mx-auto">
             Below you can find answers to the most frequent questions and we
             explain a bit of our service.
             <br />
@@ -373,7 +373,7 @@ const FAQ = () => {
                     <Disclosure.Button className="w-full py-4 px-4 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900 hover:bg-blue-900/20 transition-colors bg-[#0f1b34]">
                       <div className="relative flex items-center">
                         <div className="relative flex-1 pr-8">
-                          <span className="ml-7 text-white text-base md:text-lg font-medium">
+                          <span className="ml-7 text-white text-sm md:text-base">
                             {item.question}
                           </span>
                         </div>
@@ -392,7 +392,7 @@ const FAQ = () => {
                       </div>
                     </Disclosure.Button>
                     <Disclosure.Panel className="px-4 pb-4 pt-2 text-gray-300 bg-[#152030]">
-                      <div className="space-y-4 ml-7">{item.answer}</div>
+                      <div className="space-y-4 ml-7 text-sm md:text-base">{item.answer}</div>
                     </Disclosure.Panel>
                   </div>
                 )}

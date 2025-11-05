@@ -102,7 +102,7 @@ const CurrencySelector = ({
             </div>
           )}
           <div className="flex items-start gap-1 items-center">
-            <span className="text-white font-bold text-lg">
+            <span className="text-white text-base">
               {selectedCurrencyData?.ticker.toUpperCase() || "Select"}
             </span>
             {selectedCurrencyData && (

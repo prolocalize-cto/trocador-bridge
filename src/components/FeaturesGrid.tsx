@@ -15,7 +15,7 @@ const FeaturesGrid = () => {
       id: 2,
       title: "Light-speed transactions",
       description:
-        "You can exchange Bitcoin and all the popular altcoins at lightning speed. No more delays!",
+        "You can exchange Bitcoin and all the popular altcoins at lightning speed.",
       bgColor: "bg-blue-500/10",
       imageUrl: null,
       colSpan: "lg:col-span-4",
@@ -27,8 +27,9 @@ const FeaturesGrid = () => {
       description:
         "On ShieldSwap you can convert BTC and over 300 other cryptocurrencies without any limits and restrictions.",
       bgColor: "bg-blue-500/10",
-      imageUrl:
-        "https://pretty-picture-g2.s3.eu-central-1.amazonaws.com/bento_var4_3d_card_circles_c1fc9a8145.svg",
+      // imageUrl:
+      //   "https://pretty-picture-g2.s3.eu-central-1.amazonaws.com/bento_var4_3d_card_circles_c1fc9a8145.svg",
+      imageUrl: null,
       colSpan: "lg:col-span-4",
       aspect: "lg:aspect-[410/400]",
     },
@@ -36,7 +37,7 @@ const FeaturesGrid = () => {
       id: 4,
       title: "No need for an account",
       description:
-        "Ranked among the best, our platform requires no registration, accounts, or ID, allowing you to exchange Bitcoin and other cryptocurrencies privately.",
+        "Ranked among the best, our platform lets you exchange Bitcoin and other cryptocurrencies privately.",
       bgColor: "bg-blue-500/20",
       imageUrl:
         "https://pretty-picture-g2.s3.eu-central-1.amazonaws.com/bento_var4_4s_card_circles_987642fa67.svg",
@@ -61,7 +62,7 @@ const FeaturesGrid = () => {
         "Maximum profit at floating rates, or a guaranteed amount at a fixed rate—choose your priority.",
       bgColor: "bg-blue-500/10",
       imageUrl: null,
-      colSpan: "lg:col-span-4",
+      colSpan: "lg:col-span-6",
       aspect: "lg:aspect-[410/400]",
     },
     {
@@ -72,16 +73,19 @@ const FeaturesGrid = () => {
       bgColor: "bg-purple-500/20",
       imageUrl:
         "https://pretty-picture-g2.s3.eu-central-1.amazonaws.com/bento_var4_7th_card_circles_bf2247eb68.svg",
-      colSpan: "lg:col-span-8",
+      colSpan: "lg:col-span-6",
       aspect: "lg:aspect-[846/400]",
     },
   ];
 
   return (
-    <section id="features" className="w-full max-w-7xl mx-auto px-4 py-8 lg:py-14">
-      <div className="space-y-5 lg:space-y-10">
+    <section
+      id="features"
+      className="w-full max-w-7xl mx-auto px-4 py-8 lg:py-14"
+    >
+      <div>
         {/* Title */}
-        <div className="grid gap-2 lg:gap-3">
+        <div className="mb-4 lg:mb-6">
           <h2 className="text-xl lg:text-3xl font-medium lg:font-semibold text-center text-white">
             What makes us the Best
           </h2>
@@ -90,31 +94,37 @@ const FeaturesGrid = () => {
         {/* Features Grid */}
         <div className="relative w-full">
           <div className="select-none overflow-hidden">
-            <ul className="grid gap-4 lg:grid-cols-12 lg:gap-5 xl:gap-6 auto-rows-fr">
+            <ul className="grid gap-2 lg:grid-cols-12 lg:gap-2 auto-rows-auto">
               {features.map((feature) => (
                 <li
                   key={feature.id}
                   className={`min-w-0 shrink-0 grow-0 basis-full ${feature.colSpan}`}
                 >
                   <div
-                    className={`relative z-0 rounded-3xl p-6 xl:p-8 overflow-hidden h-full ${feature.bgColor} ${feature.aspect}`}
+                    className={`relative z-0 rounded-3xl p-6 xl:p-8 overflow-hidden ${feature.bgColor}`}
                   >
                     {/* Background Image */}
                     {feature.imageUrl && (
                       <img
                         alt=""
                         loading="lazy"
-                        width="589"
-                        height="280"
+                        width="800"
+                        height="800"
                         decoding="async"
-                        className="pointer-events-none z-0 hidden lg:block absolute inset-0 object-cover w-full h-full"
+                        className={`pointer-events-none z-0 hidden lg:block absolute ${
+                          feature.id === 1
+                            ? "top-0 left-0 w-[600px] h-[600px] -translate-x-[35%] -translate-y-[35%] object-contain"
+                            : feature.id === 7
+                            ? "bottom-0 right-0 w-[600px] h-[600px] translate-x-[20%] translate-y-[45%] object-contain"
+                            : "hidden"
+                        }`}
                         src={feature.imageUrl}
                       />
                     )}
 
                     {/* Content */}
-                    <div className="w-full z-50 space-y-2.5 h-full flex flex-col justify-between relative">
-                      <h3 className="text-pretty font-semibold text-2xl lg:text-xl xl:text-2xl text-white">
+                    <div className="w-full z-50 flex flex-col relative">
+                      <h3 className="text-pretty font-semibold text-2xl lg:text-xl xl:text-2xl text-white mb-2">
                         {feature.title}
                       </h3>
                       <p className="text-balance xl:text-lg text-lg lg:text-sm text-gray-300">

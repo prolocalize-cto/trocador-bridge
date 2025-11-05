@@ -195,7 +195,7 @@ const HowToGuide = () => {
                                           : "bg-blue-500/10 text-blue-400"
                                       }`}
                                     >
-                                      <span className="text-sm font-semibold">
+                                      <span className="text-sm">
                                         {step.number}
                                       </span>
                                     </div>
@@ -219,14 +219,14 @@ const HowToGuide = () => {
                                       type="button"
                                       className={`text-left transition-all bg-transparent border-0 outline-none focus:outline-none focus:ring-0 focus:ring-offset-0 active:outline-none p-0 cursor-pointer ${
                                         isOpen
-                                          ? "text-xl lg:text-2xl font-bold text-white"
-                                          : "text-sm lg:text-base font-medium text-gray-300 opacity-40 hover:text-white hover:opacity-100"
+                                          ? "text-base lg:text-lg text-white"
+                                          : "text-sm lg:text-base text-gray-300 opacity-40 hover:text-white hover:opacity-100"
                                       }`}
                                     >
                                       {step.title}
                                     </button>
                                     <div
-                                      className={`text-base lg:text-lg text-white overflow-hidden transition-all duration-300 ${
+                                      className={`text-sm lg:text-base text-white overflow-hidden transition-all duration-300 ${
                                         isOpen
                                           ? "max-h-96 opacity-100"
                                           : "max-h-0 opacity-0"

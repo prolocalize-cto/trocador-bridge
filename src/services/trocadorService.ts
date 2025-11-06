@@ -162,8 +162,8 @@ export const confirmTrocadorTrade = async (
     fixed,
   } = params;
 
-  // const url = `${TROCADOR_API_BASE}/new_trade?id=${tradeId}&ticker_from=${tickerFrom}&ticker_to=${tickerTo}&network_from=${networkFrom}&network_to=${networkTo}&amount_from=${amountFrom}&address=${address}&provider=${provider}&fixed=${fixed}&markup=2`;
-  const url = `${TROCADOR_API_BASE}/new_trade?id=${tradeId}&ticker_from=${tickerFrom}&ticker_to=${tickerTo}&network_from=${networkFrom}&network_to=${networkTo}&amount_from=${amountFrom}&address=${address}&provider=${provider}&fixed=${fixed}`;
+  const url = `${TROCADOR_API_BASE}/new_trade?id=${tradeId}&ticker_from=${tickerFrom}&ticker_to=${tickerTo}&network_from=${networkFrom}&network_to=${networkTo}&amount_from=${amountFrom}&address=${address}&provider=${provider}&fixed=${fixed}&markup=2`;
+  // const url = `${TROCADOR_API_BASE}/new_trade?id=${tradeId}&ticker_from=${tickerFrom}&ticker_to=${tickerTo}&network_from=${networkFrom}&network_to=${networkTo}&amount_from=${amountFrom}&address=${address}&provider=${provider}&fixed=${fixed}`;
 
   try {
     const response = await fetch(url, {

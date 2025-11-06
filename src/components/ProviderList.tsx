@@ -110,7 +110,7 @@ const ProviderList = ({
   };
 
   return (
-    <div className="w-full bg-gray-900/80 backdrop-blur-md rounded-2xl p-2 md:p-6 shadow-2xl border border-purple-500/30 max-h-[800px] md:max-h-[700px] flex flex-col">
+    <div className="w-full bg-gray-900/80 backdrop-blur-md rounded-2xl p-2 md:p-6 shadow-2xl border border-purple-500/30 max-h-[800px] md:max-h-[800px] flex flex-col">
       {/* Header */}
       <div className="text-center mb-1 md:mb-2 flex-shrink-0">
         <div className="flex items-center justify-center gap-2 md:gap-3 mb-2 md:mb-3">
@@ -411,7 +411,9 @@ const ProviderList = ({
               <div className="col-span-1 md:col-span-2 flex items-center justify-start md:justify-center">
                 <div className="text-left md:text-center">
                   <p className="text-xs text-gray-400 md:hidden">ETA:</p>
-                  <p className="text-white font-medium text-sm md:text-base">{quote.eta}min</p>
+                  <p className="text-white font-medium text-sm md:text-base">
+                    {quote.eta}min
+                  </p>
                 </div>
               </div>
 

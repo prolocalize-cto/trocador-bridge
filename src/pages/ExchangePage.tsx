@@ -189,7 +189,7 @@ const ExchangePage = () => {
   // Show confirmation form
   if (step === "confirm" && selectedProvider) {
     return (
-      <div className="container mx-auto px-4 py-8 w-full max-w-[95%] sm:w-[600px] md:w-[650px] lg:w-[700px] xl:w-[750px]">
+      <div className="container mx-auto px-4 py-8 w-full max-w-[95%] sm:w-[500px] md:w-[600px] lg:w-[600px] xl:w-[650px]">
         <button
           onClick={handleBackToProviders}
           className="mb-4 flex items-center gap-2 text-white/80 hover:text-white transition-colors"
@@ -210,8 +210,8 @@ const ExchangePage = () => {
           Back to Provider List
         </button>
 
-        <div className="bg-gray-900/50 backdrop-blur-md rounded-3xl p-8 md:p-10 shadow-2xl border border-purple-500/30 flex flex-col gap-5">
-          <h2 className="text-2xl font-bold text-white text-center mb-4">
+        <div className="bg-gray-900/50 backdrop-blur-md rounded-3xl p-4 md:p-6 shadow-2xl border border-purple-500/30 flex flex-col gap-4">
+          <h2 className="text-xl font-bold text-white text-center mb-3">
             Confirm Exchange
           </h2>
 
@@ -310,7 +310,7 @@ const ExchangePage = () => {
               value={recipientAddress}
               onChange={(e) => setRecipientAddress(e.target.value)}
               placeholder={`Enter ${rateData.ticker_to.toUpperCase()} address`}
-              className="w-full bg-white/5 text-white p-3 rounded-xl outline-none border-2 border-white/10 hover:border-purple-500/50 focus:border-purple-500 transition-colors text-base md:text-lg"
+              className="w-full bg-white/5 text-white p-2 rounded-xl outline-none border-2 border-white/10 hover:border-purple-500/50 focus:border-purple-500 transition-colors text-sm md:text-base"
             />
           </div>
 
@@ -325,7 +325,7 @@ const ExchangePage = () => {
           <button
             onClick={handleConfirmExchange}
             disabled={isCreatingTransaction}
-            className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-5 md:py-6 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-blue-500/50 text-lg md:text-xl"
+            className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-3 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-blue-500/50 text-base"
           >
             {isCreatingTransaction ? (
               <span className="flex items-center justify-center gap-2">

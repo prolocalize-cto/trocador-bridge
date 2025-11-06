@@ -12,9 +12,10 @@ interface ProviderListProps {
 interface TooltipProps {
   content: React.ReactNode;
   children: React.ReactNode;
+  position?: "center" | "left";
 }
 
-const Tooltip = ({ content, children }: TooltipProps) => {
+const Tooltip = ({ content, children, position = "center" }: TooltipProps) => {
   const [isVisible, setIsVisible] = useState(false);
 
   return (
@@ -28,15 +29,25 @@ const Tooltip = ({ content, children }: TooltipProps) => {
         {children}
       </div>
       {isVisible && (
-        <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-80 z-50">
+        <div
+          className={`absolute w-80 z-50 ${
+            position === "left"
+              ? "right-full top-0 mr-2"
+              : "top-full left-1/2 transform -translate-x-1/2 mt-2"
+          }`}
+        >
           <div className="bg-gray-900 border-2 border-orange-500 rounded-lg p-4 shadow-2xl text-left">
-            {/* Arrow pointing up */}
-            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-[-1px]">
-              <div className="border-8 border-transparent border-b-orange-500"></div>
-            </div>
-            <div className="text-white text-sm leading-relaxed">
-              {content}
-            </div>
+            {/* Arrow */}
+            {position === "left" ? (
+              <div className="absolute left-full top-4 ml-[-1px]">
+                <div className="border-8 border-transparent border-l-orange-500"></div>
+              </div>
+            ) : (
+              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-[-1px]">
+                <div className="border-8 border-transparent border-b-orange-500"></div>
+              </div>
+            )}
+            <div className="text-white text-sm leading-relaxed">{content}</div>
           </div>
         </div>
       )}
@@ -101,7 +112,7 @@ const ProviderList = ({
   return (
     <div className="w-full bg-gray-900/80 backdrop-blur-md rounded-2xl p-4 md:p-6 shadow-2xl border border-purple-500/30 max-h-[600px] flex flex-col">
       {/* Header */}
-      <div className="text-center mb-4 flex-shrink-0">
+      <div className="text-center mb-2 flex-shrink-0">
         <div className="flex items-center justify-center gap-3 mb-3">
           <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-purple-500/20 flex items-center justify-center">
             <svg
@@ -122,16 +133,16 @@ const ProviderList = ({
         <h2 className="text-xl md:text-2xl font-bold text-white mb-2">
           Choose your Exchange and Rate:
         </h2>
-        <p className="text-gray-400 text-xs md:text-sm">
+        {/* <p className="text-gray-400 text-xs md:text-sm">
           All transactions are covered by the Trocador Guarantee
-        </p>
+        </p> */}
       </div>
 
       {/* Rate Type Toggle */}
-      <div className="flex gap-2 mb-4 bg-black/30 p-1 rounded-xl flex-shrink-0">
+      <div className="flex gap-2 mb-4  p-1 rounded-xl flex-shrink-0 mx-auto">
         <button
           onClick={() => setRateType("floating")}
-          className={`flex-1 py-3 rounded-lg font-semibold transition-all duration-200 ${
+          className={`flex-1 py-2 rounded-lg font-semibold transition-all duration-200 w-[150px] ${
             rateType === "floating"
               ? "bg-blue-600 text-white shadow-lg"
               : "text-gray-400 hover:text-white"
@@ -141,7 +152,7 @@ const ProviderList = ({
         </button>
         <button
           onClick={() => setRateType("fixed")}
-          className={`flex-1 py-3 rounded-lg font-semibold transition-all duration-200 ${
+          className={`flex-1 py-2 rounded-lg font-semibold transition-all duration-200 w-[150px] ${
             rateType === "fixed"
               ? "bg-blue-600 text-white shadow-lg"
               : "text-gray-400 hover:text-white"
@@ -154,84 +165,169 @@ const ProviderList = ({
       {/* Table Header */}
       <div className="hidden md:grid md:grid-cols-12 gap-4 px-4 py-3 bg-black/40 rounded-t-xl text-sm font-semibold text-gray-300">
         <div className="col-span-3">Exchange</div>
-        
+
         {/* Rate with Tooltip */}
         <div className="col-span-2 text-center flex items-center justify-center gap-1">
           Rate
-          <Tooltip content={
-            <div>
-              <p>Rates are automatically adjusted to more accurately predict the final amount you'll receive. This takes into account each exchange's recent trades and their deviation from the predicted rate.</p>
-              <p className="mt-2">The amount shown in the next screen is not adjusted, and will show the actual rate provided by the exchange.</p>
-            </div>
-          }>
-            <svg className="w-4 h-4 text-gray-400 hover:text-white" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
+          <Tooltip
+            content={
+              <div>
+                <p>
+                  Rates are automatically adjusted to more accurately predict
+                  the final amount you'll receive. This takes into account each
+                  exchange's recent trades and their deviation from the
+                  predicted rate.
+                </p>
+                <p className="mt-2">
+                  The amount shown in the next screen is not adjusted, and will
+                  show the actual rate provided by the exchange.
+                </p>
+              </div>
+            }
+          >
+            <svg
+              className="w-4 h-4 text-gray-400 hover:text-white"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fillRule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
+                clipRule="evenodd"
+              />
             </svg>
           </Tooltip>
         </div>
-        
+
         {/* Spread with Tooltip */}
         <div className="col-span-2 text-center flex items-center justify-center gap-1">
           Spread
-          <Tooltip content={
-            <p>Spread is the difference between each rate and the best rate found. It is shown to aid you in comparing and choosing rates.</p>
-          }>
-            <svg className="w-4 h-4 text-gray-400 hover:text-white" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
+          <Tooltip
+            content={
+              <p>
+                Spread is the difference between each rate and the best rate
+                found. It is shown to aid you in comparing and choosing rates.
+              </p>
+            }
+          >
+            <svg
+              className="w-4 h-4 text-gray-400 hover:text-white"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fillRule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
+                clipRule="evenodd"
+              />
             </svg>
           </Tooltip>
         </div>
-        
+
         {/* ETA with Tooltip */}
         <div className="col-span-2 text-center flex items-center justify-center gap-1">
           ETA
-          <Tooltip content={
-            <p>We track recent swap times for each exchange in order to help inform users of what they can expect. Actual swap times may vary depending on the network speeds of your specific coin pair.</p>
-          }>
-            <svg className="w-4 h-4 text-gray-400 hover:text-white" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
+          <Tooltip
+            content={
+              <p>
+                We track recent swap times for each exchange in order to help
+                inform users of what they can expect. Actual swap times may vary
+                depending on the network speeds of your specific coin pair.
+              </p>
+            }
+          >
+            <svg
+              className="w-4 h-4 text-gray-400 hover:text-white"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fillRule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
+                clipRule="evenodd"
+              />
             </svg>
           </Tooltip>
         </div>
-        
+
         {/* Privacy with Tooltip */}
         <div className="col-span-2 text-center flex items-center justify-center gap-1">
           Privacy
-          <Tooltip content={
-            <div>
-              <p className="mb-3">This rating takes in consideration the exchange's KYC/AML policies and their past history in ShieldSwap. Log policy information can be seen by hovering/clicking their rating.</p>
-              
-              <div className="space-y-2">
-                <div className="flex items-start gap-2">
-                  <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center text-white text-xs font-bold flex-shrink-0 mt-0.5">A</div>
-                  <p className="text-xs">This exchange uses its own liquidity and is privacy-friendly.</p>
+          <Tooltip
+            content={
+              <div>
+                <p className="mb-3">
+                  This rating takes in consideration the exchange's KYC/AML
+                  policies and their past history in ShieldSwap. Log policy
+                  information can be seen by hovering/clicking their rating.
+                </p>
+
+                <div className="space-y-2">
+                  <div className="flex items-start gap-2">
+                    <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center text-white text-xs font-bold flex-shrink-0 mt-0.5">
+                      A
+                    </div>
+                    <p className="text-xs">
+                      This exchange uses its own liquidity and is
+                      privacy-friendly.
+                    </p>
+                  </div>
+
+                  <div className="flex items-start gap-2">
+                    <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs font-bold flex-shrink-0 mt-0.5">
+                      B
+                    </div>
+                    <p className="text-xs">
+                      This exchange refunds transactions that fail their AML
+                      check. In very rare cases funds may be blocked if a legal
+                      order demands it or stolen coins are involved. Past
+                      history at Trocador is very good.
+                    </p>
+                  </div>
+
+                  <div className="flex items-start gap-2">
+                    <div className="w-6 h-6 rounded-full bg-yellow-500 flex items-center justify-center text-white text-xs font-bold flex-shrink-0 mt-0.5">
+                      C
+                    </div>
+                    <p className="text-xs">
+                      This exchange usually refunds transactions that fail their
+                      AML check, but if the deposit triggers their Liquidity
+                      Provider's AML system, funds may be blocked until KYC/SoF
+                      verification is passed.
+                    </p>
+                  </div>
+
+                  <div className="flex items-start gap-2">
+                    <div className="w-6 h-6 rounded-full bg-red-500 flex items-center justify-center text-white text-xs font-bold flex-shrink-0 mt-0.5">
+                      D
+                    </div>
+                    <p className="text-xs">
+                      This exchange blocks transactions that fail their AML
+                      check until KYC/SoF verification is passed.
+                    </p>
+                  </div>
                 </div>
-                
-                <div className="flex items-start gap-2">
-                  <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs font-bold flex-shrink-0 mt-0.5">B</div>
-                  <p className="text-xs">This exchange refunds transactions that fail their AML check. In very rare cases funds may be blocked if a legal order demands it or stolen coins are involved. Past history at Trocador is very good.</p>
-                </div>
-                
-                <div className="flex items-start gap-2">
-                  <div className="w-6 h-6 rounded-full bg-yellow-500 flex items-center justify-center text-white text-xs font-bold flex-shrink-0 mt-0.5">C</div>
-                  <p className="text-xs">This exchange usually refunds transactions that fail their AML check, but if the deposit triggers their Liquidity Provider's AML system, funds may be blocked until KYC/SoF verification is passed.</p>
-                </div>
-                
-                <div className="flex items-start gap-2">
-                  <div className="w-6 h-6 rounded-full bg-red-500 flex items-center justify-center text-white text-xs font-bold flex-shrink-0 mt-0.5">D</div>
-                  <p className="text-xs">This exchange blocks transactions that fail their AML check until KYC/SoF verification is passed.</p>
-                </div>
+
+                <p className="mt-3 text-green-400 text-xs font-semibold">
+                  Current Reported KYC Cases: &lt;0.1%
+                </p>
               </div>
-              
-              <p className="mt-3 text-green-400 text-xs font-semibold">Current Reported KYC Cases: &lt;0.1%</p>
-            </div>
-          }>
-            <svg className="w-4 h-4 text-gray-400 hover:text-white" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
+            }
+          >
+            <svg
+              className="w-4 h-4 text-gray-400 hover:text-white"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fillRule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
+                clipRule="evenodd"
+              />
             </svg>
           </Tooltip>
         </div>
-        
+
         <div className="col-span-1"></div>
       </div>
 
@@ -265,9 +361,12 @@ const ProviderList = ({
                       target.style.display = "none";
                       const parent = target.parentElement;
                       if (parent) {
-                        const defaultIcon = document.createElement('div');
-                        defaultIcon.className = 'w-8 h-8 rounded-full bg-gradient-to-br from-orange-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm';
-                        defaultIcon.textContent = quote.provider.charAt(0).toUpperCase();
+                        const defaultIcon = document.createElement("div");
+                        defaultIcon.className =
+                          "w-8 h-8 rounded-full bg-gradient-to-br from-orange-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm";
+                        defaultIcon.textContent = quote.provider
+                          .charAt(0)
+                          .toUpperCase();
                         parent.insertBefore(defaultIcon, target);
                       }
                     }}
@@ -320,18 +419,22 @@ const ProviderList = ({
               <div className="col-span-1 md:col-span-2 flex items-center justify-start md:justify-center">
                 <div className="flex items-center gap-2">
                   <p className="text-sm text-gray-400 md:hidden">Privacy:</p>
-                  
+
                   {/* KYC Rating Badge with Tooltip */}
-                  <Tooltip content={
-                    <div className="space-y-2">
-                      <p>{getKYCText(quote.kycrating)}</p>
-                      {quote.logpolicy && (
-                        <p className="text-gray-300 text-xs mt-2 pt-2 border-t border-gray-700">
-                          <span className="font-semibold">Log Policy:</span> {getLogPolicyText(quote.logpolicy)}
-                        </p>
-                      )}
-                    </div>
-                  }>
+                  <Tooltip
+                    position="left"
+                    content={
+                      <div className="space-y-2">
+                        <p>{getKYCText(quote.kycrating)}</p>
+                        {quote.logpolicy && (
+                          <p className="text-gray-300 text-xs mt-2 pt-2 border-t border-gray-700">
+                            <span className="font-semibold">Log Policy:</span>{" "}
+                            {getLogPolicyText(quote.logpolicy)}
+                          </p>
+                        )}
+                      </div>
+                    }
+                  >
                     <div
                       className={`w-7 h-7 rounded-full ${getKYCColor(
                         quote.kycrating
@@ -341,18 +444,28 @@ const ProviderList = ({
                       {quote.kycrating}
                     </div>
                   </Tooltip>
-                  
+
                   {/* Insurance Shield with Tooltip - Always shown */}
-                  <Tooltip content={
-                    <p>This transaction is {quote.insurance}% insured by ShieldSwap.</p>
-                  }>
+                  <Tooltip
+                    position="left"
+                    content={
+                      <p>
+                        This transaction is {quote.insurance}% insured by
+                        ShieldSwap.
+                      </p>
+                    }
+                  >
                     <div onClick={(e) => e.stopPropagation()}>
                       <svg
                         className="w-5 h-5 text-white cursor-help"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
-                        <path fillRule="evenodd" d="M10 1.944A11.954 11.954 0 012.166 5C2.056 5.649 2 6.319 2 7c0 5.225 3.34 9.67 8 11.317C14.66 16.67 18 12.225 18 7c0-.682-.057-1.35-.166-2.001A11.954 11.954 0 0110 1.944zM11 14a1 1 0 11-2 0 1 1 0 012 0zm0-7a1 1 0 10-2 0v3a1 1 0 102 0V7z" clipRule="evenodd" />
+                        <path
+                          fillRule="evenodd"
+                          d="M10 1.944A11.954 11.954 0 012.166 5C2.056 5.649 2 6.319 2 7c0 5.225 3.34 9.67 8 11.317C14.66 16.67 18 12.225 18 7c0-.682-.057-1.35-.166-2.001A11.954 11.954 0 0110 1.944zM11 14a1 1 0 11-2 0 1 1 0 012 0zm0-7a1 1 0 10-2 0v3a1 1 0 102 0V7z"
+                          clipRule="evenodd"
+                        />
                       </svg>
                     </div>
                   </Tooltip>
@@ -395,4 +508,3 @@ const ProviderList = ({
 };
 
 export default ProviderList;
-

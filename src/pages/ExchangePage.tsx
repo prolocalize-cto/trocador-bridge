@@ -22,6 +22,7 @@ const ExchangePage = () => {
   const [selectedProvider, setSelectedProvider] =
     useState<TrocadorQuote | null>(null);
   const [recipientAddress, setRecipientAddress] = useState("");
+  const [refundAddress, setRefundAddress] = useState("");
   const [isCreatingTransaction, setIsCreatingTransaction] = useState(false);
   const [transactionError, setTransactionError] = useState<string>("");
 
@@ -105,6 +106,10 @@ const ExchangePage = () => {
         address: recipientAddress,
         provider: selectedProvider.provider,
         fixed: rateData.fixed,
+        refund:
+          refundAddress && refundAddress.trim() !== ""
+            ? refundAddress.trim()
+            : undefined,
       });
 
       // Reload page to show transaction status (status will now be "waiting")
@@ -329,6 +334,23 @@ const ExchangePage = () => {
             />
           </div>
 
+          {/* Refund Address Input (Optional) */}
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center gap-2 px-1">
+              <label className="text-gray-300 text-sm">
+                Refund Address{" "}
+                <span className="text-gray-500 text-xs">(Optional)</span>
+              </label>
+            </div>
+            <input
+              type="text"
+              value={refundAddress}
+              onChange={(e) => setRefundAddress(e.target.value)}
+              placeholder={`Enter ${rateData.ticker_from.toUpperCase()} refund address (optional)`}
+              className="w-full bg-white/5 text-white p-2 rounded-xl outline-none border-2 border-white/10 hover:border-purple-500/50 focus:border-purple-500 transition-colors text-sm"
+            />
+          </div>
+
           {/* Error Message */}
           {transactionError && (
             <div className="bg-red-500/10 border border-red-500/50 rounded-xl p-4">
@@ -341,7 +363,7 @@ const ExchangePage = () => {
             <button
               onClick={handleConfirmExchange}
               disabled={isCreatingTransaction}
-              className="w-[160px] bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-2 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-blue-500/50 text-sm"
+              className="w-[200px] bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-2 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-blue-500/50 text-sm"
             >
               {isCreatingTransaction ? (
                 <span className="flex items-center justify-center gap-2">

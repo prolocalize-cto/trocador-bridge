@@ -61,6 +61,7 @@ const ExchangeForm = () => {
   const [fromCurrency, setFromCurrency] = useState("btc_Mainnet");
   const [toCurrency, setToCurrency] = useState("eth_ERC20");
   const [recipientAddress, setRecipientAddress] = useState(""); // Will be set in confirmation step
+  const [refundAddress, setRefundAddress] = useState(""); // Optional refund address
   const [isLoadingRates, setIsLoadingRates] = useState(false);
   const [rateResponse, setRateResponse] = useState<TrocadorRateResponse | null>(
     null
@@ -436,10 +437,25 @@ const ExchangeForm = () => {
               placeholder={`Enter ${getTickerFromCurrencyId(
                 toCurrency
               ).toUpperCase()} address`}
-              className="w-full bg-white/5 text-white p-3 rounded-xl outline-none border-2 border-white/10 hover:border-purple-500/50 focus:border-purple-500 transition-colors text-sm md:text-base"
+              className="w-full bg-white/5 text-white p-2 rounded-xl outline-none border-2 border-white/10 hover:border-purple-500/50 focus:border-purple-500 transition-colors text-sm"
             />
           </div>
 
+          {/* Refund Address Input (Optional) */}
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center gap-2 px-1">
+              <label className="text-gray-300 text-sm">
+                Refund Address <span className="text-gray-500 text-xs">(Optional)</span>
+              </label>
+            </div>
+            <input
+              type="text"
+              value={refundAddress}
+              onChange={(e) => setRefundAddress(e.target.value)}
+              placeholder={`Enter ${getTickerFromCurrencyId(fromCurrency).toUpperCase()} refund address (optional)`}
+              className="w-full bg-white/5 text-white p-2 rounded-xl outline-none border-2 border-white/10 hover:border-purple-500/50 focus:border-purple-500 transition-colors text-sm"
+            />
+          </div>
 
           {/* Confirm Button */}
           <button

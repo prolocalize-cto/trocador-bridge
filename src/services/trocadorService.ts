@@ -64,6 +64,7 @@ export interface ConfirmTradeParams {
   address: string;
   provider: string;
   fixed: boolean;
+  refund?: string; // Optional refund address
 }
 
 export interface TrocadorTradeDetails {
@@ -180,9 +181,15 @@ export const confirmTrocadorTrade = async (
     address,
     provider,
     fixed,
+    refund,
   } = params;
 
-  const url = `${TROCADOR_API_BASE}/new_trade?id=${tradeId}&ticker_from=${tickerFrom}&ticker_to=${tickerTo}&network_from=${networkFrom}&network_to=${networkTo}&amount_from=${amountFrom}&address=${address}&provider=${provider}&fixed=${fixed}&markup=2`;
+  let url = `${TROCADOR_API_BASE}/new_trade?id=${tradeId}&ticker_from=${tickerFrom}&ticker_to=${tickerTo}&network_from=${networkFrom}&network_to=${networkTo}&amount_from=${amountFrom}&address=${address}&provider=${provider}&fixed=${fixed}&markup=2`;
+  
+  // Add refund parameter if provided
+  if (refund && refund.trim() !== "") {
+    url += `&refund=${encodeURIComponent(refund.trim())}`;
+  }
   // const url = `${TROCADOR_API_BASE}/new_trade?id=${tradeId}&ticker_from=${tickerFrom}&ticker_to=${tickerTo}&network_from=${networkFrom}&network_to=${networkTo}&amount_from=${amountFrom}&address=${address}&provider=${provider}&fixed=${fixed}`;
 
   try {

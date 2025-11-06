@@ -16,7 +16,7 @@ const HomePage = () => {
         className="w-full max-w-[1000px] mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-2  items-start pt-[20px] md:pt-[110px] pb-[20px] md:pb-[50px]"
       >
         {/* Left side - Promotional Section */}
-        <div className="flex flex-col gap-2 md:gap-6 lg:pt-8">
+        <div className="flex flex-col gap-2 md:gap-6 lg:pt-8 text-center md:text-left">
           {/* Title */}
           <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold leading-tight text-white">
             Instant{" "}
@@ -30,9 +30,9 @@ const HomePage = () => {
             Exchange
           </h1>
           {/* Feature Points */}
-          <div className="flex flex-col gap-1 md:gap-4 mt-4">
+          <div className="flex flex-col gap-1 md:gap-4 mt-4 items-center md:items-start">
             {/* Lightning-fast swaps */}
-            <div className="flex items-start gap-2 md:gap-3">
+            <div className="flex items-start gap-2 md:gap-3 w-[300px] md:w-auto">
               <div className="flex-shrink-0 mt-1">
                 <img
                   src={rocketImg}
@@ -46,7 +46,7 @@ const HomePage = () => {
             </div>
 
             {/* Unbeatable rates */}
-            <div className="flex items-start gap-2 md:gap-3">
+            <div className="flex items-start gap-2 md:gap-3 w-[300px] md:w-auto">
               <div className="flex-shrink-0 mt-1">
                 <img
                   src={lightningImg}
@@ -60,7 +60,7 @@ const HomePage = () => {
             </div>
 
             {/* High limits and security */}
-            <div className="flex items-start gap-2 md:gap-3">
+            <div className="flex items-start gap-2 md:gap-3 w-[300px] md:w-auto">
               <div className="flex-shrink-0 mt-1">
                 <img
                   src={shieldCheckImg}

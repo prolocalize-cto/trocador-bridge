@@ -372,8 +372,8 @@ const FAQ = () => {
                   <div className="bg-[#1a2744] border border-blue-700/30 rounded-lg mb-3 overflow-hidden">
                     <Disclosure.Button className="w-full py-4 px-4 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900 hover:bg-blue-900/20 transition-colors bg-[#0f1b34]">
                       <div className="relative flex items-center">
-                        <div className="relative flex-1 pr-8">
-                          <span className="ml-7 text-white text-sm md:text-base">
+                        <div className="relative flex-1 pr-8 pl-7">
+                          <span className="text-white text-sm md:text-base">
                             {item.question}
                           </span>
                         </div>

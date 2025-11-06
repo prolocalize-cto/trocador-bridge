@@ -6,6 +6,7 @@ import {
   confirmTrocadorTrade,
 } from "../services/trocadorService";
 import ProviderList from "../components/ProviderList";
+import { useHeaderContext } from "../context/HeaderContext";
 
 type ExchangeStep = "providers" | "confirm";
 
@@ -13,6 +14,7 @@ const ExchangePage = () => {
   const { tradeId } = useParams<{ tradeId: string }>();
   const navigate = useNavigate();
   const location = useLocation();
+  const { setHideHeaderOnMobile } = useHeaderContext();
   const [step, setStep] = useState<ExchangeStep>("providers");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -55,6 +57,19 @@ const ExchangePage = () => {
 
     loadTrade();
   }, [tradeId, location.state]);
+
+  // Update header visibility based on step
+  useEffect(() => {
+    if (step === "providers") {
+      setHideHeaderOnMobile(true);
+    } else {
+      setHideHeaderOnMobile(false);
+    }
+    // Cleanup: reset when component unmounts
+    return () => {
+      setHideHeaderOnMobile(false);
+    };
+  }, [step, setHideHeaderOnMobile]);
 
   const handleProviderSelect = (provider: TrocadorQuote) => {
     setSelectedProvider(provider);

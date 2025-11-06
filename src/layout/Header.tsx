@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import logoImg from "../assets/images/logo.png";
+import { useHeaderContext } from "../context/HeaderContext";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const { hideHeaderOnMobile } = useHeaderContext();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,7 +23,7 @@ const Header = () => {
         scrolled
           ? "bg-[#0f1b34] backdrop-blur-xl shadow-2xl border-b border-orange-500/30"
           : "bg-[#0f1b34] backdrop-blur-md border-b border-orange-500/20"
-      }`}
+      } ${hideHeaderOnMobile ? "hidden md:block" : ""}`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-[100px]">

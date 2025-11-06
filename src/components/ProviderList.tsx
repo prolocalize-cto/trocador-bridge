@@ -110,13 +110,13 @@ const ProviderList = ({
   };
 
   return (
-    <div className="w-full bg-gray-900/80 backdrop-blur-md rounded-2xl p-4 md:p-6 shadow-2xl border border-purple-500/30 max-h-[700px] flex flex-col">
+    <div className="w-full bg-gray-900/80 backdrop-blur-md rounded-2xl p-2 md:p-6 shadow-2xl border border-purple-500/30 max-h-[800px] md:max-h-[700px] flex flex-col">
       {/* Header */}
-      <div className="text-center mb-2 flex-shrink-0">
-        <div className="flex items-center justify-center gap-3 mb-3">
-          <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-purple-500/20 flex items-center justify-center">
+      <div className="text-center mb-1 md:mb-2 flex-shrink-0">
+        <div className="flex items-center justify-center gap-2 md:gap-3 mb-2 md:mb-3">
+          <div className="w-8 h-8 md:w-12 md:h-12 rounded-full bg-purple-500/20 flex items-center justify-center">
             <svg
-              className="w-5 h-5 md:w-6 md:h-6 text-purple-400"
+              className="w-4 h-4 md:w-6 md:h-6 text-purple-400"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -130,7 +130,7 @@ const ProviderList = ({
             </svg>
           </div>
         </div>
-        <h2 className="text-xl md:text-2xl font-bold text-white mb-2">
+        <h2 className="text-base md:text-2xl font-bold text-white mb-1 md:mb-2">
           Choose your Exchange and Rate:
         </h2>
         {/* <p className="text-gray-400 text-xs md:text-sm">
@@ -139,10 +139,10 @@ const ProviderList = ({
       </div>
 
       {/* Rate Type Toggle */}
-      <div className="flex gap-2 mb-4  p-1 rounded-xl flex-shrink-0 mx-auto">
+      <div className="flex gap-1 md:gap-2 mb-2 md:mb-4 p-1 rounded-xl flex-shrink-0 mx-auto">
         <button
           onClick={() => setRateType("floating")}
-          className={`flex-1 py-2 rounded-lg font-semibold transition-all duration-200 w-[150px] ${
+          className={`flex-1 py-1.5 md:py-2 rounded-lg font-semibold transition-all duration-200 w-[130px] md:w-[150px] text-xs md:text-base ${
             rateType === "floating"
               ? "bg-blue-600 text-white shadow-lg"
               : "text-gray-400 hover:text-white"
@@ -152,7 +152,7 @@ const ProviderList = ({
         </button>
         <button
           onClick={() => setRateType("fixed")}
-          className={`flex-1 py-2 rounded-lg font-semibold transition-all duration-200 w-[150px] ${
+          className={`flex-1 py-1.5 md:py-2 rounded-lg font-semibold transition-all duration-200 w-[130px] md:w-[150px] text-xs md:text-base ${
             rateType === "fixed"
               ? "bg-blue-600 text-white shadow-lg"
               : "text-gray-400 hover:text-white"
@@ -332,7 +332,7 @@ const ProviderList = ({
       </div>
 
       {/* Provider List - Scrollable */}
-      <div className="space-y-2 overflow-y-auto flex-1 min-h-0 custom-scrollbar">
+      <div className="space-y-1.5 md:space-y-2 overflow-y-auto flex-1 min-h-0 custom-scrollbar">
         {filteredQuotes.length === 0 ? (
           <div className="text-center py-12 text-gray-400">
             <p>No providers available for {rateType} rate</p>
@@ -342,19 +342,19 @@ const ProviderList = ({
             <div
               key={`${quote.provider}-${index}`}
               onClick={() => handleProviderSelect(quote)}
-              className={`grid grid-cols-1 md:grid-cols-12 gap-4 p-4 rounded-xl cursor-pointer transition-all duration-200 ${
+              className={`grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-4 p-2 md:p-4 rounded-xl cursor-pointer transition-all duration-200 ${
                 selectedProvider === quote.provider
                   ? "bg-orange-500/20 border-2 border-orange-500"
                   : "bg-gray-800/50 hover:bg-gray-700/50 border-2 border-transparent"
               }`}
             >
               {/* Exchange (with logo) */}
-              <div className="col-span-2 md:col-span-3 flex items-center gap-3">
+              <div className="col-span-2 md:col-span-3 flex items-center gap-2 md:gap-3">
                 {quote.provider_logo ? (
                   <img
                     src={quote.provider_logo}
                     alt={quote.provider}
-                    className="w-8 h-8 rounded-full object-cover"
+                    className="w-6 h-6 md:w-8 md:h-8 rounded-full object-cover"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       // Replace failed image with default icon
@@ -363,7 +363,7 @@ const ProviderList = ({
                       if (parent) {
                         const defaultIcon = document.createElement("div");
                         defaultIcon.className =
-                          "w-8 h-8 rounded-full bg-gradient-to-br from-orange-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm";
+                          "w-6 h-6 md:w-8 md:h-8 rounded-full bg-gradient-to-br from-orange-500 to-purple-600 flex items-center justify-center text-white font-bold text-xs md:text-sm";
                         defaultIcon.textContent = quote.provider
                           .charAt(0)
                           .toUpperCase();
@@ -372,11 +372,11 @@ const ProviderList = ({
                     }}
                   />
                 ) : (
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm shadow-lg">
+                  <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-gradient-to-br from-orange-500 to-purple-600 flex items-center justify-center text-white font-bold text-xs md:text-sm shadow-lg">
                     {quote.provider.charAt(0).toUpperCase()}
                   </div>
                 )}
-                <span className="text-white font-semibold">
+                <span className="text-white font-semibold text-sm md:text-base">
                   {quote.provider}
                 </span>
               </div>
@@ -384,8 +384,8 @@ const ProviderList = ({
               {/* Rate */}
               <div className="col-span-1 md:col-span-2 flex items-center justify-start md:justify-center">
                 <div className="text-left md:text-center">
-                  <p className="text-sm text-gray-400 md:hidden">Rate:</p>
-                  <p className="text-white font-medium">
+                  <p className="text-xs text-gray-400 md:hidden">Rate:</p>
+                  <p className="text-white font-medium text-sm md:text-base">
                     ≈{parseFloat(quote.amount_to).toFixed(4)}
                   </p>
                 </div>
@@ -394,9 +394,9 @@ const ProviderList = ({
               {/* Spread */}
               <div className="col-span-1 md:col-span-2 flex items-center justify-start md:justify-center">
                 <div className="text-left md:text-center">
-                  <p className="text-sm text-gray-400 md:hidden">Spread:</p>
+                  <p className="text-xs text-gray-400 md:hidden">Spread:</p>
                   <p
-                    className={`font-medium ${
+                    className={`font-medium text-sm md:text-base ${
                       parseFloat(quote.USD_total_cost_percentage) >= 0
                         ? "text-green-400"
                         : "text-red-400"
@@ -410,15 +410,15 @@ const ProviderList = ({
               {/* ETA */}
               <div className="col-span-1 md:col-span-2 flex items-center justify-start md:justify-center">
                 <div className="text-left md:text-center">
-                  <p className="text-sm text-gray-400 md:hidden">ETA:</p>
-                  <p className="text-white font-medium">{quote.eta}min</p>
+                  <p className="text-xs text-gray-400 md:hidden">ETA:</p>
+                  <p className="text-white font-medium text-sm md:text-base">{quote.eta}min</p>
                 </div>
               </div>
 
               {/* Privacy (KYC) */}
               <div className="col-span-1 md:col-span-2 flex items-center justify-start md:justify-center">
-                <div className="flex items-center gap-2">
-                  <p className="text-sm text-gray-400 md:hidden">Privacy:</p>
+                <div className="flex items-center gap-1.5 md:gap-2">
+                  <p className="text-xs text-gray-400 md:hidden">Privacy:</p>
 
                   {/* KYC Rating Badge with Tooltip */}
                   <Tooltip
@@ -436,7 +436,7 @@ const ProviderList = ({
                     }
                   >
                     <div
-                      className={`w-7 h-7 rounded-full ${getKYCColor(
+                      className={`w-6 h-6 md:w-7 md:h-7 rounded-full ${getKYCColor(
                         quote.kycrating
                       )} flex items-center justify-center text-white text-xs font-bold cursor-help`}
                       onClick={(e) => e.stopPropagation()}
@@ -457,7 +457,7 @@ const ProviderList = ({
                   >
                     <div onClick={(e) => e.stopPropagation()}>
                       <svg
-                        className="w-5 h-5 text-white cursor-help"
+                        className="w-4 h-4 md:w-5 md:h-5 text-white cursor-help"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -476,7 +476,7 @@ const ProviderList = ({
               <div className="col-span-1 md:col-span-1 flex items-center justify-end">
                 {selectedProvider === quote.provider && (
                   <svg
-                    className="w-6 h-6 text-orange-500"
+                    className="w-5 h-5 md:w-6 md:h-6 text-orange-500"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -495,7 +495,7 @@ const ProviderList = ({
 
       {/* Summary Info */}
       {filteredQuotes.length > 0 && (
-        <div className="mt-4 p-3 bg-black/30 rounded-xl text-xs md:text-sm text-gray-300 flex-shrink-0">
+        <div className="mt-2 md:mt-4 p-2 md:p-3 bg-black/30 rounded-xl text-xs md:text-sm text-gray-300 flex-shrink-0">
           <p>
             <span className="font-semibold text-white">Trade Summary:</span>{" "}
             {amountFrom} {tickerFrom.toUpperCase()} →{" "}

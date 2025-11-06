@@ -568,7 +568,7 @@ const ExchangeForm = () => {
           {showStatusForm && (
             <div className="px-4 pb-4 flex flex-col gap-3">
               <div className="flex flex-col gap-1">
-                <label className="text-gray-300 text-sm">Trocador ID:</label>
+                <label className="text-gray-300 text-sm">ShieldSwap ID:</label>
                 <input
                   type="text"
                   value={trocadorId}
@@ -578,7 +578,7 @@ const ExchangeForm = () => {
                       navigate(`/exchange/${trocadorId.trim()}`);
                     }
                   }}
-                  placeholder="Enter Trocador ID"
+                  placeholder="Enter ShieldSwap ID"
                   className="w-full bg-white/5 text-white p-2 rounded-lg outline-none border-2 border-white/10 hover:border-purple-500/50 focus:border-purple-500 transition-colors text-sm"
                 />
               </div>

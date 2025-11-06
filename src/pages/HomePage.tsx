@@ -13,7 +13,7 @@ const HomePage = () => {
     <div className="w-full flex flex-col gap-1 md:gap-5">
       <section
         id="swap"
-        className="w-full max-w-[1000px] mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-2  items-start pt-[20px] md:pt-[110px] pb-[20px] md:pb-[50px]"
+        className="w-full max-w-[1000px] mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-0 md:gap-2  items-start pt-[20px] md:pt-[110px] pb-[20px] md:pb-[50px]"
       >
         {/* Left side - Promotional Section */}
         <div className="flex flex-col gap-2 md:gap-6 lg:pt-8 text-center md:text-left">

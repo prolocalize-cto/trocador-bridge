@@ -72,6 +72,8 @@ const ExchangeForm = () => {
   const [validationErrors, setValidationErrors] = useState<{
     fromAmount?: string;
   }>({});
+  const [trocadorId, setTrocadorId] = useState("");
+  const [showStatusForm, setShowStatusForm] = useState(false);
 
   // Helper function to validate and format input
   const handleAmountInput = (value: string): string => {
@@ -538,22 +540,62 @@ const ExchangeForm = () => {
           )}
         </button>
 
-        {/* How to Exchange Link */}
-        <div className="flex justify-center">
-          <a
-            href="#guide"
-            onClick={(e) => {
-              e.preventDefault();
-              const element = document.getElementById("guide");
-              if (element) {
-                element.scrollIntoView({ behavior: "smooth" });
-              }
-            }}
-            className="text-blue-400 hover:text-blue-300 text-sm transition-colors"
+        {/* Check Transaction Status Form */}
+        <a href="#" className="mt-4 overflow-hidden">
+          <div
+            onClick={() => setShowStatusForm(!showStatusForm)}
+            className="w-full px-4 py-2.5 flex items-center justify-center cursor-pointer gap-1"
           >
-            How to Exchange?
-          </a>
-        </div>
+            <span className="text-white text-sm md:text-base">
+              Check your transaction status
+            </span>
+            <svg
+              className={`w-4 h-4 text-white transition-transform duration-200 ${
+                showStatusForm ? "rotate-180" : ""
+              }`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
+          {showStatusForm && (
+            <div className="px-4 pb-4 flex flex-col gap-3">
+              <div className="flex flex-col gap-1">
+                <label className="text-gray-300 text-sm">Trocador ID:</label>
+                <input
+                  type="text"
+                  value={trocadorId}
+                  onChange={(e) => setTrocadorId(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && trocadorId.trim()) {
+                      navigate(`/exchange/${trocadorId.trim()}`);
+                    }
+                  }}
+                  placeholder="Enter Trocador ID"
+                  className="w-full bg-white/5 text-white p-2 rounded-lg outline-none border-2 border-white/10 hover:border-purple-500/50 focus:border-purple-500 transition-colors text-sm"
+                />
+              </div>
+              <button
+                onClick={() => {
+                  if (trocadorId.trim()) {
+                    navigate(`/exchange/${trocadorId.trim()}`);
+                  }
+                }}
+                disabled={!trocadorId.trim()}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-blue-500/50 text-sm font-semibold"
+              >
+                Check
+              </button>
+            </div>
+          )}
+        </a>
       </div>
     </div>
   );

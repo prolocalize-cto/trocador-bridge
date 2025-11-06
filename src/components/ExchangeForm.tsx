@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import type { Currency } from "../types/currency";
 import {
@@ -74,6 +74,16 @@ const ExchangeForm = () => {
   }>({});
   const [trocadorId, setTrocadorId] = useState("");
   const [showStatusForm, setShowStatusForm] = useState(false);
+  const statusFormRef = useRef<HTMLDivElement>(null);
+
+  // Scroll to form when it's opened
+  useEffect(() => {
+    if (showStatusForm && statusFormRef.current) {
+      setTimeout(() => {
+        statusFormRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }, 100);
+    }
+  }, [showStatusForm]);
 
   // Helper function to validate and format input
   const handleAmountInput = (value: string): string => {
@@ -541,10 +551,14 @@ const ExchangeForm = () => {
         </button>
 
         {/* Check Transaction Status Form */}
-        <a href="#" className="mt-4 overflow-hidden">
-          <div
-            onClick={() => setShowStatusForm(!showStatusForm)}
-            className="w-full px-4 py-2.5 flex items-center justify-center cursor-pointer gap-1"
+        <div ref={statusFormRef} className="mt-4 overflow-hidden">
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              setShowStatusForm(!showStatusForm);
+            }}
+            className="w-full px-4 py-2.5 flex items-center justify-center cursor-pointer gap-1 block"
           >
             <span className="text-white text-sm md:text-base">
               Check your transaction status
@@ -564,7 +578,7 @@ const ExchangeForm = () => {
                 d="M19 9l-7 7-7-7"
               />
             </svg>
-          </div>
+          </a>
           {showStatusForm && (
             <div className="px-4 pb-4 flex flex-col gap-3">
               <div className="flex flex-col gap-1">
@@ -595,7 +609,7 @@ const ExchangeForm = () => {
               </button>
             </div>
           )}
-        </a>
+        </div>
       </div>
     </div>
   );

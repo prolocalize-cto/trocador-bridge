@@ -3,4 +3,5 @@ export { default as TradePage } from './TradePage';
 export { default as ExchangePage } from './ExchangePage';
 export { default as TransactionStatusPage } from './TransactionStatusPage';
 export { default as ContactUsPage } from './ContactUsPage';
+export { default as PrivacyPolicyPage } from './PrivacyPolicyPage';
 export { default as NotFoundPage } from './NotFoundPage';

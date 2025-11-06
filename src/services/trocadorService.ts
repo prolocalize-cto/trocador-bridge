@@ -133,13 +133,33 @@ export const getTrocadorRates = async (
     });
 
     if (!response.ok) {
-      throw new Error(`Trocador API error: ${response.status}`);
+      // Handle 400 errors with error message
+      if (response.status === 400) {
+        let errorData;
+        try {
+          errorData = await response.json();
+        } catch (parseError) {
+          // If we can't parse the error, throw a user-friendly message
+          const error = new Error("Invalid request. Please check your input.");
+          (error as any).status = 400;
+          throw error;
+        }
+        
+        // Use the actual error message from API
+        const errorMessage = errorData?.error || "Invalid request. Please check your input.";
+        const error = new Error(errorMessage);
+        (error as any).status = 400;
+        (error as any).errorData = errorData;
+        throw error;
+      }
+      // For other errors, throw a generic user-friendly message
+      throw new Error("Failed to fetch rates. Please try again.");
     }
 
     const data: TrocadorRateResponse = await response.json();
     return data;
   } catch (error) {
-    console.error("Error fetching Trocador rates:", error);
+    console.error("Error fetching Shield Swap rates:", error);
     throw error;
   }
 };
@@ -175,13 +195,13 @@ export const confirmTrocadorTrade = async (
     });
 
     if (!response.ok) {
-      throw new Error(`Trocador API error: ${response.status}`);
+      throw new Error(`Shield Swap API error: ${response.status}`);
     }
 
     const data: TrocadorTradeDetails = await response.json();
     return data;
   } catch (error) {
-    console.error("Error confirming Trocador trade:", error);
+    console.error("Error confirming Shield Swap trade:", error);
     throw error;
   }
 };
@@ -204,7 +224,7 @@ export const getTrocadorTrade = async (
     });
 
     if (!response.ok) {
-      throw new Error(`Trocador API error: ${response.status}`);
+      throw new Error(`Shield Swap API error: ${response.status}`);
     }
 
     const data: TrocadorTradeDetails[] = await response.json();
@@ -216,7 +236,7 @@ export const getTrocadorTrade = async (
 
     return data[0];
   } catch (error) {
-    console.error("Error fetching Trocador trade:", error);
+    console.error("Error fetching Shield Swap trade:", error);
     throw error;
   }
 };

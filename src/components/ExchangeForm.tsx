@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import type { Currency } from "../types/currency";
 import {
   useCurrenciesForFrom,
@@ -12,7 +13,6 @@ import {
   type TrocadorRateResponse,
   type TrocadorQuote,
 } from "../services/trocadorService";
-import defiGif from "../assets/images/defi.gif";
 
 // Helper to extract ticker from currency ID (ticker_network)
 const getTickerFromCurrencyId = (currencyId: string): string => {
@@ -68,7 +68,6 @@ const ExchangeForm = () => {
   const [selectedProvider, setSelectedProvider] =
     useState<TrocadorQuote | null>(null);
   const [isCreatingTransaction, setIsCreatingTransaction] = useState(false);
-  const [transactionError, setTransactionError] = useState<string>("");
   const [validationErrors, setValidationErrors] = useState<{
     fromAmount?: string;
   }>({});
@@ -80,7 +79,10 @@ const ExchangeForm = () => {
   useEffect(() => {
     if (showStatusForm && statusFormRef.current) {
       setTimeout(() => {
-        statusFormRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        statusFormRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+        });
       }, 100);
     }
   }, [showStatusForm]);
@@ -115,7 +117,7 @@ const ExchangeForm = () => {
     setToCurrency(fromCurrency);
   };
 
-  // Search rates from Trocador API
+  // Search rates from Shield Swap API
   const handleSearchRates = async () => {
     // Validation
     const errors: { fromAmount?: string } = {};
@@ -131,7 +133,6 @@ const ExchangeForm = () => {
 
     setValidationErrors({});
     setIsLoadingRates(true);
-    setTransactionError("");
 
     try {
       const fromTicker = getTickerFromCurrencyId(fromCurrency);
@@ -155,9 +156,46 @@ const ExchangeForm = () => {
       });
     } catch (error) {
       console.error("Error fetching rates:", error);
-      setTransactionError(
-        error instanceof Error ? error.message : "Failed to fetch rates"
-      );
+      console.error("Error details:", {
+        message: error instanceof Error ? error.message : String(error),
+        status: (error as any).status,
+        errorData: (error as any).errorData,
+      });
+      
+      // Extract error message - prioritize the actual error message from API
+      let errorMessage = "Failed to fetch rates. Please try again.";
+      
+      if (error instanceof Error) {
+        // For 400 errors, the error.message should already contain the API error message
+        // But we check errorData.error first to be sure
+        if ((error as any).status === 400) {
+          // Check errorData.error first (most reliable)
+          const apiError = (error as any).errorData?.error;
+          if (apiError) {
+            errorMessage = apiError;
+          } else {
+            // Fallback to error.message (which should also contain the API error)
+            errorMessage = error.message;
+          }
+        } else {
+          errorMessage = error.message;
+        }
+      }
+      
+      // Capitalize first letter of error message
+      if (errorMessage && errorMessage.length > 0) {
+        errorMessage = errorMessage.charAt(0).toUpperCase() + errorMessage.slice(1);
+      }
+      
+      // Show error in toast only (no form error display)
+      toast.error(errorMessage, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     } finally {
       setIsLoadingRates(false);
     }
@@ -188,12 +226,18 @@ const ExchangeForm = () => {
 
     // Validate recipient address
     if (!recipientAddress || recipientAddress.trim() === "") {
-      setTransactionError("Please enter recipient address");
+      toast.error("Please enter recipient address", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
       return;
     }
 
     setIsCreatingTransaction(true);
-    setTransactionError("");
 
     try {
       // TODO: Implement actual transaction creation with Trocador
@@ -220,11 +264,17 @@ const ExchangeForm = () => {
       navigate(`/exchange/${rateResponse.trade_id}`);
     } catch (error) {
       console.error("Error creating transaction:", error);
-      setTransactionError(
-        error instanceof Error
-          ? error.message
-          : "Failed to create transaction. Please try again."
-      );
+      const errorMessage = error instanceof Error
+        ? error.message
+        : "Failed to create transaction. Please try again.";
+      toast.error(errorMessage, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     } finally {
       setIsCreatingTransaction(false);
     }
@@ -375,12 +425,6 @@ const ExchangeForm = () => {
             />
           </div>
 
-          {/* Error Message */}
-          {transactionError && (
-            <div className="bg-red-500/10 border border-red-500/50 rounded-xl p-4">
-              <p className="text-red-400 text-sm">{transactionError}</p>
-            </div>
-          )}
 
           {/* Confirm Button */}
           <button
@@ -424,13 +468,25 @@ const ExchangeForm = () => {
   return (
     <div className="container mx-auto px-4 py-8 w-full max-w-[95%] sm:w-[600px] md:w-[650px] lg:w-[700px] xl:w-[750px]">
       <div className="bg-[#132a4f] backdrop-blur-md rounded-3xl p-3 md:p-4 shadow-2xl border border-purple-500/30 flex flex-col gap-[10px]">
-        {/* Defi GIF */}
-        <div className="flex justify-center">
-          <img
-            src={defiGif}
-            alt="DeFi Animation"
-            className="h-[100px] w-[100px] rounded-full object-cover"
-          />
+        {/* Swap Mode Header */}
+        <div className="flex items-center justify-center gap-2">
+          <div className="text-lg font-bold text-white">Swap Now</div>
+          <div className="relative group">
+            <div className="w-5 h-5 rounded-full border border-white/60 flex items-center justify-center cursor-help">
+              <span className="text-white text-xs font-bold">i</span>
+            </div>
+            {/* Tooltip */}
+            <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50">
+              <div className="bg-gray-900 border-2 border-orange-500 rounded-lg p-3 shadow-2xl w-64">
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-[-1px]">
+                  <div className="border-8 border-transparent border-b-orange-500"></div>
+                </div>
+                <p className="text-white text-sm leading-relaxed">
+                  You choose the amount you'll send and get both variable and fixed quotes to choose from.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* From Amount */}
@@ -509,12 +565,6 @@ const ExchangeForm = () => {
           </div>
         </div>
 
-        {/* Error Message */}
-        {transactionError && (
-          <div className="bg-red-500/10 border border-red-500/50 rounded-xl p-4">
-            <p className="text-red-400 text-sm">{transactionError}</p>
-          </div>
-        )}
 
         {/* Search Rate Button */}
         <button

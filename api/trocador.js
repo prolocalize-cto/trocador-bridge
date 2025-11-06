@@ -30,7 +30,7 @@ export default async function handler(req, res) {
     
     console.log('Proxying request to:', trocadorUrl);
     
-    // Forward the request to Trocador API
+    // Forward the request to Shield Swap API
     const response = await fetch(trocadorUrl, {
       method: req.method,
       headers: {
@@ -43,14 +43,14 @@ export default async function handler(req, res) {
     // Get the response data
     const data = await response.json();
     
-    console.log('Trocador API response status:', response.status);
+    console.log('Shield Swap API response status:', response.status);
     
     // Return the response from Trocador
     return res.status(response.status).json(data);
   } catch (error) {
-    console.error('Trocador API proxy error:', error);
+    console.error('Shield Swap API proxy error:', error);
     return res.status(500).json({ 
-      error: 'Failed to fetch from Trocador API',
+      error: 'Failed to fetch from Shield Swap API',
       message: error.message 
     });
   }

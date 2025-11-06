@@ -87,7 +87,7 @@ const ProviderList = ({
   const getKYCText = (rating: string) => {
     const texts: { [key: string]: string } = {
       A: "This exchange uses its own liquidity and is privacy-friendly.",
-      B: "This exchange refunds transactions that fail their AML check. In very rare cases funds may be blocked if a legal order demands it or stolen coins are involved. Past history at Trocador is very good.",
+      B: "This exchange refunds transactions that fail their AML check. In very rare cases funds may be blocked if a legal order demands it or stolen coins are involved. Past history at Shield Swap is very good.",
       C: "This exchange usually refunds transactions that fail their AML check, but if the deposit triggers their Liquidity Provider's AML system, funds may be blocked until KYC/SoF verification is passed.",
       D: "This exchange blocks transactions that fail their AML check until KYC/SoF verification is passed.",
     };
@@ -134,7 +134,7 @@ const ProviderList = ({
           Choose your Exchange and Rate:
         </h2>
         {/* <p className="text-gray-400 text-xs md:text-sm">
-          All transactions are covered by the Trocador Guarantee
+          All transactions are covered by the Shield Swap Guarantee
         </p> */}
       </div>
 
@@ -281,7 +281,7 @@ const ProviderList = ({
                       This exchange refunds transactions that fail their AML
                       check. In very rare cases funds may be blocked if a legal
                       order demands it or stolen coins are involved. Past
-                      history at Trocador is very good.
+                      history at Shield Swap is very good.
                     </p>
                   </div>
 

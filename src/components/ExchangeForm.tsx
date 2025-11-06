@@ -221,7 +221,7 @@ const ExchangeForm = () => {
   // Render based on current step
   if (step === "providers" && rateResponse) {
     return (
-      <div className="w-full max-w-6xl mx-auto">
+      <div className="container mx-auto px-4 py-8 w-full max-w-[95%] sm:w-[600px] md:w-[650px] lg:w-[700px] xl:w-[750px]">
         <button
           onClick={handleBackToInput}
           className="mb-4 flex items-center gap-2 text-white/80 hover:text-white transition-colors"
@@ -254,7 +254,7 @@ const ExchangeForm = () => {
 
   if (step === "confirm" && selectedProvider && rateResponse) {
     return (
-      <div className="w-full max-w-[95%] sm:w-[450px] md:w-[550px] lg:w-[600px] xl:w-[600px] mx-auto">
+      <div className="container mx-auto px-4 py-8 w-full max-w-[95%] sm:w-[600px] md:w-[650px] lg:w-[700px] xl:w-[750px]">
         <button
           onClick={handleBackToProviders}
           className="mb-4 flex items-center gap-2 text-white/80 hover:text-white transition-colors"
@@ -410,7 +410,7 @@ const ExchangeForm = () => {
 
   // Default: Input step
   return (
-    <div className="w-full max-w-[450px] mx-auto">
+    <div className="container mx-auto px-4 py-8 w-full max-w-[95%] sm:w-[600px] md:w-[650px] lg:w-[700px] xl:w-[750px]">
       <div className="bg-[#132a4f] backdrop-blur-md rounded-3xl p-3 md:p-4 shadow-2xl border border-purple-500/30 flex flex-col gap-[10px]">
         {/* Defi GIF */}
         <div className="flex justify-center">

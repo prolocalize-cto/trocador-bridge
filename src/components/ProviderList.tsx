@@ -110,7 +110,7 @@ const ProviderList = ({
   };
 
   return (
-    <div className="w-full bg-gray-900/80 backdrop-blur-md rounded-2xl p-4 md:p-6 shadow-2xl border border-purple-500/30 max-h-[600px] flex flex-col">
+    <div className="w-full bg-gray-900/80 backdrop-blur-md rounded-2xl p-4 md:p-6 shadow-2xl border border-purple-500/30 max-h-[700px] flex flex-col">
       {/* Header */}
       <div className="text-center mb-2 flex-shrink-0">
         <div className="flex items-center justify-center gap-3 mb-3">

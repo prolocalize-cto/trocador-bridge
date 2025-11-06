@@ -338,7 +338,6 @@ const ExchangePage = () => {
           {/* Refund Address Input (Optional) */}
           <div className="flex flex-col gap-2">
             <div
-              type="button"
               onClick={() => setShowRefundAddress(!showRefundAddress)}
               className="flex items-center gap-2 px-1 text-left"
             >

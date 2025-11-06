@@ -173,6 +173,21 @@ const ExchangeForm = () => {
           const apiError = (error as any).errorData?.error;
           if (apiError) {
             errorMessage = apiError;
+            
+            // If error mentions amount being too low, add minimum amount info
+            if (apiError.toLowerCase().includes("lower than min") || 
+                apiError.toLowerCase().includes("amount higher than max or lower than min")) {
+              // Find the selected currency to get minimum amount
+              const selectedCurrencyData = fromCurrencies.find(
+                (currency) => `${currency.ticker}_${currency.network}` === fromCurrency
+              );
+              
+              if (selectedCurrencyData && selectedCurrencyData.minimum) {
+                const minAmount = selectedCurrencyData.minimum;
+                const ticker = selectedCurrencyData.ticker.toUpperCase();
+                errorMessage = `Amount should be bigger than ${minAmount} ${ticker}`;
+              }
+            }
           } else {
             // Fallback to error.message (which should also contain the API error)
             errorMessage = error.message;

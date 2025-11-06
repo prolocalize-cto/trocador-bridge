@@ -62,6 +62,7 @@ const ExchangeForm = () => {
   const [toCurrency, setToCurrency] = useState("eth_ERC20");
   const [recipientAddress, setRecipientAddress] = useState(""); // Will be set in confirmation step
   const [refundAddress, setRefundAddress] = useState(""); // Optional refund address
+  const [showRefundAddress, setShowRefundAddress] = useState(false);
   const [isLoadingRates, setIsLoadingRates] = useState(false);
   const [rateResponse, setRateResponse] = useState<TrocadorRateResponse | null>(
     null
@@ -443,18 +444,39 @@ const ExchangeForm = () => {
 
           {/* Refund Address Input (Optional) */}
           <div className="flex flex-col gap-2">
-            <div className="flex items-center gap-2 px-1">
-              <label className="text-gray-300 text-sm">
+            <button
+              type="button"
+              onClick={() => setShowRefundAddress(!showRefundAddress)}
+              className="flex items-center gap-2 px-1 text-left"
+            >
+              <label className="text-gray-300 text-sm cursor-pointer">
                 Refund Address <span className="text-gray-500 text-xs">(Optional)</span>
               </label>
-            </div>
-            <input
-              type="text"
-              value={refundAddress}
-              onChange={(e) => setRefundAddress(e.target.value)}
-              placeholder={`Enter ${getTickerFromCurrencyId(fromCurrency).toUpperCase()} refund address (optional)`}
-              className="w-full bg-white/5 text-white p-2 rounded-xl outline-none border-2 border-white/10 hover:border-purple-500/50 focus:border-purple-500 transition-colors text-sm"
-            />
+              <svg
+                className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${
+                  showRefundAddress ? "rotate-180" : ""
+                }`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
+            {showRefundAddress && (
+              <input
+                type="text"
+                value={refundAddress}
+                onChange={(e) => setRefundAddress(e.target.value)}
+                placeholder={`Enter ${getTickerFromCurrencyId(fromCurrency).toUpperCase()} refund address (optional)`}
+                className="w-full bg-white/5 text-white p-2 rounded-xl outline-none border-2 border-white/10 hover:border-purple-500/50 focus:border-purple-500 transition-colors text-sm"
+              />
+            )}
           </div>
 
           {/* Confirm Button */}

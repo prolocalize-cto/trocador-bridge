@@ -1,7 +1,9 @@
 // Trocador API service
-// Use proxy in both development (Vite) and production (Vercel serverless function)
-const TROCADOR_API_BASE = "/api/trocador";
-const TROCADOR_API_KEY = "1LSAndusd1FAicVo4CzYTwGJhD5FBz";
+// Use backend proxy server instead of Vite proxy
+// In development: http://localhost:4000/api/trocador
+// In production: use VITE_TROCADOR_API_BASE env variable (e.g., https://your-domain.com/api/trocador)
+const TROCADOR_API_BASE =
+  import.meta.env.VITE_TROCADOR_API_BASE || "http://localhost:4000/api/trocador";
 
 export interface TrocadorQuote {
   provider: string;
@@ -129,7 +131,6 @@ export const getTrocadorRates = async (
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "API-Key": TROCADOR_API_KEY,
       },
     });
 
@@ -197,7 +198,6 @@ export const confirmTrocadorTrade = async (
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "API-Key": TROCADOR_API_KEY,
       },
     });
 
@@ -226,7 +226,6 @@ export const getTrocadorTrade = async (
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "API-Key": TROCADOR_API_KEY,
       },
     });
 

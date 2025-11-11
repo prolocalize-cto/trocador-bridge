@@ -230,7 +230,9 @@ export const getTrocadorTrade = async (
     });
 
     if (!response.ok) {
-      throw new Error(`Shield Swap API error: ${response.status}`);
+      const error = new Error(`Shield Swap API error: ${response.status}`);
+      (error as any).status = response.status;
+      throw error;
     }
 
     const data: TrocadorTradeDetails[] = await response.json();

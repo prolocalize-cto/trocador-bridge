@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
-import { getTrocadorTrade, getTrocadorRates } from "../services/trocadorService";
+import { getTrocadorTrade, getTrocadorRates, type TrocadorTradeDetails } from "../services/trocadorService";
 import ExchangePage from "./ExchangePage";
 import TransactionStatusPage from "./TransactionStatusPage";
 
@@ -16,6 +16,7 @@ const TradePage = () => {
   const [loading, setLoading] = useState(true);
   const [status, setStatus] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [tradeData, setTradeData] = useState<TrocadorTradeDetails | null>(null);
 
   useEffect(() => {
     const checkTradeStatus = async () => {
@@ -26,31 +27,32 @@ const TradePage = () => {
       }
 
       try {
-        const tradeData = await getTrocadorTrade(tradeId);
-        setStatus(tradeData.status);
+        const fetchedTradeData = await getTrocadorTrade(tradeId);
+        setTradeData(fetchedTradeData);
+        setStatus(fetchedTradeData.status);
         
         // If status is "new" and we don't have rate data in state
-        if (tradeData.status?.toLowerCase().trim() === "new" && !location.state?.rateData) {
+        if (fetchedTradeData.status?.toLowerCase().trim() === "new" && !location.state?.rateData) {
           // Use quotes from trade data if available
-          if (tradeData.quotes) {
+          if (fetchedTradeData.quotes) {
             
             // Convert trade data to rate response format
             const rateData = {
-              trade_id: tradeData.trade_id,
-              date: tradeData.date,
-              ticker_from: tradeData.ticker_from,
-              ticker_to: tradeData.ticker_to,
-              coin_from: tradeData.coin_from,
-              coin_to: tradeData.coin_to,
-              network_from: tradeData.network_from,
-              network_to: tradeData.network_to,
-              amount_from: tradeData.amount_from,
-              amount_to: tradeData.amount_to,
-              provider: tradeData.provider,
-              fixed: tradeData.fixed,
-              payment: tradeData.payment,
-              status: tradeData.status,
-              quotes: tradeData.quotes,
+              trade_id: fetchedTradeData.trade_id,
+              date: fetchedTradeData.date,
+              ticker_from: fetchedTradeData.ticker_from,
+              ticker_to: fetchedTradeData.ticker_to,
+              coin_from: fetchedTradeData.coin_from,
+              coin_to: fetchedTradeData.coin_to,
+              network_from: fetchedTradeData.network_from,
+              network_to: fetchedTradeData.network_to,
+              amount_from: fetchedTradeData.amount_from,
+              amount_to: fetchedTradeData.amount_to,
+              provider: fetchedTradeData.provider,
+              fixed: fetchedTradeData.fixed,
+              payment: fetchedTradeData.payment,
+              status: fetchedTradeData.status,
+              quotes: fetchedTradeData.quotes,
             };
             
             // Navigate with rate data to trigger re-render
@@ -62,11 +64,11 @@ const TradePage = () => {
           } else {
             // Fallback: fetch rates if no quotes in trade data
             const rateData = await getTrocadorRates({
-              tickerFrom: tradeData.ticker_from,
-              tickerTo: tradeData.ticker_to,
-              networkFrom: tradeData.network_from,
-              networkTo: tradeData.network_to,
-              amountFrom: tradeData.amount_from,
+              tickerFrom: fetchedTradeData.ticker_from,
+              tickerTo: fetchedTradeData.ticker_to,
+              networkFrom: fetchedTradeData.network_from,
+              networkTo: fetchedTradeData.network_to,
+              amountFrom: fetchedTradeData.amount_from,
             });
             
             navigate(`/exchange/${tradeId}`, {
@@ -139,7 +141,8 @@ const TradePage = () => {
   if (isNewStatus) {
     return <ExchangePage />;
   } else {
-    return <TransactionStatusPage />;
+    // Pass initial trade data to TransactionStatusPage to avoid duplicate API call
+    return <TransactionStatusPage initialTradeData={tradeData} />;
   }
 };
 

@@ -1,7 +1,8 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { useParams, Link } from "react-router-dom";
 import { type TransactionDetails } from "../services/exchangeService";
-import { getTrocadorTrade } from "../services/trocadorService";
+import { getTrocadorTrade, type TrocadorTradeDetails } from "../services/trocadorService";
+import QRCode from "react-qr-code";
 
 const statusSteps = [
   {
@@ -65,7 +66,11 @@ const getStatusMessage = (status: string) => {
   }
 };
 
-const TransactionStatusPage = () => {
+interface TransactionStatusPageProps {
+  initialTradeData?: TrocadorTradeDetails | null;
+}
+
+const TransactionStatusPage = ({ initialTradeData }: TransactionStatusPageProps = {}) => {
   const { tradeId } = useParams<{ tradeId: string }>();
   const transactionId = tradeId;
   const [transaction, setTransaction] = useState<TransactionDetails | null>(
@@ -76,11 +81,54 @@ const TransactionStatusPage = () => {
   const [copiedAddress, setCopiedAddress] = useState<string | null>(null);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [expiryTime, setExpiryTime] = useState<Date | null>(null);
+  const transactionRef = useRef<TransactionDetails | null>(null);
+  const isInitialLoadRef = useRef(true);
+  const isLoadingRef = useRef(false);
+  const hasLoadedRef = useRef(false);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const loadTransactionRef = useRef<((isPolling?: boolean) => Promise<void>) | null>(null);
+  const initialLoadTriggeredRef = useRef(false);
 
-  const loadTransaction = useCallback(async () => {
+  // Helper function to map TrocadorTradeDetails to TransactionDetails
+  const mapTradeDataToTransaction = useCallback((tradeData: TrocadorTradeDetails): TransactionDetails => {
+    return {
+      id: tradeData.trade_id || transactionId || "",
+      type: tradeData.fixed ? "fixed" : "float",
+      rate:
+        tradeData.amount_from > 0
+          ? (tradeData.amount_to / tradeData.amount_from).toFixed(8)
+          : "0",
+      status: tradeData.status || "waiting",
+      payTill: tradeData.details?.expiresAt || null,
+      payinAddress:
+        tradeData.address_provider || tradeData.address_from || "",
+      payoutAddress: tradeData.address_user || tradeData.address_to || "",
+      amountExpectedFrom: (tradeData.amount_from || 0).toString(),
+      amountExpectedTo: (tradeData.amount_to || 0).toString(),
+      amountFrom: (tradeData.amount_from || 0).toString(),
+      amountTo: (tradeData.amount_to || 0).toString(),
+      currencyFrom: tradeData.ticker_from || "",
+      currencyTo: tradeData.ticker_to || "",
+      networkFrom: tradeData.network_from || "",
+      networkTo: tradeData.network_to || "",
+      networkFee: undefined,
+      payinConfirmations: 0,
+      provider: tradeData.provider || "",
+    };
+  }, [transactionId]);
+
+  const loadTransaction = useCallback(async (isPolling = false) => {
     if (!transactionId) {
       setLoading(false);
       return;
+    }
+
+    // Prevent multiple simultaneous initial loads - use atomic check
+    if (!isPolling) {
+      if (isLoadingRef.current || hasLoadedRef.current) {
+        return; // Already loading or already loaded
+      }
+      isLoadingRef.current = true;
     }
 
     try {
@@ -114,35 +162,172 @@ const TransactionStatusPage = () => {
         amountTo: (tradeData.amount_to || 0).toString(),
         currencyFrom: tradeData.ticker_from || "",
         currencyTo: tradeData.ticker_to || "",
+        networkFrom: tradeData.network_from || "",
+        networkTo: tradeData.network_to || "",
         networkFee: undefined,
         payinConfirmations: 0,
         provider: tradeData.provider || "",
       };
 
+      transactionRef.current = mappedTransaction;
       setTransaction(mappedTransaction);
-      setError(null);
+      setError(null); // Clear any previous errors
+      
+      // ALWAYS clear loading state immediately on successful response
+      // This ensures data is shown as soon as we get it, even if other requests are pending
+      if (isInitialLoadRef.current) {
+        isInitialLoadRef.current = false;
+        isLoadingRef.current = false;
+        hasLoadedRef.current = true; // Mark as successfully loaded
+        setLoading(false); // Show data immediately - CRITICAL: do this immediately
+      }
     } catch (err) {
       console.error("Error loading transaction:", err);
-      setError(
-        `Failed to load transaction details: ${
-          err instanceof Error ? err.message : "Unknown error"
-        }`
-      );
+      
+      // Check if it's a 429 error (rate limit)
+      const is429Error = err instanceof Error && 
+        (err.message.includes("429") || 
+         (err as any).status === 429);
+      
+      // For 429 errors during polling, just log and continue showing current data
+      if (is429Error && isPolling) {
+        console.warn("Rate limited (429) during polling, keeping current data");
+        return;
+      }
+      
+      // For 429 errors on initial load - if we already have data, keep it and don't show error
+      if (is429Error && isInitialLoadRef.current) {
+        if (transactionRef.current) {
+          // We have data from a previous successful request, keep it
+          console.warn("Rate limited (429) on initial load, but have data from previous request");
+          isInitialLoadRef.current = false;
+          isLoadingRef.current = false;
+          hasLoadedRef.current = true;
+          setLoading(false); // Show existing data
+          // Don't set error - we have valid data
+          return;
+        } else {
+          // No data yet, but it's a 429 - wait for next successful request
+          console.warn("Rate limited (429) on initial load, no data yet");
+          isLoadingRef.current = false;
+          // Don't set error yet, wait for successful response
+          return;
+        }
+      }
+      
+      // For non-429 errors on initial load without data, set error
+      // BUT: if we already have transaction data, don't overwrite it with error
+      if (!isPolling) {
+        // Only update state if we don't have data yet
+        if (!transactionRef.current) {
+          // Only set error if we don't have any data
+          setError(
+            `Failed to load transaction details: ${
+              err instanceof Error ? err.message : "Unknown error"
+            }`
+          );
+          // Only clear loading if we don't have data
+          if (isInitialLoadRef.current) {
+            isInitialLoadRef.current = false;
+            isLoadingRef.current = false;
+            setLoading(false);
+          }
+        } else {
+          // We have data, just clear the loading flags but don't change UI
+          if (isInitialLoadRef.current) {
+            isInitialLoadRef.current = false;
+            isLoadingRef.current = false;
+            hasLoadedRef.current = true;
+            setLoading(false); // Ensure loading is cleared
+          }
+        }
+      }
     } finally {
-      setLoading(false);
+      if (isPolling) {
+        isLoadingRef.current = false;
+      }
     }
   }, [transactionId]);
 
+  // Store the latest loadTransaction function in a ref
+  loadTransactionRef.current = loadTransaction;
+
+  // Use initial trade data if provided (from TradePage) to avoid duplicate API call
   useEffect(() => {
-    loadTransaction();
+    if (initialTradeData && isInitialLoadRef.current) {
+      // Map the initial trade data to transaction format
+      const mappedTransaction = mapTradeDataToTransaction(initialTradeData);
+      
+      // Set expiry time if available
+      if (initialTradeData.details?.expiresAt) {
+        const expiry = new Date(initialTradeData.details.expiresAt);
+        setExpiryTime(expiry);
+      } else {
+        setExpiryTime(null);
+      }
+
+      transactionRef.current = mappedTransaction;
+      setTransaction(mappedTransaction);
+      setError(null);
+      setLoading(false);
+      isInitialLoadRef.current = false;
+      isLoadingRef.current = false;
+      hasLoadedRef.current = true;
+      initialLoadTriggeredRef.current = true; // Mark as triggered to prevent API call
+    }
+  }, [initialTradeData, mapTradeDataToTransaction]);
+
+  useEffect(() => {
+    // Reset refs when transactionId changes
+    isInitialLoadRef.current = !initialTradeData; // Don't reset if we have initial data
+    if (!initialTradeData) {
+      transactionRef.current = null;
+      isLoadingRef.current = false;
+      hasLoadedRef.current = false;
+      initialLoadTriggeredRef.current = false;
+      setLoading(true);
+      setError(null);
+      setTransaction(null);
+    }
+
+    // Clear any existing interval
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+
+    // Initial load - only once (synchronous atomic check with additional flag)
+    // Skip if we already have initial trade data
+    if (!initialTradeData && !initialLoadTriggeredRef.current && !hasLoadedRef.current && !isLoadingRef.current) {
+      // Set ALL flags BEFORE calling to prevent race conditions
+      initialLoadTriggeredRef.current = true;
+      isLoadingRef.current = true;
+      hasLoadedRef.current = false; // Ensure it's false
+      
+      // Call loadTransaction directly (it will handle the async part)
+      loadTransactionRef.current?.(false).catch(() => {
+        // If the call fails before setting isLoadingRef, reset it
+        if (isInitialLoadRef.current && !transactionRef.current) {
+          isLoadingRef.current = false;
+          initialLoadTriggeredRef.current = false;
+        }
+      });
+    }
 
     // Poll for updates every 10 seconds
-    const interval = setInterval(() => {
-      loadTransaction();
+    intervalRef.current = setInterval(() => {
+      if (loadTransactionRef.current) {
+        loadTransactionRef.current(true);
+      }
     }, 10000);
 
-    return () => clearInterval(interval);
-  }, [loadTransaction]);
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    };
+  }, [transactionId, initialTradeData]); // Include initialTradeData in dependencies
 
   // Update current time every second
   useEffect(() => {
@@ -532,7 +717,9 @@ const TransactionStatusPage = () => {
                 <div className="text-white text-xl font-bold">
                   {transaction.amountExpectedFrom}{" "}
                   <span className="text-yellow-400">
-                    {transaction.currencyFrom.toUpperCase()}
+                    {transaction.networkFrom
+                      ? `${transaction.networkFrom.toUpperCase()} ${transaction.currencyFrom.toUpperCase()}`
+                      : transaction.currencyFrom.toUpperCase()}
                   </span>
                 </div>
               </div>
@@ -546,54 +733,80 @@ const TransactionStatusPage = () => {
 
           {/* Deposit Address */}
           <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-            <div className="text-white/80 text-sm mb-2 font-medium">
-              Deposit address:
+            <div className="text-white/80 text-sm mb-3 font-medium text-center md:text-left">
+              Scan this QR code to deposit{" "}
+              {transaction.networkFrom && (
+                <span className="text-yellow-400">
+                  {transaction.networkFrom.toUpperCase()}{" "}
+                  {transaction.currencyFrom.toUpperCase()}
+                </span>
+              )}
+              :
             </div>
-            <div className="flex items-center justify-between gap-3">
-              <code className="text-white text-xs md:text-sm font-mono break-all">
-                {transaction.payinAddress}
-              </code>
-              <button
-                onClick={() =>
-                  copyToClipboard(transaction.payinAddress, "deposit")
-                }
-                className="text-blue-400 hover:text-blue-300 transition-colors flex-shrink-0 p-2"
-                title="Copy Address"
-              >
-                {copiedAddress === "deposit" ? (
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+            <div className="flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-6">
+              <div className="bg-white p-4 rounded-2xl shadow-lg">
+                <QRCode
+                  value={transaction.payinAddress || ""}
+                  size={180}
+                  fgColor="#0f1b34"
+                  bgColor="#ffffff"
+                />
+              </div>
+              <div className="flex-1 w-full">
+                <div className="text-white/80 text-xs uppercase font-semibold mb-2 text-center md:text-left">
+                  Or copy address manually
+                </div>
+                <div className="flex items-center justify-between gap-3 bg-white/5 border border-white/20 rounded-xl p-3">
+                  <code className="text-white text-xs md:text-sm font-mono break-all">
+                    {transaction.payinAddress}
+                  </code>
+                  <button
+                    onClick={() =>
+                      copyToClipboard(transaction.payinAddress, "deposit")
+                    }
+                    className="text-blue-400 hover:text-blue-300 transition-colors flex-shrink-0 p-2"
+                    title="Copy Address"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                ) : (
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
-                    />
-                  </svg>
-                )}
-              </button>
-            </div>
-            <div className="mt-3 text-xs text-white/60">
-              ⚠️ Send only {transaction.currencyFrom.toUpperCase()} to this
-              address. Sending any other currency will result in permanent loss.
+                    {copiedAddress === "deposit" ? (
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                    ) : (
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                        />
+                      </svg>
+                    )}
+                  </button>
+                </div>
+                <div className="mt-3 text-xs text-white/60 text-center md:text-left">
+                  ⚠️ Send only{" "}
+                  {transaction.networkFrom
+                    ? `${transaction.networkFrom.toUpperCase()} ${transaction.currencyFrom.toUpperCase()}`
+                    : transaction.currencyFrom.toUpperCase()}{" "}
+                  to this address. Sending any other currency or network will
+                  result in permanent loss.
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -710,7 +923,9 @@ const TransactionStatusPage = () => {
               <div className="text-white text-xl font-bold">
                 {transaction.amountExpectedTo}{" "}
                 <span className="text-green-400">
-                  {transaction.currencyTo.toUpperCase()}
+                  {transaction.networkTo
+                    ? `${transaction.networkTo.toUpperCase()} ${transaction.currencyTo.toUpperCase()}`
+                    : transaction.currencyTo.toUpperCase()}
                 </span>
               </div>
             </div>

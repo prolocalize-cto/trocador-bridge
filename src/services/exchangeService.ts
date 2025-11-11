@@ -12,6 +12,8 @@ export interface TransactionDetails {
   payTill: string | null;
   currencyFrom: string;
   currencyTo: string;
+  networkFrom?: string;
+  networkTo?: string;
   payinAddress: string;
   amountExpectedFrom: string;
   payoutAddress: string;

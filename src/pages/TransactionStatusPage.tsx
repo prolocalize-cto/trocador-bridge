@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useRef } from "react";
+import { useEffect, useState, useCallback, useRef, useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
 import { type TransactionDetails } from "../services/exchangeService";
 import { getTrocadorTrade, type TrocadorTradeDetails } from "../services/trocadorService";
@@ -337,6 +337,29 @@ const TransactionStatusPage = ({ initialTradeData }: TransactionStatusPageProps 
 
     return () => clearInterval(timer);
   }, []);
+
+  const qrValue = useMemo(() => {
+    if (!transaction) return "";
+
+    const payload = {
+      address: transaction.payinAddress,
+      amount: transaction.amountExpectedFrom,
+      currency: transaction.currencyFrom
+        ? transaction.currencyFrom.toUpperCase()
+        : transaction.currencyFrom,
+      network: transaction.networkFrom
+        ? transaction.networkFrom.toUpperCase()
+        : transaction.networkFrom,
+      tradeId: transaction.id,
+    };
+
+    try {
+      return JSON.stringify(payload);
+    } catch (error) {
+      console.error("Failed to prepare QR payload:", error);
+      return transaction.payinAddress || "";
+    }
+  }, [transaction]);
 
   const copyToClipboard = (text: string, type: string) => {
     navigator.clipboard.writeText(text);
@@ -746,7 +769,7 @@ const TransactionStatusPage = ({ initialTradeData }: TransactionStatusPageProps 
             <div className="flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-6">
               <div className="bg-white p-4 rounded-2xl shadow-lg">
                 <QRCode
-                  value={transaction.payinAddress || ""}
+                  value={qrValue}
                   size={180}
                   fgColor="#0f1b34"
                   bgColor="#ffffff"

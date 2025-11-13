@@ -248,9 +248,7 @@ const HowToGuide = () => {
                           <img
                             alt={content.imageAlt}
                             loading="lazy"
-                            width="1080"
-                            height="772"
-                            className="w-full max-w-lg lg:max-w-auto object-contain"
+                            className="w-full max-w-lg lg:max-w-auto object-contain max-w-[400px]"
                             src={content.imageUrl}
                           />
                         </div>

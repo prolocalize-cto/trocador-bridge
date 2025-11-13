@@ -338,26 +338,101 @@ const TransactionStatusPage = ({ initialTradeData }: TransactionStatusPageProps 
     return () => clearInterval(timer);
   }, []);
 
+  // Generate wallet-compatible QR code URI based on network
   const qrValue = useMemo(() => {
-    if (!transaction) return "";
+    if (!transaction || !transaction.payinAddress) return "";
 
-    const payload = {
-      address: transaction.payinAddress,
-      amount: transaction.amountExpectedFrom,
-      currency: transaction.currencyFrom
-        ? transaction.currencyFrom.toUpperCase()
-        : transaction.currencyFrom,
-      network: transaction.networkFrom
-        ? transaction.networkFrom.toUpperCase()
-        : transaction.networkFrom,
-      tradeId: transaction.id,
+    const address = transaction.payinAddress;
+    const amount = transaction.amountExpectedFrom;
+    const network = transaction.networkFrom?.toUpperCase() || "";
+    const ticker = transaction.currencyFrom?.toUpperCase() || "";
+
+    // Convert amount to proper format (remove trailing zeros, use appropriate decimals)
+    const formatAmount = (amt: string): string => {
+      const num = parseFloat(amt);
+      if (isNaN(num)) return amt;
+      // For Bitcoin and similar, use 8 decimals max
+      if (network === "MAINNET" && ticker === "BTC") {
+        return num.toFixed(8).replace(/\.?0+$/, "");
+      }
+      // For Ethereum and tokens, use 18 decimals max
+      if (network === "ERC20" || network === "BEP20") {
+        return num.toFixed(18).replace(/\.?0+$/, "");
+      }
+      // For Solana, use 9 decimals
+      if (network === "SOL" || (network === "MAINNET" && ticker === "SOL")) {
+        return num.toFixed(9).replace(/\.?0+$/, "");
+      }
+      // Default: keep original but remove trailing zeros
+      return num.toString().replace(/\.?0+$/, "");
     };
 
-    try {
-      return JSON.stringify(payload);
-    } catch (error) {
-      console.error("Failed to prepare QR payload:", error);
-      return transaction.payinAddress || "";
+    const formattedAmount = formatAmount(amount);
+
+    // Generate URI based on network type
+    switch (network) {
+      case "MAINNET":
+        if (ticker === "BTC") {
+          // Bitcoin URI scheme
+          return `bitcoin:${address}?amount=${formattedAmount}`;
+        } else if (ticker === "SOL") {
+          // Solana - some wallets support solana: URI
+          return `solana:${address}?amount=${formattedAmount}`;
+        } else if (ticker === "TRX" || ticker === "TRON") {
+          // Tron
+          return `tron:${address}?amount=${formattedAmount}`;
+        } else if (ticker === "DOGE") {
+          // Dogecoin
+          return `dogecoin:${address}?amount=${formattedAmount}`;
+        } else if (ticker === "XRP") {
+          // XRP - some wallets support xrp: URI
+          return `xrp:${address}?amount=${formattedAmount}`;
+        }
+        // For other Mainnet coins, use address only (wallets may not support URI)
+        return address;
+
+      case "ERC20":
+        // Ethereum and ERC20 tokens
+        if (ticker === "ETH") {
+          // Native ETH
+          return `ethereum:${address}?value=${formattedAmount}`;
+        } else {
+          // ERC20 token - use ethereum: URI with value=0 and amount parameter
+          // Note: For full token support, we'd need the token contract address
+          // But Trust Wallet can sometimes infer from amount + network
+          return `ethereum:${address}?value=0&amount=${formattedAmount}`;
+        }
+
+      case "BEP20":
+        // Binance Smart Chain - similar to Ethereum
+        if (ticker === "BNB") {
+          return `bsc:${address}?value=${formattedAmount}`;
+        } else {
+          // BEP20 token
+          return `bsc:${address}?value=0&amount=${formattedAmount}`;
+        }
+
+      case "ARBITRUM":
+        // Arbitrum - use Ethereum format
+        return `ethereum:${address}?value=${ticker === "ETH" ? formattedAmount : "0"}&amount=${formattedAmount}`;
+
+      case "AVAXC":
+      case "AVALANCHE":
+        // Avalanche C-Chain
+        return `avalanche:${address}?value=${ticker === "AVAX" ? formattedAmount : "0"}&amount=${formattedAmount}`;
+
+      case "POLYGON":
+        // Polygon
+        return `polygon:${address}?value=${ticker === "MATIC" ? formattedAmount : "0"}&amount=${formattedAmount}`;
+
+      case "SOL":
+        // Solana
+        return `solana:${address}?amount=${formattedAmount}`;
+
+      default:
+        // For unsupported networks, return plain address
+        // Most wallets can still scan and recognize the address format
+        return address;
     }
   }, [transaction]);
 

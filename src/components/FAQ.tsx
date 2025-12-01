@@ -3,7 +3,7 @@ import { Disclosure } from "@headlessui/react";
 const faqData = [
   {
     id: 1,
-    question: "How does ShieldSwap work?",
+    question: "How does GhostSwap work?",
     answer: (
       <>
         <p>
@@ -27,7 +27,7 @@ const faqData = [
           your problem!
         </p>
         <p>
-          ShieldSwap provides software that allows users to choose between
+          GhostSwap provides software that allows users to choose between
           exchanges and trade directly with them, we never have access, receive
           or transfer any of the funds between the parties.
         </p>
@@ -43,7 +43,7 @@ const faqData = [
           Our service was designed from the ground up focused on your needs. We
           only keep the minimum amount of logs for exchanges that require this
           and we let you know each one's log policies before creating the
-          transaction. Logs kept at ShieldSwap are never sold or ceded to third
+          transaction. Logs kept at GhostSwap are never sold or ceded to third
           parties and are only provided on an individual basis upon request from
           law enforcement.
         </p>
@@ -64,14 +64,14 @@ const faqData = [
   },
   {
     id: 3,
-    question: "What is the ShieldSwap Guarantee?",
+    question: "What is the GhostSwap Guarantee?",
     answer: (
       <>
         <p>
-          Transactions made through our website enjoy our ShieldSwap Guarantee,
+          Transactions made through our website enjoy our GhostSwap Guarantee,
           if for some reason you do not receive your funds and the exchange does
           not provide us sufficient proof of unusually high AML risk or that it
-          was blocked by their Liquidity Provider's AML system, ShieldSwap will
+          was blocked by their Liquidity Provider's AML system, GhostSwap will
           reimburse you up to the insured amount. This amount varies between
           exchanges and you can check it by hovering or clicking the shield icon
           besides each exchange option. Please note, however, that trades with
@@ -82,7 +82,7 @@ const faqData = [
         </p>
         <p>
           To get compensation, contact us through email or Telegram informing
-          your transaction's ID at ShieldSwap. We'll talk to your chosen
+          your transaction's ID at GhostSwap. We'll talk to your chosen
           exchange and try to solve your problem. Failing that and if the
           exchange doesn't provide us sufficient proof that the transaction was
           halted due to a police request, legal order or unusually high AML
@@ -166,7 +166,7 @@ const faqData = [
           exchange. To determine an exchange's rating we read their terms of use
           and privacy policy, ask them directly about how they handle refunding
           in case of verification refusal and take in account their past history
-          on ShieldSwap. We use the following ratings:
+          on GhostSwap. We use the following ratings:
         </p>
         <div className="my-4 overflow-x-auto">
           <table
@@ -206,7 +206,7 @@ const faqData = [
                   This exchange refunds transactions that fail their AML check.
                   In very rare cases funds may be blocked if a legal order
                   demands it or stolen coins are involved. Past history at
-                  ShieldSwap is very good.
+                  GhostSwap is very good.
                 </td>
               </tr>
               <tr>
@@ -251,9 +251,9 @@ const faqData = [
         <p>
           Your chosen exchange may also store your transaction details (amount,
           coins and addresses). Please be aware some exchanges require logs of
-          the user's IP, UserAgent and AcceptLanguage to be kept at ShieldSwap.
+          the user's IP, UserAgent and AcceptLanguage to be kept at GhostSwap.
           These can be seen on the exchange screen by hovering/clicking their
-          rating. Logs kept at ShieldSwap are never sold or ceded to third
+          rating. Logs kept at GhostSwap are never sold or ceded to third
           parties and are only provided on an individual basis upon request from
           law enforcement.
         </p>
@@ -369,8 +369,8 @@ const FAQ = () => {
             {faqData.map((item) => (
               <Disclosure key={item.id}>
                 {({ open }) => (
-                  <div className="bg-[#1a2744] border border-blue-700/30 rounded-lg mb-3 overflow-hidden">
-                    <Disclosure.Button className="w-full py-4 px-4 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900 hover:bg-blue-900/20 transition-colors bg-[#0f1b34]">
+                  <div className="bg-[#2a1a44] border border-purple-700/30 rounded-lg mb-3 overflow-hidden">
+                    <Disclosure.Button className="w-full py-4 px-4 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900 hover:bg-purple-900/20 transition-colors bg-[#1a0f2e]">
                       <div className="relative flex items-center">
                         <div className="relative flex-1 pr-8 pl-7">
                           <span className="text-white text-sm md:text-base">
@@ -391,7 +391,7 @@ const FAQ = () => {
                         </div>
                       </div>
                     </Disclosure.Button>
-                    <Disclosure.Panel className="px-4 pb-4 pt-2 text-gray-300 bg-[#152030]">
+                    <Disclosure.Panel className="px-4 pb-4 pt-2 text-gray-300 bg-[#201530]">
                       <div className="space-y-4 ml-7 text-sm md:text-base">{item.answer}</div>
                     </Disclosure.Panel>
                   </div>

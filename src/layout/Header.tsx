@@ -21,8 +21,8 @@ const Header = () => {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-[#0f1b34] backdrop-blur-xl shadow-2xl border-b border-orange-500/30"
-          : "bg-[#0f1b34] backdrop-blur-md border-b border-orange-500/20"
+          ? "bg-[#1a0f2e] backdrop-blur-xl shadow-2xl border-b border-orange-500/30"
+          : "bg-[#1a0f2e] backdrop-blur-md border-b border-orange-500/20"
       } ${hideHeaderOnMobile ? "hidden md:block" : ""}`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -34,14 +34,14 @@ const Header = () => {
               <div className="relative w-16 h-16 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg overflow-hidden">
                 <img
                   src={logoImg}
-                  alt="ShieldSwap Logo"
+                  alt="GhostSwap Logo"
                   className="w-full h-full object-cover rounded-full"
                 />
               </div>
             </div>
             <div className="flex flex-col">
               <span className="text-white text-2xl sm:text-3xl font-bold bg-gradient-to-r from-white via-orange-100 to-purple-200 bg-clip-text text-transparent group-hover:from-orange-300 group-hover:to-purple-300 transition-all duration-300">
-                ShieldSwap
+                GhostSwap
               </span>
               <span className="text-xs text-gray-400 font-medium tracking-wider">
                 Privacy First Exchange
@@ -159,8 +159,8 @@ const Header = () => {
               to="/contact-us"
               className={`relative px-6 py-2.5 rounded-full font-semibold overflow-hidden group transition-all duration-300 ${
                 location.pathname === "/contact-us"
-                  ? "bg-blue-500 text-white shadow-lg shadow-blue-500/50"
-                  : "bg-blue-600/30 text-white hover:bg-blue-500 hover:shadow-lg hover:shadow-blue-500/50"
+                  ? "bg-purple-500 text-white shadow-lg shadow-purple-500/50"
+                  : "bg-purple-600/30 text-white hover:bg-purple-500 hover:shadow-lg hover:shadow-purple-500/50"
               }`}
             >
               <span className="relative z-10 text-white font-semibold">
@@ -321,7 +321,7 @@ const Header = () => {
             <Link
               to="/contact-us"
               onClick={() => setMobileMenuOpen(false)}
-              className="bg-blue-600/30 hover:bg-blue-500 text-white px-6 py-3 rounded-full transition-all duration-200 font-semibold text-center shadow-lg shadow-blue-500/30"
+              className="bg-purple-600/30 hover:bg-purple-500 text-white px-6 py-3 rounded-full transition-all duration-200 font-semibold text-center shadow-lg shadow-purple-500/30"
             >
               Contact Us
             </Link>

@@ -41,7 +41,7 @@ const HowToGuide = () => {
           number: 3,
           title: "Send the crypto for the swap",
           description:
-            "ShieldSwap will generate a deposit address; use your wallet to send funds there.",
+            "GhostSwap will generate a deposit address; use your wallet to send funds there.",
         },
         {
           number: 4,
@@ -51,12 +51,12 @@ const HowToGuide = () => {
         },
       ],
       imageUrl: exchangeImg,
-      imageAlt: "How to swap crypto on ShieldSwap",
+      imageAlt: "How to swap crypto on GhostSwap",
     },
     {
       title: "How to buy crypto instantly?",
       subtitle:
-        "ShieldSwap is the place where you can buy Bitcoin safely in a few clicks.",
+        "GhostSwap is the place where you can buy Bitcoin safely in a few clicks.",
       steps: [
         {
           number: 1,
@@ -84,7 +84,7 @@ const HowToGuide = () => {
         },
       ],
       imageUrl: buyImg,
-      imageAlt: "How to buy crypto on ShieldSwap",
+      imageAlt: "How to buy crypto on GhostSwap",
     },
     {
       title: "How to sell crypto Instantly?",
@@ -117,7 +117,7 @@ const HowToGuide = () => {
         },
       ],
       imageUrl: sellImg,
-      imageAlt: "How to sell crypto on ShieldSwap",
+      imageAlt: "How to sell crypto on GhostSwap",
     },
   ];
 
@@ -191,8 +191,8 @@ const HowToGuide = () => {
                                     <div
                                       className={`rounded-full flex items-center justify-center w-10 h-10 shrink-0 z-10 ${
                                         isOpen
-                                          ? "bg-blue-500 text-white"
-                                          : "bg-blue-500/10 text-blue-400"
+                                          ? "bg-purple-500 text-white"
+                                          : "bg-purple-500/10 text-purple-400"
                                       }`}
                                     >
                                       <span className="text-sm">
@@ -203,8 +203,8 @@ const HowToGuide = () => {
                                       <div
                                         className={`absolute top-10 left-1/2 w-0.5 ${
                                           isOpen
-                                            ? "bg-blue-500/20"
-                                            : "bg-blue-500/10"
+                                            ? "bg-purple-500/20"
+                                            : "bg-purple-500/10"
                                         } -translate-x-1/2 h-[calc(100%-16px)]`}
                                       />
                                     )}
@@ -248,7 +248,7 @@ const HowToGuide = () => {
                           <img
                             alt={content.imageAlt}
                             loading="lazy"
-                            className="w-full max-w-lg lg:max-w-auto object-contain max-w-[400px]"
+                            className="w-full object-contain max-w-[400px]"
                             src={content.imageUrl}
                           />
                         </div>

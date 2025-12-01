@@ -16,7 +16,7 @@ const FeaturesGrid = () => {
       title: "Light-speed transactions",
       description:
         "You can exchange Bitcoin and all the popular altcoins at lightning speed.",
-      bgColor: "bg-blue-500/10",
+      bgColor: "bg-purple-500/10",
       imageUrl: null,
       colSpan: "lg:col-span-4",
       aspect: "lg:aspect-[410/400]",
@@ -25,8 +25,8 @@ const FeaturesGrid = () => {
       id: 3,
       title: "Diverse asset portfolio",
       description:
-        "On ShieldSwap you can convert BTC and over 300 other cryptocurrencies without any limits and restrictions.",
-      bgColor: "bg-blue-500/10",
+        "On GhostSwap you can convert BTC and over 300 other cryptocurrencies without any limits and restrictions.",
+      bgColor: "bg-purple-500/10",
       // imageUrl:
       //   "https://pretty-picture-g2.s3.eu-central-1.amazonaws.com/bento_var4_3d_card_circles_c1fc9a8145.svg",
       imageUrl: null,
@@ -38,7 +38,7 @@ const FeaturesGrid = () => {
       title: "No need for an account",
       description:
         "Ranked among the best, our platform lets you exchange Bitcoin and other cryptocurrencies privately.",
-      bgColor: "bg-blue-500/20",
+      bgColor: "bg-purple-500/20",
       imageUrl:
         "https://pretty-picture-g2.s3.eu-central-1.amazonaws.com/bento_var4_4s_card_circles_987642fa67.svg",
       colSpan: "lg:col-span-4",
@@ -49,7 +49,7 @@ const FeaturesGrid = () => {
       title: "Top-Tier Security",
       description:
         "We are non-custodial. Your funds are sent instantly and securely to your wallet immediately after the exchange.",
-      bgColor: "bg-blue-500/10",
+      bgColor: "bg-purple-500/10",
       imageUrl:
         "https://pretty-picture-g2.s3.eu-central-1.amazonaws.com/bento_var4_5th_card_circles_4ec0384cef.svg",
       colSpan: "lg:col-span-4",
@@ -60,7 +60,7 @@ const FeaturesGrid = () => {
       title: "Flexible Rates",
       description:
         "Maximum profit at floating rates, or a guaranteed amount at a fixed rate—choose your priority.",
-      bgColor: "bg-blue-500/10",
+      bgColor: "bg-purple-500/10",
       imageUrl: null,
       colSpan: "lg:col-span-6",
       aspect: "lg:aspect-[410/400]",

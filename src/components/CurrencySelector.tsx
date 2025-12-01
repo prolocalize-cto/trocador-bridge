@@ -50,16 +50,16 @@ const CurrencySelector = ({
 
   const getNetworkColor = (network: string) => {
     const colors: { [key: string]: string } = {
-      ETH: "bg-blue-500",
+      ETH: "bg-purple-500",
       BSC: "bg-yellow-500",
       POLYGON: "bg-purple-500",
-      ARBITRUM: "bg-blue-600",
+      ARBITRUM: "bg-purple-600",
       OPTIMISM: "bg-red-500",
       AVALANCHE: "bg-red-600",
       TRON: "bg-red-700",
       SOL: "bg-purple-600",
       NEAR: "bg-gray-500",
-      TON: "bg-blue-700",
+      TON: "bg-purple-700",
       XDC: "bg-green-500",
       RONIN: "bg-orange-500",
       XEC: "bg-orange-600",

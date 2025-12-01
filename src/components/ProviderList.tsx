@@ -110,7 +110,7 @@ const ProviderList = ({
   };
 
   return (
-    <div className="w-full bg-gray-900/80 backdrop-blur-md rounded-2xl p-2 md:p-6 shadow-2xl border border-purple-500/30 max-h-[800px] md:max-h-[800px] flex flex-col">
+    <div className="w-full bg-[#2a1a4f]/90 backdrop-blur-md rounded-2xl p-2 md:p-6 shadow-2xl border border-purple-500/30 max-h-[800px] md:max-h-[800px] flex flex-col">
       {/* Header */}
       <div className="text-center mb-1 md:mb-2 flex-shrink-0">
         <div className="flex items-center justify-center gap-2 md:gap-3 mb-2 md:mb-3">
@@ -144,7 +144,7 @@ const ProviderList = ({
           onClick={() => setRateType("floating")}
           className={`flex-1 py-1.5 md:py-2 rounded-lg font-semibold transition-all duration-200 w-[130px] md:w-[150px] text-xs md:text-base ${
             rateType === "floating"
-              ? "bg-blue-600 text-white shadow-lg"
+              ? "bg-purple-600 text-white shadow-lg"
               : "text-gray-400 hover:text-white"
           }`}
         >
@@ -154,7 +154,7 @@ const ProviderList = ({
           onClick={() => setRateType("fixed")}
           className={`flex-1 py-1.5 md:py-2 rounded-lg font-semibold transition-all duration-200 w-[130px] md:w-[150px] text-xs md:text-base ${
             rateType === "fixed"
-              ? "bg-blue-600 text-white shadow-lg"
+              ? "bg-purple-600 text-white shadow-lg"
               : "text-gray-400 hover:text-white"
           }`}
         >
@@ -163,7 +163,7 @@ const ProviderList = ({
       </div>
 
       {/* Table Header */}
-      <div className="hidden md:grid md:grid-cols-12 gap-4 px-4 py-3 bg-black/40 rounded-t-xl text-sm font-semibold text-gray-300">
+      <div className="hidden md:grid md:grid-cols-12 gap-4 px-4 py-3 bg-[#2a1a4f]/60 rounded-t-xl text-sm font-semibold text-gray-300">
         <div className="col-span-3">Exchange</div>
 
         {/* Rate with Tooltip */}
@@ -258,7 +258,7 @@ const ProviderList = ({
               <div>
                 <p className="mb-3">
                   This rating takes in consideration the exchange's KYC/AML
-                  policies and their past history in ShieldSwap. Log policy
+                  policies and their past history in GhostSwap. Log policy
                   information can be seen by hovering/clicking their rating.
                 </p>
 
@@ -274,7 +274,7 @@ const ProviderList = ({
                   </div>
 
                   <div className="flex items-start gap-2">
-                    <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs font-bold flex-shrink-0 mt-0.5">
+                    <div className="w-6 h-6 rounded-full bg-purple-500 flex items-center justify-center text-white text-xs font-bold flex-shrink-0 mt-0.5">
                       B
                     </div>
                     <p className="text-xs">
@@ -345,7 +345,7 @@ const ProviderList = ({
               className={`grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-4 p-2 md:p-4 rounded-xl cursor-pointer transition-all duration-200 ${
                 selectedProvider === quote.provider
                   ? "bg-orange-500/20 border-2 border-orange-500"
-                  : "bg-gray-800/50 hover:bg-gray-700/50 border-2 border-transparent"
+                  : "bg-[#2a1a4f]/40 hover:bg-[#2a1a4f]/60 border-2 border-transparent"
               }`}
             >
               {/* Exchange (with logo) */}
@@ -453,7 +453,7 @@ const ProviderList = ({
                     content={
                       <p>
                         This transaction is {quote.insurance}% insured by
-                        ShieldSwap.
+                        GhostSwap.
                       </p>
                     }
                   >
@@ -497,7 +497,7 @@ const ProviderList = ({
 
       {/* Summary Info */}
       {filteredQuotes.length > 0 && (
-        <div className="mt-2 md:mt-4 p-2 md:p-3 bg-black/30 rounded-xl text-xs md:text-sm text-gray-300 flex-shrink-0">
+        <div className="mt-2 md:mt-4 p-2 md:p-3 bg-[#2a1a4f]/50 rounded-xl text-xs md:text-sm text-gray-300 flex-shrink-0">
           <p>
             <span className="font-semibold text-white">Trade Summary:</span>{" "}
             {amountFrom} {tickerFrom.toUpperCase()} →{" "}

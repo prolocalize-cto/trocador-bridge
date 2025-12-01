@@ -105,16 +105,16 @@ const CurrencyModal = ({
 
   const getNetworkColor = (network: string) => {
     const colors: { [key: string]: string } = {
-      ETH: "bg-blue-500",
+      ETH: "bg-purple-500",
       BSC: "bg-yellow-500",
       POLYGON: "bg-purple-500",
-      ARBITRUM: "bg-blue-600",
+      ARBITRUM: "bg-purple-600",
       OPTIMISM: "bg-red-500",
       AVALANCHE: "bg-red-600",
       TRON: "bg-red-700",
       SOL: "bg-purple-600",
       NEAR: "bg-gray-500",
-      TON: "bg-blue-700",
+      TON: "bg-purple-700",
       XDC: "bg-green-500",
       RONIN: "bg-orange-500",
       XEC: "bg-orange-600",
@@ -171,7 +171,7 @@ const CurrencyModal = ({
             isDisabled
               ? "bg-[#2a2d3e] opacity-50 cursor-not-allowed"
               : isSelected
-              ? "bg-[#374151] border-2 border-blue-400"
+              ? "bg-[#374151] border-2 border-purple-400"
               : "bg-[#374151] hover:bg-[#3741512e]"
           }`}
         >

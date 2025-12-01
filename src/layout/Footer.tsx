@@ -19,14 +19,14 @@ const Footer = () => {
                   <div className="relative w-12 h-12 rounded-full flex items-center justify-center shadow-lg overflow-hidden">
                     <img
                       src={logoImg}
-                      alt="ShieldSwap Logo"
+                      alt="GhostSwap Logo"
                       className="w-full h-full object-cover rounded-full"
                     />
                   </div>
                 </div>
                 <div className="flex flex-col">
                   <span className="text-white text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                    ShieldSwap
+                    GhostSwap
                   </span>
                   <span className="text-xs text-gray-500 font-medium">
                     Privacy First Exchange
@@ -169,7 +169,7 @@ const Footer = () => {
           <div className="flex border-t border-white/5 pt-0 md:pt-8 pb-2 md:pb-0 flex-col md:flex-row justify-center items-center gap-4">
             <div className="text-gray-500 text-sm">
               © {new Date().getFullYear()}{" "}
-              <span className="text-white font-semibold">ShieldSwap</span>. All
+              <span className="text-white font-semibold">GhostSwap</span>. All
               rights reserved.
             </div>
 
@@ -178,7 +178,7 @@ const Footer = () => {
                 href="https://t.me/hirejoey"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative w-10 h-10 rounded-full bg-gradient-to-br from-white/10 to-white/5 hover:from-blue-500 hover:to-blue-600 flex items-center justify-center transition-all duration-300 group border border-white/10 hover:border-blue-500/50 hover:scale-110 hover:shadow-lg hover:shadow-blue-500/50"
+                className="relative w-10 h-10 rounded-full bg-gradient-to-br from-white/10 to-white/5 hover:from-purple-500 hover:to-purple-600 flex items-center justify-center transition-all duration-300 group border border-white/10 hover:border-purple-500/50 hover:scale-110 hover:shadow-lg hover:shadow-purple-500/50"
                 aria-label="Telegram"
               >
                 <svg

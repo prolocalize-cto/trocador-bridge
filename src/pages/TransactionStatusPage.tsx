@@ -22,7 +22,7 @@ const getStatusColor = (status: string) => {
       return "bg-green-500/20 text-green-400 border-green-400/50";
     case "confirming":
     case "sending":
-      return "bg-blue-500/20 text-blue-400 border-blue-400/50";
+      return "bg-purple-500/20 text-purple-400 border-purple-400/50";
     case "failed":
     case "expired":
     case "halted":
@@ -540,7 +540,7 @@ const TransactionStatusPage = ({ initialTradeData }: TransactionStatusPageProps 
           <div className="flex items-center gap-2">
             <button
               onClick={() => copyToClipboard(transaction.id, "id")}
-              className="text-blue-400 hover:text-blue-300 transition-colors p-2"
+              className="text-purple-400 hover:text-purple-300 transition-colors p-2"
               title="Copy Exchange ID"
             >
               {copiedAddress === "id" ? (
@@ -575,7 +575,7 @@ const TransactionStatusPage = ({ initialTradeData }: TransactionStatusPageProps 
             </button>
             <Link
               to="/contact-us"
-              className="text-blue-400 hover:text-blue-300 text-sm flex items-center gap-1"
+              className="text-purple-400 hover:text-purple-300 text-sm flex items-center gap-1"
             >
               <svg
                 className="w-4 h-4"
@@ -761,7 +761,7 @@ const TransactionStatusPage = ({ initialTradeData }: TransactionStatusPageProps 
                 </p>
                 <Link
                   to="/contact-us"
-                  className="inline-flex items-center gap-1 mt-3 text-sm text-blue-400 hover:text-blue-300 transition-colors"
+                  className="inline-flex items-center gap-1 mt-3 text-sm text-purple-400 hover:text-purple-300 transition-colors"
                 >
                   <svg
                     className="w-4 h-4"
@@ -846,7 +846,7 @@ const TransactionStatusPage = ({ initialTradeData }: TransactionStatusPageProps 
                 <QRCode
                   value={qrValue}
                   size={180}
-                  fgColor="#0f1b34"
+                  fgColor="#1a0f2e"
                   bgColor="#ffffff"
                 />
               </div>
@@ -862,7 +862,7 @@ const TransactionStatusPage = ({ initialTradeData }: TransactionStatusPageProps 
                     onClick={() =>
                       copyToClipboard(transaction.payinAddress, "deposit")
                     }
-                    className="text-blue-400 hover:text-blue-300 transition-colors flex-shrink-0 p-2"
+                    className="text-purple-400 hover:text-purple-300 transition-colors flex-shrink-0 p-2"
                     title="Copy Address"
                   >
                     {copiedAddress === "deposit" ? (
@@ -997,7 +997,7 @@ const TransactionStatusPage = ({ initialTradeData }: TransactionStatusPageProps 
         </div>
 
         {/* You will receive Section */}
-        <div className="bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-xl p-5 border border-blue-400/30 mb-6">
+        <div className="bg-gradient-to-br from-purple-500/20 to-purple-500/20 rounded-xl p-5 border border-purple-400/30 mb-6">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-10 h-10 rounded-full bg-green-400/20 flex items-center justify-center">
               <svg
@@ -1101,7 +1101,7 @@ const TransactionStatusPage = ({ initialTradeData }: TransactionStatusPageProps 
             {transaction.payinConfirmations > 0 && (
               <div className="flex justify-between items-center text-xs">
                 <span className="text-white/60">Confirmations:</span>
-                <span className="text-blue-400 font-medium">
+                <span className="text-purple-400 font-medium">
                   {transaction.payinConfirmations}
                 </span>
               </div>
@@ -1111,10 +1111,10 @@ const TransactionStatusPage = ({ initialTradeData }: TransactionStatusPageProps 
       </div>
 
       {/* Info Box */}
-      <div className="mt-6 bg-blue-500/10 backdrop-blur-lg rounded-xl p-4 border border-blue-400/30">
+      <div className="mt-6 bg-purple-500/10 backdrop-blur-lg rounded-xl p-4 border border-purple-400/30">
         <div className="flex items-start gap-3">
           <svg
-            className="w-6 h-6 text-blue-400 flex-shrink-0 mt-0.5"
+            className="w-6 h-6 text-purple-400 flex-shrink-0 mt-0.5"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"

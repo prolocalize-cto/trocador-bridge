@@ -10,10 +10,24 @@ import {
   PrivacyPolicyPage,
   NotFoundPage,
 } from "./pages";
-
+import { initFluid } from "smokey-fluid-cursor";
+import { useEffect } from "react";
 function App() {
+  useEffect(() => {
+    initFluid({
+      splatRadius: 0.05, // Smaller effect size
+      colorUpdateSpeed: 0,
+      backColor: {
+        r: 100,
+        g: 0,
+        b: 0,
+      },
+    });
+  }, []);
+
   return (
     <BrowserRouter>
+      <canvas id="smokey-fluid-canvas"></canvas>
       <MainLayout>
         <Routes>
           <Route path="/" element={<HomePage />} />

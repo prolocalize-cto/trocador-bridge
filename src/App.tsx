@@ -1,4 +1,5 @@
 import "./App.css";
+import "./smoke.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -10,24 +11,26 @@ import {
   PrivacyPolicyPage,
   NotFoundPage,
 } from "./pages";
-import { initFluid } from "smokey-fluid-cursor";
 import { useEffect } from "react";
+
 function App() {
   useEffect(() => {
-    initFluid({
-      splatRadius: 0.05, // Smaller effect size
-      colorUpdateSpeed: 0,
-      backColor: {
-        r: 100,
-        g: 0,
-        b: 0,
-      },
-    });
+    // Load smoke.js script from public folder
+    const script = document.createElement("script");
+    script.src = "/smoke.js";
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
   }, []);
 
   return (
     <BrowserRouter>
-      <canvas id="smokey-fluid-canvas"></canvas>
+      <div id="fluid-container">
+        <canvas id="fluid"></canvas>
+      </div>
       <MainLayout>
         <Routes>
           <Route path="/" element={<HomePage />} />

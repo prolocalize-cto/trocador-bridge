@@ -8,13 +8,14 @@ const config = {
     PRESSURE: 0.1,
     PRESSURE_ITERATIONS: 20,
     CURL: 3,
-    SPLAT_RADIUS: 0.03,  // Smaller smoke effect
-    SPLAT_FORCE: 4000,   // Reduced force for subtler effect
+    SPLAT_RADIUS: 0.015,  // Smaller smoke effect like original
+    SPLAT_FORCE: 6000,   // Reduced force for subtler effect
     SHADING: true,
     COLOR_UPDATE_SPEED: 10,
     PAUSED: false,
     BACK_COLOR: { r: 0, g: 0, b: 0 },  // Transparent/black background
-    TRANSPARENT: true
+    TRANSPARENT: true,
+    ENABLED: true  // Toggle state
   };
   
   // Pointer interface
@@ -800,8 +801,8 @@ const config = {
   }
   
   function generateColor() {
-    // Single purple color for the smoke effect
-    return { r: 0.4, g: 0.1, b: 0.6 };  // Purple
+    // Cyan color for the smoke effect
+    return { r: 0.216, g: 0.835, b: 0.914 };  // Cyan (#37d5e9)
   }
   
   function wrap(value, min, max) {
@@ -1145,41 +1146,23 @@ const config = {
     return delta;
   }
   
-  // Event listeners
+// Event listeners
   function setupEventListeners() {
-    window.addEventListener("mousedown", (e) => {
-      const pointer = pointers[0];
-      const posX = scaleByPixelRatio(e.clientX);
-      const posY = scaleByPixelRatio(e.clientY);
-      updatePointerDownData(pointer, -1, posX, posY);
-      clickSplat(pointer);
-    });
-  
+    // Only mousemove triggers smoke - click works normally
     window.addEventListener("mousemove", (e) => {
+      if (!config.ENABLED) return;
       const pointer = pointers[0];
       const posX = scaleByPixelRatio(e.clientX);
       const posY = scaleByPixelRatio(e.clientY);
       const color = pointer.color;
       updatePointerMoveData(pointer, posX, posY, color);
     });
-  
-    window.addEventListener(
-      "touchstart",
-      (e) => {
-        const touches = e.targetTouches;
-        const pointer = pointers[0];
-        for (let i = 0; i < touches.length; i++) {
-          const posX = scaleByPixelRatio(touches[i].clientX);
-          const posY = scaleByPixelRatio(touches[i].clientY);
-          updatePointerDownData(pointer, touches[i].identifier, posX, posY);
-        }
-      },
-      false
-    );
-  
+
+    // Touch move only (not touch start) for mobile
     window.addEventListener(
       "touchmove",
       (e) => {
+        if (!config.ENABLED) return;
         const touches = e.targetTouches;
         const pointer = pointers[0];
         for (let i = 0; i < touches.length; i++) {
@@ -1190,7 +1173,7 @@ const config = {
       },
       false
     );
-  
+
     window.addEventListener("touchend", (e) => {
       const pointer = pointers[0];
       pointer.down = false;
@@ -1215,6 +1198,33 @@ const config = {
     config.DENSITY_DISSIPATION = Math.min(10, config.DENSITY_DISSIPATION + 0.5);
   }
   
+  // Create toggle button
+  function createToggleButton() {
+    const button = document.createElement("button");
+    button.id = "smoke-toggle";
+    button.title = "Toggle smoke effect";
+    
+    // Create the toggle knob (simple circle, no icon)
+    const knob = document.createElement("div");
+    knob.className = "toggle-knob";
+    button.appendChild(knob);
+    
+    button.addEventListener("click", (e) => {
+      e.stopPropagation();
+      config.ENABLED = !config.ENABLED;
+      const container = document.getElementById("fluid-container");
+      if (config.ENABLED) {
+        button.classList.remove("disabled");
+        container.classList.remove("hidden");
+      } else {
+        button.classList.add("disabled");
+        container.classList.add("hidden");
+      }
+    });
+    
+    document.body.appendChild(button);
+  }
+
   // Initialize everything
   function init() {
     try {
@@ -1224,11 +1234,13 @@ const config = {
       updateKeywords();
       initFramebuffers();
       setupEventListeners();
+      createToggleButton();
       updateFrame();
     } catch (error) {
       console.error("Failed to initialize fluid simulation:", error);
-      document.body.innerHTML =
-        "<h1>WebGL not supported</h1><p>Your browser does not support WebGL.</p>";
+      // Don't break the page, just hide the effect
+      const container = document.getElementById("fluid-container");
+      if (container) container.style.display = "none";
     }
   }
   

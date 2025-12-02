@@ -191,8 +191,8 @@ const HowToGuide = () => {
                                     <div
                                       className={`rounded-full flex items-center justify-center w-10 h-10 shrink-0 z-10 ${
                                         isOpen
-                                          ? "bg-purple-500 text-white"
-                                          : "bg-purple-500/10 text-purple-400"
+                                          ? "bg-cyan-500 text-white"
+                                          : "bg-cyan-500/10 text-cyan-400"
                                       }`}
                                     >
                                       <span className="text-sm">
@@ -203,8 +203,8 @@ const HowToGuide = () => {
                                       <div
                                         className={`absolute top-10 left-1/2 w-0.5 ${
                                           isOpen
-                                            ? "bg-purple-500/20"
-                                            : "bg-purple-500/10"
+                                            ? "bg-cyan-500/20"
+                                            : "bg-cyan-500/10"
                                         } -translate-x-1/2 h-[calc(100%-16px)]`}
                                       />
                                     )}

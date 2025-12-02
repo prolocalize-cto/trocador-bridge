@@ -2,8 +2,8 @@ const ContactUsPage = () => {
   return (
     <div className="w-full flex items-center justify-center px-4 py-5 relative overflow-hidden">
       {/* Background decorations */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
+      <div className="absolute top-0 left-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"></div>
 
       <div className="container mx-auto max-w-2xl relative z-10">
         {/* Header */}
@@ -29,7 +29,7 @@ const ContactUsPage = () => {
               href="https://t.me/hirejoey"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-4 p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-orange-500/50 transition-all duration-200 group"
+              className="flex items-center gap-4 p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-cyan-500/50 transition-all duration-200 group"
             >
               <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform shadow-lg">
                 <svg
@@ -47,7 +47,7 @@ const ContactUsPage = () => {
                 </div>
               </div>
               <svg
-                className="w-5 h-5 text-gray-400 group-hover:text-orange-400 group-hover:translate-x-1 transition-all flex-shrink-0"
+                className="w-5 h-5 text-gray-400 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all flex-shrink-0"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -64,9 +64,9 @@ const ContactUsPage = () => {
             {/* Email */}
             <a
               href="mailto:joeydev0x@gmail.com"
-              className="flex items-center gap-4 p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-purple-500/50 transition-all duration-200 group"
+              className="flex items-center gap-4 p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-cyan-500/50 transition-all duration-200 group"
             >
-              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform shadow-lg">
+              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-cyan-400 to-cyan-600 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform shadow-lg">
                 <svg
                   className="w-7 h-7 text-white"
                   fill="none"
@@ -88,7 +88,7 @@ const ContactUsPage = () => {
                 </div>
               </div>
               <svg
-                className="w-5 h-5 text-gray-400 group-hover:text-purple-400 group-hover:translate-x-1 transition-all flex-shrink-0"
+                className="w-5 h-5 text-gray-400 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all flex-shrink-0"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -107,7 +107,7 @@ const ContactUsPage = () => {
           <div className="mt-6 pt-6 border-t border-white/10 text-center">
             <p className="text-gray-300 text-sm">
               We typically respond within{" "}
-              <span className="text-orange-400 font-semibold">24 hours</span>
+              <span className="text-cyan-400 font-semibold">24 hours</span>
             </p>
           </div>
         </div>

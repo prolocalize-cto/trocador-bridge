@@ -82,10 +82,10 @@ const HowItWorks = () => {
           {steps.map((step, index) => (
             <div key={index} className="relative group">
               {/* Card */}
-              <div className="relative bg-gray-900/60 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-gray-900/70 hover:border-orange-500/50 transition-all duration-300 hover:scale-105 hover:shadow-2xl h-full">
+              <div className="relative bg-gray-900/60 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-gray-900/70 hover:border-cyan-500/50 transition-all duration-300 hover:scale-105 hover:shadow-2xl h-full">
                 {/* Icon Container */}
                 <div className="relative mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-orange-500/50 transition-all duration-300 group-hover:scale-110">
+                  <div className="w-16 h-16 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-cyan-500/50 transition-all duration-300 group-hover:scale-110">
                     {step.icon}
                   </div>
                 </div>
@@ -101,7 +101,7 @@ const HowItWorks = () => {
                 </div>
 
                 {/* Hover effect border */}
-                <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-orange-400/30 transition-all duration-300"></div>
+                <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-cyan-400/30 transition-all duration-300"></div>
               </div>
             </div>
           ))}

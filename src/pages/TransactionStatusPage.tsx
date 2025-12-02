@@ -22,15 +22,15 @@ const getStatusColor = (status: string) => {
       return "bg-green-500/20 text-green-400 border-green-400/50";
     case "confirming":
     case "sending":
-      return "bg-purple-500/20 text-purple-400 border-purple-400/50";
+      return "bg-cyan-500/20 text-cyan-400 border-cyan-400/50";
     case "failed":
     case "expired":
     case "halted":
       return "bg-red-500/20 text-red-400 border-red-400/50";
     case "refunded":
-      return "bg-orange-500/20 text-orange-400 border-orange-400/50";
+      return "bg-yellow-500/20 text-yellow-400 border-yellow-400/50";
     case "paid partially":
-      return "bg-purple-500/20 text-purple-400 border-purple-400/50";
+      return "bg-cyan-500/20 text-cyan-400 border-cyan-400/50";
     case "waiting":
     case "new":
     default:
@@ -509,7 +509,7 @@ const TransactionStatusPage = ({ initialTradeData }: TransactionStatusPageProps 
         </div>
         <Link
           to="/"
-          className="bg-gradient-to-r from-pink-400 to-purple-500 hover:from-pink-500 hover:to-purple-600 text-white font-bold py-3 px-6 rounded-xl transition-all duration-200"
+          className="bg-gradient-to-r from-cyan-400 to-cyan-500 hover:from-cyan-500 hover:to-cyan-600 text-white font-bold py-3 px-6 rounded-xl transition-all duration-200"
         >
           Back to Home
         </Link>
@@ -540,7 +540,7 @@ const TransactionStatusPage = ({ initialTradeData }: TransactionStatusPageProps 
           <div className="flex items-center gap-2">
             <button
               onClick={() => copyToClipboard(transaction.id, "id")}
-              className="text-purple-400 hover:text-purple-300 transition-colors p-2"
+              className="text-cyan-400 hover:text-cyan-300 transition-colors p-2"
               title="Copy Exchange ID"
             >
               {copiedAddress === "id" ? (
@@ -575,7 +575,7 @@ const TransactionStatusPage = ({ initialTradeData }: TransactionStatusPageProps 
             </button>
             <Link
               to="/contact-us"
-              className="text-purple-400 hover:text-purple-300 text-sm flex items-center gap-1"
+              className="text-cyan-400 hover:text-cyan-300 text-sm flex items-center gap-1"
             >
               <svg
                 className="w-4 h-4"
@@ -698,9 +698,9 @@ const TransactionStatusPage = ({ initialTradeData }: TransactionStatusPageProps 
           <div
             className={`rounded-xl p-5 mb-6 border ${
               transaction.status === "refunded"
-                ? "bg-orange-500/10 border-orange-400/30"
+                ? "bg-yellow-500/10 border-yellow-400/30"
                 : transaction.status === "paid partially"
-                ? "bg-purple-500/10 border-purple-400/30"
+                ? "bg-cyan-500/10 border-cyan-400/30"
                 : "bg-red-500/10 border-red-400/30"
             }`}
           >
@@ -708,18 +708,18 @@ const TransactionStatusPage = ({ initialTradeData }: TransactionStatusPageProps 
               <div
                 className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
                   transaction.status === "refunded"
-                    ? "bg-orange-400/20"
+                    ? "bg-yellow-400/20"
                     : transaction.status === "paid partially"
-                    ? "bg-purple-400/20"
+                    ? "bg-cyan-400/20"
                     : "bg-red-400/20"
                 }`}
               >
                 <svg
                   className={`w-6 h-6 ${
                     transaction.status === "refunded"
-                      ? "text-orange-400"
+                      ? "text-yellow-400"
                       : transaction.status === "paid partially"
-                      ? "text-purple-400"
+                      ? "text-cyan-400"
                       : "text-red-400"
                   }`}
                   fill="none"
@@ -738,9 +738,9 @@ const TransactionStatusPage = ({ initialTradeData }: TransactionStatusPageProps 
                 <h3
                   className={`font-bold mb-1 ${
                     transaction.status === "refunded"
-                      ? "text-orange-400"
+                      ? "text-yellow-400"
                       : transaction.status === "paid partially"
-                      ? "text-purple-400"
+                      ? "text-cyan-400"
                       : "text-red-400"
                   }`}
                 >
@@ -761,7 +761,7 @@ const TransactionStatusPage = ({ initialTradeData }: TransactionStatusPageProps 
                 </p>
                 <Link
                   to="/contact-us"
-                  className="inline-flex items-center gap-1 mt-3 text-sm text-purple-400 hover:text-purple-300 transition-colors"
+                  className="inline-flex items-center gap-1 mt-3 text-sm text-cyan-400 hover:text-cyan-300 transition-colors"
                 >
                   <svg
                     className="w-4 h-4"
@@ -787,8 +787,8 @@ const TransactionStatusPage = ({ initialTradeData }: TransactionStatusPageProps 
         <div
           className={`bg-gradient-to-br rounded-xl p-5 border mb-6 ${
             transaction.status === "expired"
-              ? "from-red-500/20 to-orange-500/20 border-red-400/30"
-              : "from-purple-500/20 to-pink-500/20 border-purple-400/30"
+              ? "from-red-500/20 to-red-500/20 border-red-400/30"
+              : "from-cyan-500/20 to-cyan-400/20 border-cyan-400/30"
           }`}
         >
           <div className="flex items-center justify-between gap-3 mb-4">
@@ -846,7 +846,7 @@ const TransactionStatusPage = ({ initialTradeData }: TransactionStatusPageProps 
                 <QRCode
                   value={qrValue}
                   size={180}
-                  fgColor="#1a0f2e"
+                  fgColor="#0a1a1e"
                   bgColor="#ffffff"
                 />
               </div>
@@ -862,7 +862,7 @@ const TransactionStatusPage = ({ initialTradeData }: TransactionStatusPageProps 
                     onClick={() =>
                       copyToClipboard(transaction.payinAddress, "deposit")
                     }
-                    className="text-purple-400 hover:text-purple-300 transition-colors flex-shrink-0 p-2"
+                    className="text-cyan-400 hover:text-cyan-300 transition-colors flex-shrink-0 p-2"
                     title="Copy Address"
                   >
                     {copiedAddress === "deposit" ? (
@@ -940,7 +940,7 @@ const TransactionStatusPage = ({ initialTradeData }: TransactionStatusPageProps 
                         isCompleted || isFinished
                           ? "bg-gradient-to-br from-green-400 to-green-600"
                           : isCurrent
-                          ? "bg-gradient-to-br from-blue-400 to-purple-600 animate-pulse"
+                          ? "bg-gradient-to-br from-cyan-400 to-cyan-600 animate-pulse"
                           : "bg-white/10"
                       }`}
                     >
@@ -997,7 +997,7 @@ const TransactionStatusPage = ({ initialTradeData }: TransactionStatusPageProps 
         </div>
 
         {/* You will receive Section */}
-        <div className="bg-gradient-to-br from-purple-500/20 to-purple-500/20 rounded-xl p-5 border border-purple-400/30 mb-6">
+        <div className="bg-gradient-to-br from-cyan-500/20 to-cyan-500/20 rounded-xl p-5 border border-cyan-400/30 mb-6">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-10 h-10 rounded-full bg-green-400/20 flex items-center justify-center">
               <svg
@@ -1101,7 +1101,7 @@ const TransactionStatusPage = ({ initialTradeData }: TransactionStatusPageProps 
             {transaction.payinConfirmations > 0 && (
               <div className="flex justify-between items-center text-xs">
                 <span className="text-white/60">Confirmations:</span>
-                <span className="text-purple-400 font-medium">
+                <span className="text-cyan-400 font-medium">
                   {transaction.payinConfirmations}
                 </span>
               </div>
@@ -1111,10 +1111,10 @@ const TransactionStatusPage = ({ initialTradeData }: TransactionStatusPageProps 
       </div>
 
       {/* Info Box */}
-      <div className="mt-6 bg-purple-500/10 backdrop-blur-lg rounded-xl p-4 border border-purple-400/30">
+      <div className="mt-6 bg-cyan-500/10 backdrop-blur-lg rounded-xl p-4 border border-cyan-400/30">
         <div className="flex items-start gap-3">
           <svg
-            className="w-6 h-6 text-purple-400 flex-shrink-0 mt-0.5"
+            className="w-6 h-6 text-cyan-400 flex-shrink-0 mt-0.5"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -1155,7 +1155,7 @@ const TransactionStatusPage = ({ initialTradeData }: TransactionStatusPageProps 
         <div className="mt-6 flex justify-center">
           <Link
             to="/"
-            className="bg-gradient-to-r from-pink-400 to-purple-500 hover:from-pink-500 hover:to-purple-600 text-white font-bold py-4 px-8 rounded-xl transition-all duration-200 transform hover:scale-105 shadow-lg flex items-center gap-2"
+            className="bg-gradient-to-r from-cyan-400 to-cyan-500 hover:from-cyan-500 hover:to-cyan-600 text-white font-bold py-4 px-8 rounded-xl transition-all duration-200 transform hover:scale-105 shadow-lg flex items-center gap-2"
           >
             <svg
               className="w-5 h-5"

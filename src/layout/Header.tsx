@@ -21,8 +21,8 @@ const Header = () => {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-[#1a0f2e] backdrop-blur-xl shadow-2xl border-b border-orange-500/30"
-          : "bg-[#1a0f2e] backdrop-blur-md border-b border-orange-500/20"
+          ? "bg-[#0a1a1e] backdrop-blur-xl shadow-2xl border-b border-cyan-500/30"
+          : "bg-[#0a1a1e] backdrop-blur-md border-b border-cyan-500/20"
       } ${hideHeaderOnMobile ? "hidden md:block" : ""}`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -30,7 +30,7 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3 group relative">
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-purple-600 rounded-full blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-cyan-600 rounded-full blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
               <div className="relative w-16 h-16 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg overflow-hidden">
                 <img
                   src={logoImg}
@@ -40,7 +40,7 @@ const Header = () => {
               </div>
             </div>
             <div className="flex flex-col">
-              <span className="text-white text-2xl sm:text-3xl font-bold bg-gradient-to-r from-white via-orange-100 to-purple-200 bg-clip-text text-transparent group-hover:from-orange-300 group-hover:to-purple-300 transition-all duration-300">
+              <span className="text-white text-2xl sm:text-3xl font-bold bg-gradient-to-r from-white via-cyan-100 to-cyan-200 bg-clip-text text-transparent group-hover:from-cyan-300 group-hover:to-cyan-400 transition-all duration-300">
                 GhostSwap
               </span>
               <span className="text-xs text-gray-400 font-medium tracking-wider">
@@ -159,8 +159,8 @@ const Header = () => {
               to="/contact-us"
               className={`relative px-6 py-2.5 rounded-full font-semibold overflow-hidden group transition-all duration-300 ${
                 location.pathname === "/contact-us"
-                  ? "bg-purple-500 text-white shadow-lg shadow-purple-500/50"
-                  : "bg-purple-600/30 text-white hover:bg-purple-500 hover:shadow-lg hover:shadow-purple-500/50"
+                  ? "bg-cyan-500 text-white shadow-lg shadow-cyan-500/50"
+                  : "bg-cyan-600/30 text-white hover:bg-cyan-500 hover:shadow-lg hover:shadow-cyan-500/50"
               }`}
             >
               <span className="relative z-10 text-white font-semibold">
@@ -208,7 +208,7 @@ const Header = () => {
           mobileMenuOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <div className="px-4 py-4 bg-gray-900/95 backdrop-blur-xl border-t border-orange-500/20">
+        <div className="px-4 py-4 bg-gray-900/95 backdrop-blur-xl border-t border-cyan-500/20">
           <nav className="flex flex-col space-y-3">
             <a
               href="/#swap"
@@ -321,7 +321,7 @@ const Header = () => {
             <Link
               to="/contact-us"
               onClick={() => setMobileMenuOpen(false)}
-              className="bg-purple-600/30 hover:bg-purple-500 text-white px-6 py-3 rounded-full transition-all duration-200 font-semibold text-center shadow-lg shadow-purple-500/30"
+              className="bg-cyan-600/30 hover:bg-cyan-500 text-white px-6 py-3 rounded-full transition-all duration-200 font-semibold text-center shadow-lg shadow-cyan-500/30"
             >
               Contact Us
             </Link>

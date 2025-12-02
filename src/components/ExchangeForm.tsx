@@ -303,7 +303,7 @@ const ExchangeForm = () => {
       <div className="container mx-auto px-4 py-8 w-full max-w-[95%] sm:w-[600px] md:w-[650px] lg:w-[700px] xl:w-[750px]">
         <button
           onClick={handleBackToInput}
-          className="mb-4 flex items-center gap-2 px-4 py-2.5 bg-[#2a1a4f]/60 hover:bg-[#2a1a4f]/80 border border-purple-500/30 hover:border-purple-500/50 rounded-lg text-white/90 hover:text-white transition-all duration-200 shadow-sm hover:shadow-md"
+          className="mb-4 flex items-center gap-2 px-4 py-2.5 bg-[#0a1a1e]/60 hover:bg-[#0a1a1e]/80 border border-cyan-500/30 hover:border-cyan-500/50 rounded-lg text-white/90 hover:text-white transition-all duration-200 shadow-sm hover:shadow-md"
         >
           <svg
             className="w-5 h-5"
@@ -336,7 +336,7 @@ const ExchangeForm = () => {
       <div className="container mx-auto px-4 py-8 w-full max-w-[95%] sm:w-[600px] md:w-[650px] lg:w-[700px] xl:w-[750px]">
         <button
           onClick={handleBackToProviders}
-          className="mb-4 flex items-center gap-2 px-4 py-2.5 bg-[#2a1a4f]/60 hover:bg-[#2a1a4f]/80 border border-purple-500/30 hover:border-purple-500/50 rounded-lg text-white/90 hover:text-white transition-all duration-200 shadow-sm hover:shadow-md"
+          className="mb-4 flex items-center gap-2 px-4 py-2.5 bg-[#0a1a1e]/60 hover:bg-[#0a1a1e]/80 border border-cyan-500/30 hover:border-cyan-500/50 rounded-lg text-white/90 hover:text-white transition-all duration-200 shadow-sm hover:shadow-md"
         >
           <svg
             className="w-5 h-5"
@@ -354,13 +354,13 @@ const ExchangeForm = () => {
           <span className="font-medium">Back to Provider List</span>
         </button>
 
-        <div className="bg-[#2a1a4f]/80 backdrop-blur-md rounded-3xl p-8 md:p-10 shadow-2xl border border-purple-500/30 flex flex-col gap-5">
+        <div className="bg-[#0a1a1e]/80 backdrop-blur-md rounded-3xl p-8 md:p-10 shadow-2xl border border-cyan-500/30 flex flex-col gap-5">
           <h2 className="text-xl font-bold text-white text-center mb-4">
             Confirm Exchange
           </h2>
 
           {/* Selected Provider Info */}
-          <div className="bg-[#2a1a4f]/50 rounded-xl p-4">
+          <div className="bg-[#0a1a1e]/50 rounded-xl p-4">
             <p className="text-gray-400 text-sm mb-2">Selected Provider:</p>
             <div className="flex items-center gap-3">
               <img
@@ -438,7 +438,7 @@ const ExchangeForm = () => {
               placeholder={`Enter ${getTickerFromCurrencyId(
                 toCurrency
               ).toUpperCase()} address`}
-              className="w-full bg-white/5 text-white p-2 rounded-xl outline-none border-2 border-white/10 hover:border-purple-500/50 focus:border-purple-500 transition-colors text-sm"
+              className="w-full bg-white/5 text-white p-2 rounded-xl outline-none border-2 border-white/10 hover:border-cyan-500/50 focus:border-cyan-500 transition-colors text-sm"
             />
           </div>
 
@@ -474,7 +474,7 @@ const ExchangeForm = () => {
                 value={refundAddress}
                 onChange={(e) => setRefundAddress(e.target.value)}
                 placeholder={`Enter ${getTickerFromCurrencyId(fromCurrency).toUpperCase()} refund address (optional)`}
-                className="w-full bg-white/5 text-white p-2 rounded-xl outline-none border-2 border-white/10 hover:border-purple-500/50 focus:border-purple-500 transition-colors text-sm"
+                className="w-full bg-white/5 text-white p-2 rounded-xl outline-none border-2 border-white/10 hover:border-cyan-500/50 focus:border-cyan-500 transition-colors text-sm"
               />
             )}
           </div>
@@ -483,7 +483,7 @@ const ExchangeForm = () => {
           <button
             onClick={handleConfirmExchange}
             disabled={isCreatingTransaction}
-            className="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-bold py-5 md:py-6 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-purple-500/50 text-base md:text-lg"
+            className="w-full bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white font-bold py-5 md:py-6 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-cyan-500/50 text-base md:text-lg"
           >
             {isCreatingTransaction ? (
               <span className="flex items-center justify-center gap-2">
@@ -520,7 +520,7 @@ const ExchangeForm = () => {
   // Default: Input step
   return (
     <div className="container mx-auto px-4 py-8 w-full max-w-[95%] sm:w-[600px] md:w-[650px] lg:w-[700px] xl:w-[750px]">
-      <div className="bg-[#2a1a4f] backdrop-blur-md rounded-3xl p-3 md:p-4 shadow-2xl border border-purple-500/30 flex flex-col gap-[10px]">
+      <div className="bg-[#0a1a1e] backdrop-blur-md rounded-3xl p-3 md:p-4 shadow-2xl border border-cyan-500/30 flex flex-col gap-[10px]">
         {/* Swap Mode Header */}
         <div className="flex items-center justify-center gap-2">
           <div className="text-lg font-bold text-white">Swap Now</div>
@@ -530,9 +530,9 @@ const ExchangeForm = () => {
             </div>
             {/* Tooltip */}
             <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50">
-              <div className="bg-gray-900 border-2 border-orange-500 rounded-lg p-3 shadow-2xl w-64">
+              <div className="bg-gray-900 border-2 border-cyan-500 rounded-lg p-3 shadow-2xl w-64">
                 <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-[-1px]">
-                  <div className="border-8 border-transparent border-b-orange-500"></div>
+                  <div className="border-8 border-transparent border-b-cyan-500"></div>
                 </div>
                 <p className="text-white text-sm leading-relaxed">
                   You choose the amount you'll send and get both variable and fixed quotes to choose from.
@@ -549,7 +549,7 @@ const ExchangeForm = () => {
               You Send
             </label> */}
           </div>
-          <div className="flex items-center bg-white/5 rounded-xl p-1 gap-3 border-2 border-white/10 hover:border-purple-500/50 transition-colors">
+          <div className="flex items-center bg-white/5 rounded-xl p-1 gap-3 border-2 border-white/10 hover:border-cyan-500/50 transition-colors">
             <input
               type="text"
               value={fromAmount}
@@ -579,7 +579,7 @@ const ExchangeForm = () => {
         <div className="flex justify-center">
           <button
             onClick={handleSwapCurrencies}
-            className="bg-purple-600 hover:bg-purple-700 p-3 rounded-full transition-all duration-200 shadow-lg hover:scale-110"
+            className="bg-cyan-600 hover:bg-cyan-700 p-3 rounded-full transition-all duration-200 shadow-lg hover:scale-110"
           >
             <svg
               className="w-6 h-6 text-white"
@@ -623,7 +623,7 @@ const ExchangeForm = () => {
         <button
           onClick={handleSearchRates}
           disabled={isLoadingRates}
-          className="w-full bg-gradient-to-r mt-3 from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white py-3 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-purple-500/50 text-base md:text-lg"
+          className="w-full bg-gradient-to-r mt-3 from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white py-3 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-cyan-500/50 text-base md:text-lg"
         >
           {isLoadingRates ? (
             <span className="flex items-center justify-center gap-2">
@@ -696,7 +696,7 @@ const ExchangeForm = () => {
                     }
                   }}
                   placeholder="Enter GhostSwap ID"
-                  className="w-full bg-white/5 text-white p-2 rounded-lg outline-none border-2 border-white/10 hover:border-purple-500/50 focus:border-purple-500 transition-colors text-sm"
+                  className="w-full bg-white/5 text-white p-2 rounded-lg outline-none border-2 border-white/10 hover:border-cyan-500/50 focus:border-cyan-500 transition-colors text-sm"
                 />
               </div>
               <button
@@ -706,7 +706,7 @@ const ExchangeForm = () => {
                   }
                 }}
                 disabled={!trocadorId.trim()}
-                className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-purple-500/50 text-sm font-semibold"
+                className="w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-cyan-500/50 text-sm font-semibold"
               >
                 Check
               </button>

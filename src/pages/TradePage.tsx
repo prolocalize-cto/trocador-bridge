@@ -127,7 +127,7 @@ const TradePage = () => {
         <div className="text-red-400 text-xl">{error}</div>
         <a
           href="/"
-          className="bg-gradient-to-r from-pink-400 to-purple-500 hover:from-pink-500 hover:to-purple-600 text-white font-bold py-3 px-6 rounded-xl transition-all duration-200"
+          className="bg-gradient-to-r from-cyan-400 to-cyan-500 hover:from-cyan-500 hover:to-cyan-600 text-white font-bold py-3 px-6 rounded-xl transition-all duration-200"
         >
           Back to Home
         </a>

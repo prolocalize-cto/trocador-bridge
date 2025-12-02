@@ -369,8 +369,8 @@ const FAQ = () => {
             {faqData.map((item) => (
               <Disclosure key={item.id}>
                 {({ open }) => (
-                  <div className="bg-[#2a1a44] border border-purple-700/30 rounded-lg mb-3 overflow-hidden">
-                    <Disclosure.Button className="w-full py-4 px-4 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900 hover:bg-purple-900/20 transition-colors bg-[#1a0f2e]">
+                  <div className="bg-[#0a1a1e] border border-cyan-700/30 rounded-lg mb-3 overflow-hidden">
+                    <Disclosure.Button className="w-full py-4 px-4 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900 hover:bg-cyan-900/20 transition-colors bg-[#0a1a1e]">
                       <div className="relative flex items-center">
                         <div className="relative flex-1 pr-8 pl-7">
                           <span className="text-white text-sm md:text-base">
@@ -391,7 +391,7 @@ const FAQ = () => {
                         </div>
                       </div>
                     </Disclosure.Button>
-                    <Disclosure.Panel className="px-4 pb-4 pt-2 text-gray-300 bg-[#201530]">
+                    <Disclosure.Panel className="px-4 pb-4 pt-2 text-gray-300 bg-[#0a1a1e]">
                       <div className="space-y-4 ml-7 text-sm md:text-base">{item.answer}</div>
                     </Disclosure.Panel>
                   </div>

@@ -165,7 +165,7 @@ const ExchangePage = () => {
         </div>
         <Link
           to="/"
-          className="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-200"
+          className="bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-200"
         >
           Back to Home
         </Link>
@@ -179,7 +179,7 @@ const ExchangePage = () => {
       <div className="container mx-auto px-4 py-8 w-full max-w-[95%] sm:w-[600px] md:w-[650px] lg:w-[700px] xl:w-[750px]">
         <button
           onClick={() => navigate("/")}
-          className="mb-4 flex items-center gap-2 px-4 py-2.5 bg-[#2a1a4f]/60 hover:bg-[#2a1a4f]/80 border border-purple-500/30 hover:border-purple-500/50 rounded-lg text-white/90 hover:text-white transition-all duration-200 shadow-sm hover:shadow-md"
+          className="mb-4 flex items-center gap-2 px-4 py-2.5 bg-[#0a1a1e]/60 hover:bg-[#0a1a1e]/80 border border-cyan-500/30 hover:border-cyan-500/50 rounded-lg text-white/90 hover:text-white transition-all duration-200 shadow-sm hover:shadow-md"
         >
           <svg
             className="w-5 h-5"
@@ -213,7 +213,7 @@ const ExchangePage = () => {
       <div className="container mx-auto px-4 py-8 w-full max-w-[95%] sm:w-[500px] md:w-[600px] lg:w-[600px] xl:w-[650px]">
         <button
           onClick={handleBackToProviders}
-          className="mb-4 flex items-center gap-2 px-4 py-2.5 bg-[#2a1a4f]/60 hover:bg-[#2a1a4f]/80 border border-purple-500/30 hover:border-purple-500/50 rounded-lg text-white/90 hover:text-white transition-all duration-200 shadow-sm hover:shadow-md"
+          className="mb-4 flex items-center gap-2 px-4 py-2.5 bg-[#0a1a1e]/60 hover:bg-[#0a1a1e]/80 border border-cyan-500/30 hover:border-cyan-500/50 rounded-lg text-white/90 hover:text-white transition-all duration-200 shadow-sm hover:shadow-md"
         >
           <svg
             className="w-5 h-5"
@@ -231,13 +231,13 @@ const ExchangePage = () => {
           <span className="font-medium">Back to Provider List</span>
         </button>
 
-        <div className="bg-[#2a1a4f]/80 backdrop-blur-md rounded-3xl p-4 md:p-6 shadow-2xl border border-purple-500/30 flex flex-col gap-4">
+        <div className="bg-[#0a1a1e]/80 backdrop-blur-md rounded-3xl p-4 md:p-6 shadow-2xl border border-cyan-500/30 flex flex-col gap-4">
           <h2 className="text-xl font-bold text-white text-center mb-3">
             Confirm Exchange
           </h2>
 
           {/* Selected Provider Info */}
-          <div className="bg-[#2a1a4f]/50 rounded-xl p-4">
+          <div className="bg-[#0a1a1e]/50 rounded-xl p-4">
             <p className="text-gray-400 text-sm mb-2">Selected Provider:</p>
             <div className="flex items-center gap-3">
               {selectedProvider.provider_logo ? (
@@ -253,7 +253,7 @@ const ExchangePage = () => {
                     if (parent) {
                       const defaultIcon = document.createElement("div");
                       defaultIcon.className =
-                        "w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg shadow-lg";
+                        "w-10 h-10 rounded-full bg-gradient-to-br from-cyan-400 to-cyan-600 flex items-center justify-center text-white font-bold text-lg shadow-lg";
                       defaultIcon.textContent = selectedProvider.provider
                         .charAt(0)
                         .toUpperCase();
@@ -262,7 +262,7 @@ const ExchangePage = () => {
                   }}
                 />
               ) : (
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-400 to-cyan-600 flex items-center justify-center text-white font-bold text-lg shadow-lg">
                   {selectedProvider.provider.charAt(0).toUpperCase()}
                 </div>
               )}
@@ -331,7 +331,7 @@ const ExchangePage = () => {
               value={recipientAddress}
               onChange={(e) => setRecipientAddress(e.target.value)}
               placeholder={`Enter ${rateData.ticker_to.toUpperCase()} address`}
-              className="w-full bg-white/5 text-white p-2 rounded-xl outline-none border-2 border-white/10 hover:border-purple-500/50 focus:border-purple-500 transition-colors text-sm md:text-base"
+              className="w-full bg-white/5 text-white p-2 rounded-xl outline-none border-2 border-white/10 hover:border-cyan-500/50 focus:border-cyan-500 transition-colors text-sm md:text-base"
             />
           </div>
 
@@ -367,7 +367,7 @@ const ExchangePage = () => {
                 value={refundAddress}
                 onChange={(e) => setRefundAddress(e.target.value)}
                 placeholder={`Enter ${rateData.ticker_from.toUpperCase()} refund address (optional)`}
-                className="w-full bg-white/5 text-white p-2 rounded-xl outline-none border-2 border-white/10 hover:border-purple-500/50 focus:border-purple-500 transition-colors text-sm"
+                className="w-full bg-white/5 text-white p-2 rounded-xl outline-none border-2 border-white/10 hover:border-cyan-500/50 focus:border-cyan-500 transition-colors text-sm"
               />
             )}
           </div>
@@ -384,7 +384,7 @@ const ExchangePage = () => {
             <button
               onClick={handleConfirmExchange}
               disabled={isCreatingTransaction}
-              className="w-[200px] bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-bold py-2 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-purple-500/50 text-sm"
+              className="w-[200px] bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white font-bold py-2 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-cyan-500/50 text-sm"
             >
               {isCreatingTransaction ? (
                 <span className="flex items-center justify-center gap-2">

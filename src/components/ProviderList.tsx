@@ -36,15 +36,15 @@ const Tooltip = ({ content, children, position = "center" }: TooltipProps) => {
               : "top-full left-1/2 transform -translate-x-1/2 mt-2"
           }`}
         >
-          <div className="bg-gray-900 border-2 border-orange-500 rounded-lg p-4 shadow-2xl text-left">
+          <div className="bg-gray-900 border-2 border-cyan-500 rounded-lg p-4 shadow-2xl text-left">
             {/* Arrow */}
             {position === "left" ? (
               <div className="absolute left-full top-4 ml-[-1px]">
-                <div className="border-8 border-transparent border-l-orange-500"></div>
+                <div className="border-8 border-transparent border-l-cyan-500"></div>
               </div>
             ) : (
               <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-[-1px]">
-                <div className="border-8 border-transparent border-b-orange-500"></div>
+                <div className="border-8 border-transparent border-b-cyan-500"></div>
               </div>
             )}
             <div className="text-white text-sm leading-relaxed">{content}</div>
@@ -110,13 +110,13 @@ const ProviderList = ({
   };
 
   return (
-    <div className="w-full bg-[#2a1a4f]/90 backdrop-blur-md rounded-2xl p-2 md:p-6 shadow-2xl border border-purple-500/30 max-h-[800px] md:max-h-[800px] flex flex-col">
+    <div className="w-full bg-[#0a1a1e]/90 backdrop-blur-md rounded-2xl p-2 md:p-6 shadow-2xl border border-cyan-500/30 max-h-[800px] md:max-h-[800px] flex flex-col">
       {/* Header */}
       <div className="text-center mb-1 md:mb-2 flex-shrink-0">
         <div className="flex items-center justify-center gap-2 md:gap-3 mb-2 md:mb-3">
-          <div className="w-8 h-8 md:w-12 md:h-12 rounded-full bg-purple-500/20 flex items-center justify-center">
+          <div className="w-8 h-8 md:w-12 md:h-12 rounded-full bg-cyan-500/20 flex items-center justify-center">
             <svg
-              className="w-4 h-4 md:w-6 md:h-6 text-purple-400"
+              className="w-4 h-4 md:w-6 md:h-6 text-cyan-400"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -144,7 +144,7 @@ const ProviderList = ({
           onClick={() => setRateType("floating")}
           className={`flex-1 py-1.5 md:py-2 rounded-lg font-semibold transition-all duration-200 w-[130px] md:w-[150px] text-xs md:text-base ${
             rateType === "floating"
-              ? "bg-purple-600 text-white shadow-lg"
+              ? "bg-cyan-600 text-white shadow-lg"
               : "text-gray-400 hover:text-white"
           }`}
         >
@@ -154,7 +154,7 @@ const ProviderList = ({
           onClick={() => setRateType("fixed")}
           className={`flex-1 py-1.5 md:py-2 rounded-lg font-semibold transition-all duration-200 w-[130px] md:w-[150px] text-xs md:text-base ${
             rateType === "fixed"
-              ? "bg-purple-600 text-white shadow-lg"
+              ? "bg-cyan-600 text-white shadow-lg"
               : "text-gray-400 hover:text-white"
           }`}
         >
@@ -163,7 +163,7 @@ const ProviderList = ({
       </div>
 
       {/* Table Header */}
-      <div className="hidden md:grid md:grid-cols-12 gap-4 px-4 py-3 bg-[#2a1a4f]/60 rounded-t-xl text-sm font-semibold text-gray-300">
+      <div className="hidden md:grid md:grid-cols-12 gap-4 px-4 py-3 bg-[#0a1a1e]/60 rounded-t-xl text-sm font-semibold text-gray-300">
         <div className="col-span-3">Exchange</div>
 
         {/* Rate with Tooltip */}
@@ -274,7 +274,7 @@ const ProviderList = ({
                   </div>
 
                   <div className="flex items-start gap-2">
-                    <div className="w-6 h-6 rounded-full bg-purple-500 flex items-center justify-center text-white text-xs font-bold flex-shrink-0 mt-0.5">
+                    <div className="w-6 h-6 rounded-full bg-cyan-500 flex items-center justify-center text-white text-xs font-bold flex-shrink-0 mt-0.5">
                       B
                     </div>
                     <p className="text-xs">
@@ -344,8 +344,8 @@ const ProviderList = ({
               onClick={() => handleProviderSelect(quote)}
               className={`grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-4 p-2 md:p-4 rounded-xl cursor-pointer transition-all duration-200 ${
                 selectedProvider === quote.provider
-                  ? "bg-orange-500/20 border-2 border-orange-500"
-                  : "bg-[#2a1a4f]/40 hover:bg-[#2a1a4f]/60 border-2 border-transparent"
+                  ? "bg-cyan-500/20 border-2 border-cyan-500"
+                  : "bg-[#0a1a1e]/40 hover:bg-[#0a1a1e]/60 border-2 border-transparent"
               }`}
             >
               {/* Exchange (with logo) */}
@@ -363,7 +363,7 @@ const ProviderList = ({
                       if (parent) {
                         const defaultIcon = document.createElement("div");
                         defaultIcon.className =
-                          "w-6 h-6 md:w-8 md:h-8 rounded-full bg-gradient-to-br from-orange-500 to-purple-600 flex items-center justify-center text-white font-bold text-xs md:text-sm";
+                          "w-6 h-6 md:w-8 md:h-8 rounded-full bg-gradient-to-br from-cyan-400 to-cyan-600 flex items-center justify-center text-white font-bold text-xs md:text-sm";
                         defaultIcon.textContent = quote.provider
                           .charAt(0)
                           .toUpperCase();
@@ -372,7 +372,7 @@ const ProviderList = ({
                     }}
                   />
                 ) : (
-                  <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-gradient-to-br from-orange-500 to-purple-600 flex items-center justify-center text-white font-bold text-xs md:text-sm shadow-lg">
+                  <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-gradient-to-br from-cyan-400 to-cyan-600 flex items-center justify-center text-white font-bold text-xs md:text-sm shadow-lg">
                     {quote.provider.charAt(0).toUpperCase()}
                   </div>
                 )}
@@ -478,7 +478,7 @@ const ProviderList = ({
               <div className="col-span-1 md:col-span-1 flex items-center justify-end">
                 {selectedProvider === quote.provider && (
                   <svg
-                    className="w-5 h-5 md:w-6 md:h-6 text-orange-500"
+                    className="w-5 h-5 md:w-6 md:h-6 text-cyan-500"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -497,7 +497,7 @@ const ProviderList = ({
 
       {/* Summary Info */}
       {filteredQuotes.length > 0 && (
-        <div className="mt-2 md:mt-4 p-2 md:p-3 bg-[#2a1a4f]/50 rounded-xl text-xs md:text-sm text-gray-300 flex-shrink-0">
+        <div className="mt-2 md:mt-4 p-2 md:p-3 bg-[#0a1a1e]/50 rounded-xl text-xs md:text-sm text-gray-300 flex-shrink-0">
           <p>
             <span className="font-semibold text-white">Trade Summary:</span>{" "}
             {amountFrom} {tickerFrom.toUpperCase()} →{" "}

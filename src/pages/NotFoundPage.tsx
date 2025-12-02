@@ -4,7 +4,7 @@ const NotFoundPage = () => {
       <div className="text-center max-w-md">
         <div className="mb-8">
           <h1 className="text-9xl font-bold text-white mb-4">404</h1>
-          <div className="w-24 h-1 bg-gradient-to-r from-pink-400 to-purple-500 mx-auto mb-6"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-cyan-400 to-cyan-500 mx-auto mb-6"></div>
         </div>
         
         <h2 className="text-3xl font-bold text-white mb-4">
@@ -18,7 +18,7 @@ const NotFoundPage = () => {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
             href="/"
-            className="bg-gradient-to-r from-pink-400 to-purple-500 hover:from-pink-500 hover:to-purple-600 text-white font-bold py-3 px-8 rounded-xl transition-all duration-200"
+            className="bg-gradient-to-r from-cyan-400 to-cyan-500 hover:from-cyan-500 hover:to-cyan-600 text-white font-bold py-3 px-8 rounded-xl transition-all duration-200"
           >
             Back to Home
           </a>

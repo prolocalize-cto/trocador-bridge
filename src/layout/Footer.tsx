@@ -5,8 +5,8 @@ const Footer = () => {
   return (
     <footer className="relative w-full md:mt-20 mt-10 overflow-hidden">
       {/* Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-900/20 to-black"></div>
-      <div className="absolute inset-0 bg-gradient-to-r from-orange-500/5 via-transparent to-purple-500/5"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-900/20 to-black"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 via-transparent to-cyan-500/5"></div>
 
       <div className="relative border-t border-white/10 bg-black/50 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pb-0 md:pb-12">
@@ -15,7 +15,7 @@ const Footer = () => {
             <div className="col-span-1 md:col-span-2">
               <div className="flex items-center space-x-3 mb-4 group">
                 <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-purple-600 rounded-full blur-md opacity-50"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-cyan-600 rounded-full blur-md opacity-50"></div>
                   <div className="relative w-12 h-12 rounded-full flex items-center justify-center shadow-lg overflow-hidden">
                     <img
                       src={logoImg}
@@ -53,7 +53,7 @@ const Footer = () => {
                 <div className="flex items-center space-x-3 md:hidden">
                   <Link
                     to="/privacy-policy"
-                    className="text-gray-400 hover:text-orange-400 transition-colors text-xs"
+                    className="text-gray-400 hover:text-cyan-400 transition-colors text-xs"
                   >
                     Privacy Policy
                   </Link>
@@ -61,7 +61,7 @@ const Footer = () => {
                     href="https://t.me/hirejoey"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-gray-400 hover:text-orange-400 transition-colors text-xs flex items-center gap-1"
+                    className="text-gray-400 hover:text-cyan-400 transition-colors text-xs flex items-center gap-1"
                     aria-label="Telegram Support"
                   >
                     <svg
@@ -75,7 +75,7 @@ const Footer = () => {
                   </a>
                   <a
                     href="mailto:joeydev0x@gmail.com"
-                    className="text-gray-400 hover:text-orange-400 transition-colors text-xs flex items-center gap-1"
+                    className="text-gray-400 hover:text-cyan-400 transition-colors text-xs flex items-center gap-1"
                     aria-label="Email Support"
                   >
                     <svg
@@ -100,34 +100,34 @@ const Footer = () => {
             {/* Quick Links - Hidden on mobile */}
             <div className="hidden md:block">
               <h3 className="text-white font-bold text-lg mb-4 flex items-center">
-                <span className="w-1 h-5 bg-gradient-to-b from-orange-500 to-purple-600 rounded-full mr-2"></span>
+                <span className="w-1 h-5 bg-gradient-to-b from-cyan-400 to-cyan-600 rounded-full mr-2"></span>
                 Quick Links
               </h3>
               <ul className="space-y-3">
                 <li>
                   <Link
                     to="/"
-                    className="text-gray-400 hover:text-orange-400 transition-colors text-sm flex items-center group"
+                    className="text-gray-400 hover:text-cyan-400 transition-colors text-sm flex items-center group"
                   >
-                    <span className="w-0 h-0.5 bg-orange-500 group-hover:w-4 transition-all duration-200 mr-0 group-hover:mr-2"></span>
+                    <span className="w-0 h-0.5 bg-cyan-500 group-hover:w-4 transition-all duration-200 mr-0 group-hover:mr-2"></span>
                     Home
                   </Link>
                 </li>
                 <li>
                   <Link
                     to="/contact-us"
-                    className="text-gray-400 hover:text-orange-400 transition-colors text-sm flex items-center group"
+                    className="text-gray-400 hover:text-cyan-400 transition-colors text-sm flex items-center group"
                   >
-                    <span className="w-0 h-0.5 bg-orange-500 group-hover:w-4 transition-all duration-200 mr-0 group-hover:mr-2"></span>
+                    <span className="w-0 h-0.5 bg-cyan-500 group-hover:w-4 transition-all duration-200 mr-0 group-hover:mr-2"></span>
                     Contact Us
                   </Link>
                 </li>
                 <li>
                   <Link
                     to="/privacy-policy"
-                    className="text-gray-400 hover:text-orange-400 transition-colors text-sm flex items-center group"
+                    className="text-gray-400 hover:text-cyan-400 transition-colors text-sm flex items-center group"
                   >
-                    <span className="w-0 h-0.5 bg-orange-500 group-hover:w-4 transition-all duration-200 mr-0 group-hover:mr-2"></span>
+                    <span className="w-0 h-0.5 bg-cyan-500 group-hover:w-4 transition-all duration-200 mr-0 group-hover:mr-2"></span>
                     Privacy Policy
                   </Link>
                 </li>
@@ -137,7 +137,7 @@ const Footer = () => {
             {/* Support - Hidden on mobile */}
             <div className="hidden md:block">
               <h3 className="text-white font-bold text-lg mb-4 flex items-center">
-                <span className="w-1 h-5 bg-gradient-to-b from-orange-500 to-purple-600 rounded-full mr-2"></span>
+                <span className="w-1 h-5 bg-gradient-to-b from-cyan-400 to-cyan-600 rounded-full mr-2"></span>
                 Support
               </h3>
               <ul className="space-y-3">
@@ -146,18 +146,18 @@ const Footer = () => {
                     href="https://t.me/hirejoey"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-gray-400 hover:text-orange-400 transition-colors text-sm flex items-center group"
+                    className="text-gray-400 hover:text-cyan-400 transition-colors text-sm flex items-center group"
                   >
-                    <span className="w-0 h-0.5 bg-orange-500 group-hover:w-4 transition-all duration-200 mr-0 group-hover:mr-2"></span>
+                    <span className="w-0 h-0.5 bg-cyan-500 group-hover:w-4 transition-all duration-200 mr-0 group-hover:mr-2"></span>
                     Telegram Support
                   </a>
                 </li>
                 <li>
                   <a
                     href="mailto:joeydev0x@gmail.com"
-                    className="text-gray-400 hover:text-orange-400 transition-colors text-sm flex items-center group"
+                    className="text-gray-400 hover:text-cyan-400 transition-colors text-sm flex items-center group"
                   >
-                    <span className="w-0 h-0.5 bg-orange-500 group-hover:w-4 transition-all duration-200 mr-0 group-hover:mr-2"></span>
+                    <span className="w-0 h-0.5 bg-cyan-500 group-hover:w-4 transition-all duration-200 mr-0 group-hover:mr-2"></span>
                     Email Support
                   </a>
                 </li>
@@ -178,7 +178,7 @@ const Footer = () => {
                 href="https://t.me/hirejoey"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative w-10 h-10 rounded-full bg-gradient-to-br from-white/10 to-white/5 hover:from-purple-500 hover:to-purple-600 flex items-center justify-center transition-all duration-300 group border border-white/10 hover:border-purple-500/50 hover:scale-110 hover:shadow-lg hover:shadow-purple-500/50"
+                className="relative w-10 h-10 rounded-full bg-gradient-to-br from-white/10 to-white/5 hover:from-cyan-500 hover:to-cyan-600 flex items-center justify-center transition-all duration-300 group border border-white/10 hover:border-cyan-500/50 hover:scale-110 hover:shadow-lg hover:shadow-cyan-500/50"
                 aria-label="Telegram"
               >
                 <svg
@@ -208,7 +208,7 @@ const Footer = () => {
 
               <a
                 href="mailto:joeydev0x@gmail.com"
-                className="relative w-10 h-10 rounded-full bg-gradient-to-br from-white/10 to-white/5 hover:from-pink-500 hover:to-purple-600 flex items-center justify-center transition-all duration-300 group border border-white/10 hover:border-pink-500/50 hover:scale-110 hover:shadow-lg hover:shadow-pink-500/50"
+                className="relative w-10 h-10 rounded-full bg-gradient-to-br from-white/10 to-white/5 hover:from-cyan-400 hover:to-cyan-600 flex items-center justify-center transition-all duration-300 group border border-white/10 hover:border-cyan-400/50 hover:scale-110 hover:shadow-lg hover:shadow-cyan-400/50"
                 aria-label="Email"
               >
                 <svg

@@ -18,15 +18,17 @@ export const getCurrencyId = (ticker: string, network: string) => {
 };
 
 // Helper function to parse currency ID back to ticker and network
-const parseCurrencyId = (currencyId: string): { ticker: string; network: string } => {
-  const parts = currencyId.split('_');
+const parseCurrencyId = (
+  currencyId: string
+): { ticker: string; network: string } => {
+  const parts = currencyId.split("_");
   if (parts.length >= 2) {
     const ticker = parts[0];
-    const network = parts.slice(1).join('_'); // Handle networks with underscores
+    const network = parts.slice(1).join("_"); // Handle networks with underscores
     return { ticker, network };
   }
   // Fallback for old format (just ticker)
-  return { ticker: currencyId, network: '' };
+  return { ticker: currencyId, network: "" };
 };
 
 const CurrencySelector = ({
@@ -38,15 +40,21 @@ const CurrencySelector = ({
   disabledCurrency,
 }: CurrencySelectorProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
+
   // Parse the selected currency ID to get ticker and network
-  const { ticker: selectedTicker, network: selectedNetwork } = parseCurrencyId(selectedCurrency);
-  
+  const { ticker: selectedTicker, network: selectedNetwork } =
+    parseCurrencyId(selectedCurrency);
+
   // Find the selected currency by both ticker AND network
-  const selectedCurrencyData = currencies.find(
-    (c) => c.ticker.toLowerCase() === selectedTicker.toLowerCase() && 
-           (selectedNetwork === '' || c.network === selectedNetwork)
-  ) || currencies.find((c) => c.ticker.toLowerCase() === selectedTicker.toLowerCase());
+  const selectedCurrencyData =
+    currencies.find(
+      (c) =>
+        c.ticker.toLowerCase() === selectedTicker.toLowerCase() &&
+        (selectedNetwork === "" || c.network === selectedNetwork)
+    ) ||
+    currencies.find(
+      (c) => c.ticker.toLowerCase() === selectedTicker.toLowerCase()
+    );
 
   const getNetworkColor = (network: string) => {
     const colors: { [key: string]: string } = {
@@ -79,7 +87,7 @@ const CurrencySelector = ({
       <button
         onClick={() => setIsModalOpen(true)}
         disabled={disabled}
-        className="flex items-center px-[2px] py-[1px] justify-between w-full bg-white/10 hover:bg-white/20 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="flex items-center px-[2px] py-[1px] justify-between w-full bg-white/10 hover:bg-white/20 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed bg-[#162629] border-none outline-none focus:outline-none focus:ring-0"
       >
         <div className="flex items-center gap-1">
           {selectedCurrencyData && (

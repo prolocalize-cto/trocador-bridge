@@ -7,7 +7,7 @@ const FeedbackBanner = () => {
         {/* Left side - Text content */}
         <div className="flex flex-col order-1 lg:order-none p-5 sm:p-6 lg:p-8 justify-between gap-4 lg:gap-8">
           <span className="text-xl font-medium text-center lg:text-left lg:text-2xl xl:text-3xl text-white">
-            Help us improve Shield Swap and get a zero-fee crypto exchange
+            Help us improve GhostSwap and get a zero-fee crypto exchange
           </span>
 
           <div className="flex flex-col gap-8 lg:flex-row lg:gap-6 lg:items-center">

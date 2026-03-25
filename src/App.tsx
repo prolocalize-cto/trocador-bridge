@@ -11,6 +11,7 @@ import {
   PrivacyPolicyPage,
   NotFoundPage,
 } from "./pages";
+import CookieConsent from "./components/CookieConsent";
 import { useEffect } from "react";
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
           pauseOnHover
           theme="dark"
         />
+        <CookieConsent />
       </MainLayout>
     </BrowserRouter>
   );

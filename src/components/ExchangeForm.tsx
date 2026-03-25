@@ -13,6 +13,7 @@ import {
   type TrocadorRateResponse,
   type TrocadorQuote,
 } from "../services/trocadorService";
+import logoImg from "../assets/images/logo.png";
 
 // Helper to extract ticker from currency ID (ticker_network)
 const getTickerFromCurrencyId = (currencyId: string): string => {
@@ -119,7 +120,7 @@ const ExchangeForm = () => {
     setToCurrency(fromCurrency);
   };
 
-  // Search rates from Shield Swap API
+  // Search rates from GhostSwap API
   const handleSearchRates = async () => {
     // Validation
     const errors: { fromAmount?: string } = {};
@@ -163,10 +164,10 @@ const ExchangeForm = () => {
         status: (error as any).status,
         errorData: (error as any).errorData,
       });
-      
+
       // Extract error message - prioritize the actual error message from API
       let errorMessage = "Failed to fetch rates. Please try again.";
-      
+
       if (error instanceof Error) {
         // For 400 errors, the error.message should already contain the API error message
         // But we check errorData.error first to be sure
@@ -175,15 +176,20 @@ const ExchangeForm = () => {
           const apiError = (error as any).errorData?.error;
           if (apiError) {
             errorMessage = apiError;
-            
+
             // If error mentions amount being too low, add minimum amount info
-            if (apiError.toLowerCase().includes("lower than min") || 
-                apiError.toLowerCase().includes("amount higher than max or lower than min")) {
+            if (
+              apiError.toLowerCase().includes("lower than min") ||
+              apiError
+                .toLowerCase()
+                .includes("amount higher than max or lower than min")
+            ) {
               // Find the selected currency to get minimum amount
               const selectedCurrencyData = fromCurrencies.find(
-                (currency) => `${currency.ticker}_${currency.network}` === fromCurrency
+                (currency) =>
+                  `${currency.ticker}_${currency.network}` === fromCurrency
               );
-              
+
               if (selectedCurrencyData && selectedCurrencyData.minimum) {
                 const minAmount = selectedCurrencyData.minimum;
                 const ticker = selectedCurrencyData.ticker.toUpperCase();
@@ -198,12 +204,13 @@ const ExchangeForm = () => {
           errorMessage = error.message;
         }
       }
-      
+
       // Capitalize first letter of error message
       if (errorMessage && errorMessage.length > 0) {
-        errorMessage = errorMessage.charAt(0).toUpperCase() + errorMessage.slice(1);
+        errorMessage =
+          errorMessage.charAt(0).toUpperCase() + errorMessage.slice(1);
       }
-      
+
       // Show error in toast only (no form error display)
       toast.error(errorMessage, {
         position: "top-right",
@@ -281,9 +288,10 @@ const ExchangeForm = () => {
       navigate(`/exchange/${rateResponse.trade_id}`);
     } catch (error) {
       console.error("Error creating transaction:", error);
-      const errorMessage = error instanceof Error
-        ? error.message
-        : "Failed to create transaction. Please try again.";
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : "Failed to create transaction. Please try again.";
       toast.error(errorMessage, {
         position: "top-right",
         autoClose: 5000,
@@ -300,7 +308,7 @@ const ExchangeForm = () => {
   // Render based on current step
   if (step === "providers" && rateResponse) {
     return (
-      <div className="container mx-auto px-4 py-8 w-full max-w-[95%] sm:w-[600px] md:w-[650px] lg:w-[700px] xl:w-[750px]">
+      <div className="container mx-auto px-4 py-8 w-full max-w-[95%] sm:w-[600px] md:w-[700px] lg:w-[800px] xl:w-[900px]">
         <button
           onClick={handleBackToInput}
           className="mb-4 flex items-center gap-2 px-4 py-2.5 bg-[#0a1a1e]/60 hover:bg-[#0a1a1e]/80 border border-cyan-500/30 hover:border-cyan-500/50 rounded-lg text-white/90 hover:text-white transition-all duration-200 shadow-sm hover:shadow-md"
@@ -333,7 +341,7 @@ const ExchangeForm = () => {
 
   if (step === "confirm" && selectedProvider && rateResponse) {
     return (
-      <div className="container mx-auto px-4 py-8 w-full max-w-[95%] sm:w-[600px] md:w-[650px] lg:w-[700px] xl:w-[750px]">
+      <div className="container mx-auto px-4 py-8 w-full max-w-[95%] sm:w-[600px] md:w-[700px] lg:w-[800px] xl:w-[900px]">
         <button
           onClick={handleBackToProviders}
           className="mb-4 flex items-center gap-2 px-4 py-2.5 bg-[#0a1a1e]/60 hover:bg-[#0a1a1e]/80 border border-cyan-500/30 hover:border-cyan-500/50 rounded-lg text-white/90 hover:text-white transition-all duration-200 shadow-sm hover:shadow-md"
@@ -450,7 +458,8 @@ const ExchangeForm = () => {
               className="flex items-center gap-2 px-1 text-left"
             >
               <label className="text-gray-300 text-sm cursor-pointer">
-                Refund Address <span className="text-gray-500 text-xs">(Optional)</span>
+                Refund Address{" "}
+                <span className="text-gray-500 text-xs">(Optional)</span>
               </label>
               <svg
                 className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${
@@ -473,7 +482,9 @@ const ExchangeForm = () => {
                 type="text"
                 value={refundAddress}
                 onChange={(e) => setRefundAddress(e.target.value)}
-                placeholder={`Enter ${getTickerFromCurrencyId(fromCurrency).toUpperCase()} refund address (optional)`}
+                placeholder={`Enter ${getTickerFromCurrencyId(
+                  fromCurrency
+                ).toUpperCase()} refund address (optional)`}
                 className="w-full bg-white/5 text-white p-2 rounded-xl outline-none border-2 border-white/10 hover:border-cyan-500/50 focus:border-cyan-500 transition-colors text-sm"
               />
             )}
@@ -483,7 +494,7 @@ const ExchangeForm = () => {
           <button
             onClick={handleConfirmExchange}
             disabled={isCreatingTransaction}
-            className="w-full bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white font-bold py-5 md:py-6 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-cyan-500/50 text-base md:text-lg"
+            className="w-full bg-brand hover:bg-brand-hover text-white font-bold py-5 md:py-6 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-brand/50 text-base md:text-lg"
           >
             {isCreatingTransaction ? (
               <span className="flex items-center justify-center gap-2">
@@ -519,23 +530,31 @@ const ExchangeForm = () => {
 
   // Default: Input step
   return (
-    <div className="container mx-auto px-4 py-8 w-full max-w-[95%] sm:w-[600px] md:w-[650px] lg:w-[700px] xl:w-[750px]">
-      <div className="bg-[#0a1a1e] backdrop-blur-md rounded-3xl p-3 md:p-4 shadow-2xl border border-cyan-500/30 flex flex-col gap-[10px]">
+    <div className="container mx-auto px-2 md:px-4 py-2 md:py-8 w-full max-w-[100%] sm:w-[600px] md:w-[700px] lg:w-[800px] xl:w-[900px]">
+      <div className="bg-[#0a1a1e] backdrop-blur-md rounded-3xl p-3 md:py-8 md:px-10 shadow-2xl border border-cyan-500/30 flex flex-col gap-[10px]">
         {/* Swap Mode Header */}
-        <div className="flex items-center justify-center gap-2">
-          <div className="text-lg font-bold text-white">Swap Now</div>
-          <div className="relative group">
-            <div className="w-5 h-5 rounded-full border border-white/60 flex items-center justify-center cursor-help">
-              <span className="text-white text-xs font-bold">i</span>
+        <div className="flex items-center">
+          <div className="flex items-center space-x-3 mb-4">
+            <img src={logoImg} alt="Logo" className="h-10" />
+            <div className="flex flex-col">
+              <span className="text-white text-xl sm:text-2xl font-bold bg-gradient-to-r from-white via-cyan-100 to-cyan-200 bg-clip-text text-transparent group-hover:from-cyan-300 group-hover:to-cyan-400 transition-all duration-300">
+                GhostSwap
+              </span>
+              <span className="text-xs text-gray-400 font-medium tracking-wider">
+                Privacy First Exchange
+              </span>
             </div>
+          </div>
+          <div className="relative group">
             {/* Tooltip */}
-            <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50">
+            <div className="absolute top-full right-0 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50">
               <div className="bg-gray-900 border-2 border-cyan-500 rounded-lg p-3 shadow-2xl w-64">
-                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-[-1px]">
+                <div className="absolute bottom-full right-2 mb-[-1px]">
                   <div className="border-8 border-transparent border-b-cyan-500"></div>
                 </div>
                 <p className="text-white text-sm leading-relaxed">
-                  You choose the amount you'll send and get both variable and fixed quotes to choose from.
+                  You choose the amount you'll send and get both variable and
+                  fixed quotes to choose from.
                 </p>
               </div>
             </div>
@@ -549,7 +568,7 @@ const ExchangeForm = () => {
               You Send
             </label> */}
           </div>
-          <div className="flex items-center bg-white/5 rounded-xl p-1 gap-3 border-2 border-white/10 hover:border-cyan-500/50 transition-colors">
+          <div className="flex items-center bg-white/5 rounded-xl px-1 py-2 gap-3 border-2 border-white/10 hover:border-cyan-500/50 transition-colors">
             <input
               type="text"
               value={fromAmount}
@@ -579,10 +598,10 @@ const ExchangeForm = () => {
         <div className="flex justify-center">
           <button
             onClick={handleSwapCurrencies}
-            className="bg-cyan-600 hover:bg-cyan-700 p-3 rounded-full transition-all duration-200 shadow-lg hover:scale-110"
+            className="bg-brand hover:bg-brand-hover p-2 md:p-3 rounded-full transition-all duration-200 shadow-lg hover:scale-110"
           >
             <svg
-              className="w-6 h-6 text-white"
+              className="w-5 h-5 md:w-6 md:h-6 text-white"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -599,7 +618,7 @@ const ExchangeForm = () => {
 
         {/* To Amount */}
         <div className="flex flex-col gap-2">
-          <div className="flex items-center bg-white/5 rounded-xl p-1 gap-3 border-2 border-white/10">
+          <div className="flex items-center bg-white/5 rounded-xl px-1 py-2 gap-3 border-2 border-white/10">
             <div className="flex-1 min-w-0 py-1 text-center">
               <span className="text-white text-base md:text-lg">
                 To trade for:
@@ -618,12 +637,11 @@ const ExchangeForm = () => {
           </div>
         </div>
 
-
         {/* Search Rate Button */}
         <button
           onClick={handleSearchRates}
           disabled={isLoadingRates}
-          className="w-full bg-gradient-to-r mt-3 from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white py-3 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-cyan-500/50 text-base md:text-lg"
+          className="w-full bg-brand hover:bg-brand-hover mt-3 text-white py-3 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-brand/50 text-base md:text-lg"
         >
           {isLoadingRates ? (
             <span className="flex items-center justify-center gap-2">
@@ -654,7 +672,7 @@ const ExchangeForm = () => {
         </button>
 
         {/* Check Transaction Status Form */}
-        <div ref={statusFormRef} className="mt-4 overflow-hidden">
+        <div ref={statusFormRef} className="overflow-hidden">
           <a
             href="#"
             onClick={(e) => {
@@ -706,7 +724,7 @@ const ExchangeForm = () => {
                   }
                 }}
                 disabled={!trocadorId.trim()}
-                className="w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-cyan-500/50 text-sm font-semibold"
+                className="w-full bg-brand hover:bg-brand-hover text-white py-2 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-brand/50 text-sm font-semibold"
               >
                 Check
               </button>

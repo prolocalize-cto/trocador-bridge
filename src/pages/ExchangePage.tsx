@@ -165,7 +165,7 @@ const ExchangePage = () => {
         </div>
         <Link
           to="/"
-          className="bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-200"
+          className="bg-brand hover:bg-brand-hover text-white font-bold py-3 px-6 rounded-xl transition-all duration-200"
         >
           Back to Home
         </Link>
@@ -384,7 +384,7 @@ const ExchangePage = () => {
             <button
               onClick={handleConfirmExchange}
               disabled={isCreatingTransaction}
-              className="w-[200px] bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white font-bold py-2 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-cyan-500/50 text-sm"
+              className="w-[200px] bg-brand hover:bg-brand-hover text-white font-bold py-2 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-brand/50 text-sm"
             >
               {isCreatingTransaction ? (
                 <span className="flex items-center justify-center gap-2">

@@ -509,7 +509,7 @@ const TransactionStatusPage = ({ initialTradeData }: TransactionStatusPageProps 
         </div>
         <Link
           to="/"
-          className="bg-gradient-to-r from-cyan-400 to-cyan-500 hover:from-cyan-500 hover:to-cyan-600 text-white font-bold py-3 px-6 rounded-xl transition-all duration-200"
+          className="bg-brand hover:bg-brand-hover text-white font-bold py-3 px-6 rounded-xl transition-all duration-200"
         >
           Back to Home
         </Link>
@@ -1155,7 +1155,7 @@ const TransactionStatusPage = ({ initialTradeData }: TransactionStatusPageProps 
         <div className="mt-6 flex justify-center">
           <Link
             to="/"
-            className="bg-gradient-to-r from-cyan-400 to-cyan-500 hover:from-cyan-500 hover:to-cyan-600 text-white font-bold py-4 px-8 rounded-xl transition-all duration-200 transform hover:scale-105 shadow-lg flex items-center gap-2"
+            className="bg-brand hover:bg-brand-hover text-white font-bold py-4 px-8 rounded-xl transition-all duration-200 transform hover:scale-105 shadow-lg flex items-center gap-2"
           >
             <svg
               className="w-5 h-5"

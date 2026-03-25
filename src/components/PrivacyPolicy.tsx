@@ -24,7 +24,7 @@ const PrivacyPolicy = () => {
         <section>
           <h2 className="text-xl font-bold text-white mb-3">Introduction</h2>
           <p className="text-white text-sm md:text-base leading-relaxed">
-            Shield Swap respects your privacy, and we are committed to protecting it through our compliance with this policy, which describes the types of information we may collect from you or that you may provide when you use Shield Swap (our "App") and our practices for collecting, using, maintaining, protecting, and disclosing that information.
+            GhostSwap respects your privacy, and we are committed to protecting it through our compliance with this policy, which describes the types of information we may collect from you or that you may provide when you use GhostSwap (our "App") and our practices for collecting, using, maintaining, protecting, and disclosing that information.
           </p>
           <p className="text-white text-sm md:text-base leading-relaxed mt-3">
             This policy applies to information we collect:
@@ -59,7 +59,7 @@ const PrivacyPolicy = () => {
             Information We May Retain for More Than 14 Days:
           </h2>
           <p className="text-white text-sm md:text-base leading-relaxed">
-            Some exchanges require this information to be stored by Shield Swap, you can check each exchange's log policy on the exchange screen. The information is stored at the moment of the exchange choice being confirmed and we only store this if required by the chosen exchange.
+            Some exchanges require this information to be stored by GhostSwap, you can check each exchange's log policy on the exchange screen. The information is stored at the moment of the exchange choice being confirmed and we only store this if required by the chosen exchange.
             <br />
             &emsp;&emsp;This data is stored safely by us and only disclosed on an individual basis if required by law enforcement. It is never sold or ceded to third parties or used for anything other than compliance to law enforcement requests.
           </p>

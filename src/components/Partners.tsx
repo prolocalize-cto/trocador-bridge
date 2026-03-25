@@ -82,6 +82,9 @@ const partners = [
 ];
 
 const Partners = () => {
+  // Duplicate partners array for seamless loop
+  const duplicatedPartners = [...partners, ...partners];
+
   return (
     <section id="partners" className="container mx-auto px-4 py-8">
       <div className="section-title pb-0">
@@ -90,27 +93,46 @@ const Partners = () => {
         </h2>
       </div>
 
-      <div className="flex justify-center flex-wrap gap-2 max-w-[1110px] mx-auto py-2.5">
-        {partners.map((partner, index) => (
-          <div key={index} className="partner_icon_wrapper p-2">
-            <a
-              href={partner.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block hover:opacity-80 transition-opacity"
-            >
-              <img
-                src={partner.image}
-                width="100"
-                height="100"
-                alt={partner.name}
-                loading="lazy"
-                className="w-[100px] h-[100px] object-contain"
-              />
-            </a>
-          </div>
-        ))}
+      <div className="relative overflow-hidden py-2.5">
+        <div className="flex gap-4 animate-scroll">
+          {duplicatedPartners.map((partner, index) => (
+            <div key={index} className="partner_icon_wrapper p-2 flex-shrink-0">
+              <a
+                href={partner.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block hover:opacity-80 transition-opacity"
+              >
+                <img
+                  src={partner.image}
+                  width="100"
+                  height="100"
+                  alt={partner.name}
+                  loading="lazy"
+                  className="w-[100px] h-[100px] object-contain"
+                />
+              </a>
+            </div>
+          ))}
+        </div>
       </div>
+
+      <style>{`
+        @keyframes scroll {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+        .animate-scroll {
+          animation: scroll 30s linear infinite;
+        }
+        .animate-scroll:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
     </section>
   );
 };

@@ -6,6 +6,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        'brand': '#0bcfae',
+        'brand-hover': '#09b89a',
+      },
       animation: {
         'gradient-x': 'gradient-x 3s ease infinite',
         'float': 'float 6s ease-in-out infinite',

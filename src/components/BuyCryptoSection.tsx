@@ -113,7 +113,7 @@ const BuyCryptoSection = () => {
         {/* Buy Crypto Button */}
         <div className="w-fit mx-auto">
           <a href="/#swap" onClick={handleBuyCryptoClick}>
-            <button className="inline-flex items-center justify-center gap-1.5 whitespace-nowrap select-none font-semibold transition-colors disabled:pointer-events-none disabled:opacity-40 shrink-0 outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/50 bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white h-12 text-xl px-8 rounded-full shadow-lg hover:shadow-cyan-500/50 transition-all duration-200">
+            <button className="inline-flex items-center justify-center gap-1.5 whitespace-nowrap select-none font-semibold transition-colors disabled:pointer-events-none disabled:opacity-40 shrink-0 outline-none focus-visible:ring-2 focus-visible:ring-brand/50 bg-brand hover:bg-brand-hover text-white h-12 text-xl px-8 rounded-full shadow-lg hover:shadow-brand/50 transition-all duration-200">
               Swap Crypto
             </button>
           </a>

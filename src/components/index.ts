@@ -9,4 +9,5 @@ export { default as FAQ } from './FAQ';
 export { default as BuyCryptoSection } from './BuyCryptoSection';
 export { default as HowToGuide } from './HowToGuide';
 export { default as FeaturesGrid } from './FeaturesGrid';
+export { default as QuickFeatures } from './QuickFeatures';
 export { default as PrivacyPolicy } from './PrivacyPolicy';

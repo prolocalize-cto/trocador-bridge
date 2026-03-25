@@ -161,7 +161,7 @@ export const getTrocadorRates = async (
     const data: TrocadorRateResponse = await response.json();
     return data;
   } catch (error) {
-    console.error("Error fetching Shield Swap rates:", error);
+    console.error("Error fetching GhostSwap rates:", error);
     throw error;
   }
 };
@@ -185,7 +185,7 @@ export const confirmTrocadorTrade = async (
     refund,
   } = params;
 
-  let url = `${TROCADOR_API_BASE}/new_trade?id=${tradeId}&ticker_from=${tickerFrom}&ticker_to=${tickerTo}&network_from=${networkFrom}&network_to=${networkTo}&amount_from=${amountFrom}&address=${address}&provider=${provider}&fixed=${fixed}&markup=2`;
+  let url = `${TROCADOR_API_BASE}/new_trade?id=${tradeId}&ticker_from=${tickerFrom}&ticker_to=${tickerTo}&network_from=${networkFrom}&network_to=${networkTo}&amount_from=${amountFrom}&address=${address}&provider=${provider}&fixed=${fixed}`;
   
   // Add refund parameter if provided
   if (refund && refund.trim() !== "") {
@@ -202,13 +202,13 @@ export const confirmTrocadorTrade = async (
     });
 
     if (!response.ok) {
-      throw new Error(`Shield Swap API error: ${response.status}`);
+      throw new Error(`GhostSwap API error: ${response.status}`);
     }
 
     const data: TrocadorTradeDetails = await response.json();
     return data;
   } catch (error) {
-    console.error("Error confirming Shield Swap trade:", error);
+    console.error("Error confirming GhostSwap trade:", error);
     throw error;
   }
 };
@@ -230,7 +230,7 @@ export const getTrocadorTrade = async (
     });
 
     if (!response.ok) {
-      const error = new Error(`Shield Swap API error: ${response.status}`);
+      const error = new Error(`GhostSwap API error: ${response.status}`);
       (error as any).status = response.status;
       throw error;
     }
@@ -244,7 +244,7 @@ export const getTrocadorTrade = async (
 
     return data[0];
   } catch (error) {
-    console.error("Error fetching Shield Swap trade:", error);
+    console.error("Error fetching GhostSwap trade:", error);
     throw error;
   }
 };

@@ -102,7 +102,7 @@ const Header = () => {
             >
               Buy Crypto
             </a>
-            
+
             <a
               href="/#guide"
               onClick={(e) => {
@@ -159,8 +159,8 @@ const Header = () => {
               to="/contact-us"
               className={`relative px-6 py-2.5 rounded-full font-semibold overflow-hidden group transition-all duration-300 ${
                 location.pathname === "/contact-us"
-                  ? "bg-cyan-500 text-white shadow-lg shadow-cyan-500/50"
-                  : "bg-cyan-600/30 text-white hover:bg-cyan-500 hover:shadow-lg hover:shadow-cyan-500/50"
+                  ? "bg-brand text-white shadow-lg shadow-brand/50"
+                  : "bg-brand/30 text-white hover:bg-brand hover:shadow-lg hover:shadow-brand/50"
               }`}
             >
               <span className="relative z-10 text-white font-semibold">
@@ -321,7 +321,7 @@ const Header = () => {
             <Link
               to="/contact-us"
               onClick={() => setMobileMenuOpen(false)}
-              className="bg-cyan-600/30 hover:bg-cyan-500 text-white px-6 py-3 rounded-full transition-all duration-200 font-semibold text-center shadow-lg shadow-cyan-500/30"
+              className="bg-brand/30 hover:bg-brand text-white px-6 py-3 rounded-full transition-all duration-200 font-semibold text-center shadow-lg shadow-brand/30"
             >
               Contact Us
             </Link>
